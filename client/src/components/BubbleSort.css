@@ -1,0 +1,79 @@
+.BubbleSort {
+	display: flex;
+	width: 100vw;
+	height: 100vh;
+	background-color: #1c1c1c;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.Visual {
+	width: 70vw;
+	height: 60vh;
+	border-color: white;
+	color: white;
+	border-style: solid;
+	margin: 30px;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+	justify-content: center;
+}
+
+.Settings {
+	width: 70vw;
+	height: 30vh;
+	border-color: white;
+	color: white;
+	border-style: solid;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-direction: column;
+}
+
+.SettingBtn {
+	margin: 3px;
+}
+
+.Block {
+	margin: 5px;
+	width: 0.6vw;
+	margin-bottom: 30px;
+	background-color: #696969;
+}
+
+.slider {
+	-webkit-appearance: none;
+	width: 50%;
+	height: 15px;
+	border-radius: 5px;
+	background: #d3d3d3;
+	outline: none;
+	opacity: 0.7;
+	-webkit-transition: 0.2s;
+	transition: opacity 0.2s;
+}
+
+.slider:hover {
+	opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background: #ffffff;
+	cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background: #04aa6d;
+	cursor: pointer;
+}
