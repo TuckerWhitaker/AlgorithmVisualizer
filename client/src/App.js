@@ -8,6 +8,8 @@ import {
 
 import Main from "./components/Main";
 import BubbleSort from "./components/BubbleSort";
+import BogoSort from "./components/BogoSort";
+import Astar from "./components/AStar";
 
 function App() {
 	return (
@@ -16,6 +18,8 @@ function App() {
 				<Routes>
 					<Route path="/" element={<Main />} />
 					<Route path="/BubbleSort" element={<BubbleSort />} />
+					<Route path="/BogoSort" element={<BogoSort />} />
+					<Route path="/AStar" element={<Astar />} />
 				</Routes>
 			</Router>
 		</div>

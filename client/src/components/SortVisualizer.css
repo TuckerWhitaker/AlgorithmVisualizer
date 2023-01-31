@@ -38,10 +38,10 @@
 }
 
 .Block {
-	margin: 5px;
+	margin: 0px;
 	width: 0.6vw;
 	margin-bottom: 30px;
-	background-color: #696969;
+	background-color: rgb(105, 105, 105);
 }
 
 .slider {

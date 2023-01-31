@@ -1,0 +1,45 @@
+.AstarParent {
+	display: flex;
+	width: 100vw;
+	height: 100vh;
+	background-color: #1c1c1c;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	color: white;
+}
+
+.AStarGridParent {
+	width: 80vw;
+	height: 90vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.AStarGrid {
+	font-size: 1.25em;
+	color: #1c1c1c;
+	width: fit-content;
+	height: fit-content;
+	display: grid;
+	grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
+}
+
+.Square {
+	width: 3vw;
+	height: 3vw;
+	background-color: white;
+	margin: 0.1vw;
+}
+
+.HCost {
+	color: rgb(0, 0, 0);
+}
+.GCost {
+	color: rgb(0, 0, 0);
+}
+
+.SetCount {
+	margin: 20px;
+}
