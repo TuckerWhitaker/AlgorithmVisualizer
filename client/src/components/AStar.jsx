@@ -15,6 +15,8 @@ function Astar() {
 
 	let startPoint = width * (height / 2);
 	let endPoint = width * (height / 2) + width - 1;
+	let endPointI = height / 2;
+	let endPointJ = width;
 
 	let TileArray = [];
 	let OpenSet = [];
@@ -28,8 +30,11 @@ function Astar() {
 		}
 	}
 
-	function heuristic(a, b) {
-		return Math.hypot(a, b);
+	function heuristic(a, b, c, d) {
+		let sideA = c - a;
+		let sideB = d - b;
+
+		return Math.hypot(sideA, sideB);
 	}
 
 	for (let i = 0; i < height; i++) {
@@ -37,7 +42,7 @@ function Astar() {
 
 		for (let j = 0; j < width; j++) {
 			let iswall = false;
-			if (Math.random() > 0.9) {
+			if (Math.random() > 0.7) {
 				iswall = true;
 			}
 
@@ -45,10 +50,11 @@ function Astar() {
 				I: i,
 				J: j,
 				ID: width * i + j,
-				Fcost: 0,
-				Gcost: 0,
-				Hcost: 0,
-				OriginID: 0,
+				f: 0,
+				g: 0,
+				h: 0,
+				OriginI: null,
+				OriginJ: null,
 				IsWall: iswall,
 			});
 		}
@@ -72,35 +78,30 @@ function Astar() {
 					document.getElementById(i * width + j).style.background = "#000";
 				} else {
 					let neighbors = [];
-
-					if (i < height - 1) {
-						neighbors.push(TileArray[i + 1][j]);
-					}
-
-					if (j < width - 1 && i < height - 1) {
-						neighbors.push(TileArray[i + 1][j + 1]);
-					}
-					if (j > 0 && i < height - 1) {
-						neighbors.push(TileArray[i + 1][j - 1]);
-					}
-
 					if (i > 0) {
 						neighbors.push(TileArray[i - 1][j]);
 					}
-
-					if (i > 0 && j < width - 1) {
-						neighbors.push(TileArray[i - 1][j + 1]);
+					if (j > 0) {
+						neighbors.push(TileArray[i][j - 1]);
+					}
+					if (j < width - 1) {
+						neighbors.push(TileArray[i][j + 1]);
+					}
+					if (i < height - 1) {
+						neighbors.push(TileArray[i + 1][j]);
 					}
 
 					if (i > 0 && j > 0) {
 						neighbors.push(TileArray[i - 1][j - 1]);
 					}
-
-					if (j < width - 1) {
-						neighbors.push(TileArray[i][j + 1]);
+					if (i < height - 1 && j < width - 1) {
+						neighbors.push(TileArray[i + 1][j + 1]);
 					}
-					if (j > 0) {
-						neighbors.push(TileArray[i][j - 1]);
+					if (i < height - 1 && j > 0) {
+						neighbors.push(TileArray[i + 1][j - 1]);
+					}
+					if (i > 0 && j < width - 1) {
+						neighbors.push(TileArray[i - 1][j + 1]);
 					}
 
 					TileArray[i][j].Neighbors = neighbors;
@@ -113,12 +114,35 @@ function Astar() {
 	}
 
 	async function Solve() {
-		console.log(ClosedSet);
+		/* for (let y = 0; y < height; y++) {
+			for (let x = 0; x < width; x++) {
+				if (TileArray[y][x].Neighbors) {
+					for (let i = 0; i < TileArray[y][x].Neighbors.length; i++) {
+						document.getElementById(
+							TileArray[y][x].Neighbors[i].ID
+						).style.backgroundColor = "#F00";
+					}
+					await Delay(1);
+					for (let i = 0; i < TileArray[y][x].Neighbors.length; i++) {
+						document.getElementById(
+							TileArray[y][x].Neighbors[i].ID
+						).style.backgroundColor = "#FFF";
+					}
+				}
+			}
+		}*/
+
+		/*let start = TileArray[7][0];
+		for (let i = 0; i < start.Neighbors.length; i++) {
+			if (!ClosedSet.includes(start.Neighbors[i].ID)) {
+				document.getElementById(start.Neighbors[i].ID).style.backgroundColor =
+					"#F00";
+			}
+		}*/
+
+		let IsDone = false;
 		OpenSet.push(TileArray[7][0]);
-
-		await Delay(1000);
-
-		while (OpenSet.length > 0) {
+		while (OpenSet.length > 0 && IsDone == false) {
 			var lowestindex = 0;
 
 			for (let i = 0; i < OpenSet.length; i++) {
@@ -127,8 +151,9 @@ function Astar() {
 				}
 			}
 			var current = OpenSet[lowestindex];
-			if (OpenSet[lowestindex] == endPoint) {
+			if (OpenSet[lowestindex].ID == endPoint) {
 				console.log("DONE");
+				IsDone = true;
 			}
 
 			removeFromArray(OpenSet, current);
@@ -140,7 +165,7 @@ function Astar() {
 			for (let i = 0; i < neighbors.length; i++) {
 				let neighbor = neighbors[i];
 
-				if (ClosedSet.includes(neighbor.ID)) {
+				if (!ClosedSet.includes(neighbor.ID)) {
 					var tempg = current.g + 1;
 					if (
 						Math.abs(neighbor.I - current.I) +
@@ -158,15 +183,30 @@ function Astar() {
 						neighbor.g = tempg;
 						OpenSet.push(neighbor);
 
+						neighbor.OriginI = current.I;
+						neighbor.OriginJ = current.J;
+
 						document.getElementById(neighbor.ID).style.backgroundColor =
 							"#eb1f10";
-						await Delay(100);
+						await Delay(1);
 					}
-				} else {
 				}
 
-				neighbor.h = heuristic(neighbor, endPoint);
-				neighbors.f = neighbor.g + neighbor.h;
+				neighbor.h = heuristic(neighbor.I, neighbor.J, endPointI, endPointJ);
+				neighbor.f = neighbor.g + neighbor.h;
+				document.getElementById(neighbor.ID + "F").innerHTML = Math.round(
+					neighbor.f
+				);
+			}
+		}
+		let nextpath = TileArray[7][24];
+		console.log(nextpath);
+		for (let i = 0; i < width * height; i++) {
+			document.getElementById(nextpath.ID).style.background = "#00F";
+			if (nextpath.OriginI == null && nextpath.OriginJ == null) {
+				i = width * height;
+			} else {
+				nextpath = TileArray[nextpath.OriginI][nextpath.OriginJ];
 			}
 		}
 	}
@@ -183,10 +223,13 @@ function Astar() {
 								<Tile
 									key={index + "" + innerindex}
 									ID={innerinfo.ID}
-									Fcost={innerinfo.Fcost}
-									Gcost={innerinfo.Gcost}
-									Hcost={innerinfo.Hcost}
+									f={innerinfo.f}
+									g={innerinfo.g}
+									h={innerinfo.h}
 									OriginID={innerinfo.OriginID}
+									Neighbors={innerinfo.Neighbors}
+									I={innerinfo.I}
+									J={innerinfo.J}
 								></Tile>
 							);
 
