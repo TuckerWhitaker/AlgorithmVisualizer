@@ -3,6 +3,14 @@ import Tile from "./Tile";
 import React, { useState } from "react";
 
 function Astar() {
+	var mouseDown = 0;
+	document.body.onmousedown = function () {
+		++mouseDown;
+	};
+	document.body.onmouseup = function () {
+		--mouseDown;
+	};
+
 	function Delay(time) {
 		return new Promise((resolve) => setTimeout(resolve, time));
 	}
@@ -42,7 +50,7 @@ function Astar() {
 
 		for (let j = 0; j < width; j++) {
 			let iswall = false;
-			if (Math.random() > 0.7) {
+			if (Math.random() > 1) {
 				iswall = true;
 			}
 
@@ -106,11 +114,17 @@ function Astar() {
 
 					TileArray[i][j].Neighbors = neighbors;
 				}
+
+				document
+					.getElementById(i * width + j)
+					.addEventListener("mouseover", () => {
+						if (mouseDown) {
+							ClosedSet.push(TileArray[i][j].ID);
+							document.getElementById(i * width + j).style.background = "#000";
+						}
+					});
 			}
 		}
-
-		await Delay(1000);
-		Solve();
 	}
 
 	async function Solve() {
@@ -188,7 +202,7 @@ function Astar() {
 
 						document.getElementById(neighbor.ID).style.backgroundColor =
 							"#eb1f10";
-						await Delay(1);
+						await Delay(25);
 					}
 				}
 
@@ -200,7 +214,7 @@ function Astar() {
 			}
 		}
 		let nextpath = TileArray[7][24];
-		console.log(nextpath);
+
 		for (let i = 0; i < width * height; i++) {
 			document.getElementById(nextpath.ID).style.background = "#00F";
 			if (nextpath.OriginI == null && nextpath.OriginJ == null) {
@@ -237,6 +251,17 @@ function Astar() {
 						});
 					})}
 				</div>
+			</div>
+
+			<div>
+				<button
+					className="SolveBtn"
+					onClick={() => {
+						Solve();
+					}}
+				>
+					Solve
+				</button>
 			</div>
 
 			<div className="SetCount">

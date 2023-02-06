@@ -3,9 +3,7 @@ function Tile(props) {
 
 	return (
 		<div className="Square" id={ID}>
-			<div className="HCost" id={ID + "F"}>
-				{props.f}{" "}
-			</div>
+			<div className="HCost" id={ID + "F"}></div>
 		</div>
 	);
 }
