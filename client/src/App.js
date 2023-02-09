@@ -11,6 +11,7 @@ import BubbleSort from "./components/BubbleSort";
 import BogoSort from "./components/BogoSort";
 import Astar from "./components/AStar";
 import PhysicsEngine from "./components/PhysicsEngine";
+import Boids from "./components/Boids";
 
 function App() {
 	return (
@@ -22,6 +23,7 @@ function App() {
 					<Route path="/BogoSort" element={<BogoSort />} />
 					<Route path="/AStar" element={<Astar />} />
 					<Route path="/PhysicsEngine" element={<PhysicsEngine />} />
+					<Route path="/Boids" element={<Boids />} />
 				</Routes>
 			</Router>
 		</div>

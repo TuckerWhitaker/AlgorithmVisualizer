@@ -1,0 +1,17 @@
+.BoidsParent {
+	display: flex;
+	width: 100vw;
+	height: 100vh;
+	background-color: #1c1c1c;
+	color: white;
+	align-items: center;
+	justify-content: center;
+}
+
+#BoidCanvas {
+	width: 150vh;
+	height: 100vh;
+	display: block;
+	margin: 0 auto;
+	background-color: rgb(0, 0, 0);
+}
