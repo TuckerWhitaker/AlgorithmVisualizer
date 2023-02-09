@@ -81,7 +81,10 @@ function round(number, precision) {
 }
 
 function coll_det_bb(b1, b2) {
-	if (b1.Radius + b2.Radius >= b2.Position.subtract(b1.Position).magnitude()) {
+	if (
+		b1.Radius + b2.Radius >= b1.Position.subtract(b2.Position).magnitude() &&
+		b1.Position.subtract(b2.Position).magnitude() != 0
+	) {
 		return true;
 	} else {
 		return false;
@@ -96,6 +99,16 @@ function pen_res_bb(b1, b2) {
 	b2.Position = b2.Position.add(pen_res.multiply(-1));
 }
 
+function coll_res_bb(b1, b2) {
+	let normal = b1.Position.subtract(b2.Position).unit();
+	let relVel = b1.Velocity.subtract(b2.Velocity);
+	let sepVel = Vector.dot(relVel, normal);
+	let new_sepVel = -sepVel;
+	let sepVelVec = normal.multiply(new_sepVel);
+	b1.Velocity = b1.Velocity.add(sepVelVec);
+	b2.Velocity = b2.Velocity.add(sepVelVec.multiply(-1));
+}
+
 let ball;
 let ball2;
 
@@ -103,8 +116,15 @@ let lastTime;
 
 function Update(time) {
 	ctx.clearRect(0, 0, 500, 500);
-	ObjectArray.forEach((object) => {
+	ObjectArray.forEach((object, index) => {
 		object.Draw();
+
+		for (let i = 0; i < ObjectArray.length; i++) {
+			if (coll_det_bb(ObjectArray[index], ObjectArray[i])) {
+				pen_res_bb(ObjectArray[index], ObjectArray[i]);
+				coll_res_bb(ObjectArray[index], ObjectArray[i]);
+			}
+		}
 	});
 
 	if (lastTime != null) {
@@ -112,17 +132,14 @@ function Update(time) {
 	}
 
 	lastTime = time;
-	if (coll_det_bb(ball, ball2)) {
-		pen_res_bb(ball, ball2);
-	}
+
 	window.requestAnimationFrame(Update);
 }
 
 const Setup = () => {
 	ball = new Ball(new Vector(100, 110), 10, RGB(255, 0, 0), 1, 0.05);
-	ball2 = new Ball(new Vector(300, 100), 10, RGB(0, 255, 0), 1, 0.05);
-	ball.Velocity = new Vector(10, 0);
-	ball2.Velocity = new Vector(-5, 0);
+	ball2 = new Ball(new Vector(300, 120), 10, RGB(0, 255, 0), 1, 0.05);
+	ball.Velocity = new Vector(12, 0);
 	console.log("Running Setup");
 	let canvas = document.getElementById("canvas");
 	ctx = canvas.getContext("2d");
