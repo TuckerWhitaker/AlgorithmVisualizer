@@ -1,17 +1,20 @@
-import "./App.css";
 import {
-	useParams,
+	Route,
 	BrowserRouter as Router,
 	Routes,
-	Route,
+	useParams,
 } from "react-router-dom";
+import "./App.css";
 
-import Main from "./components/Main";
-import BubbleSort from "./components/BubbleSort";
-import BogoSort from "./components/BogoSort";
 import Astar from "./components/AStar";
-import PhysicsEngine from "./components/PhysicsEngine";
+import BogoSort from "./components/BogoSort";
 import Boids from "./components/Boids";
+import BubbleSort from "./components/BubbleSort";
+import Main from "./components/Main";
+import MergeSort from "./components/MergeSort";
+import PhysicsEngine from "./components/PhysicsEngine";
+import SortingAlgorithms from "./components/SortingAlgorithms";
+import Water from "./components/Water";
 
 function App() {
 	return (
@@ -24,6 +27,9 @@ function App() {
 					<Route path="/AStar" element={<Astar />} />
 					<Route path="/PhysicsEngine" element={<PhysicsEngine />} />
 					<Route path="/Boids" element={<Boids />} />
+					<Route path="/Water" element={<Water />} />
+					<Route path="/MergeSort" element={<MergeSort />} />
+					<Route path="/SortingAlgorithms" element={<SortingAlgorithms />} />
 				</Routes>
 			</Router>
 		</div>
