@@ -56,9 +56,6 @@ function SortingAlgorithms() {
 			"rgb(255, 0, 0)";
 	}
 	async function swap(arr, a, b) {
-		//console.log("ARR" + arr[a]);
-		//play(arr[a], 100);
-		//play(arr[b], 500);
 		await Delay(1);
 		forceUpdate();
 		let temp = arr[a];

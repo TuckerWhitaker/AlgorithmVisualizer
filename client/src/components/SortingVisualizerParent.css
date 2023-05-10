@@ -1,0 +1,19 @@
+.SortingVisualizerParent {
+	display: flex;
+	align-items: center;
+	justify-content: start;
+	height: 100vh;
+}
+.SortingVisualizerContainer {
+	width: 75%;
+	display: grid;
+	grid-template-columns: auto auto;
+	align-items: center;
+	justify-content: center;
+}
+
+.SortingVisualizerSettings {
+	width: 25%;
+	height: 50%;
+	background-color: rgb(175, 175, 175);
+}
