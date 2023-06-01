@@ -1,0 +1,19 @@
+.test {
+	color: white;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgb(10, 10, 10);
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.algorithmsTitle {
+	font-size: 150%;
+}
+
+.Divider {
+	height: 1px;
+	width: 90%;
+	background-color: white;
+}

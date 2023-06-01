@@ -14,6 +14,7 @@ class SortingVisualizerParent extends Component {
 	}
 
 	handleSort() {
+		console.log(Date.now());
 		this.sortingVisualizerRefs.forEach((ref) => ref.current.handleSort());
 	}
 
@@ -21,17 +22,8 @@ class SortingVisualizerParent extends Component {
 		return Array.from({ length: len }, () => Math.floor(Math.random() * 100));
 	}
 
-	GetComplexity() {
-		let N = [50, 100, 200, 400, 800];
-		for (let i = 0; i < N.length; i++) {
-			let temp = this.generateRandomArray(N[i]);
-			this.sortingVisualizerRefs.forEach((ref) => ref.current.setArray(temp));
-			this.handleSort();
-		}
-	}
-
 	resetArray() {
-		let temparray = this.generateRandomArray(1000);
+		let temparray = this.generateRandomArray(100);
 		this.sortingVisualizerRefs.forEach((ref) =>
 			ref.current.setArray(temparray)
 		);

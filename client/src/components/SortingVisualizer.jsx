@@ -13,7 +13,7 @@ class SortingVisualizer extends Component {
 			sorting: false,
 			array: this.props.array,
 			delay: 50,
-			operations: 0,
+			switches: 0,
 		};
 	}
 
@@ -26,21 +26,21 @@ class SortingVisualizer extends Component {
 	}
 
 	async swap(arr, a, b) {
-		await Delay(this.state.delay);
 		this.setState((prevState) => ({
-			operations: prevState.operations + 1,
+			switches: prevState.switches + 1,
 		}));
 		let temp = arr[a];
 		arr[a] = arr[b];
 		arr[b] = temp;
 		this.setState({ array: [...arr] });
+		await Delay(this.state.delay);
 	}
 
 	async partition(arr, start, end) {
 		let pivotIndex = start;
 
 		let pivotValue = arr[end];
-		//HighlightPivot(pivotIndex);
+
 		for (let i = start; i < end; i++) {
 			if (arr[i] < pivotValue) {
 				await this.swap(arr, i, pivotIndex);
@@ -81,7 +81,7 @@ class SortingVisualizer extends Component {
 					swapped = true;
 
 					this.setState((prevState) => ({
-						operations: prevState.operations + 1,
+						switches: prevState.switches + 1,
 					}));
 
 					await new Promise((resolve) =>
@@ -120,7 +120,7 @@ class SortingVisualizer extends Component {
 				[array[i], array[minIndex]] = [array[minIndex], array[i]];
 
 				this.setState((prevState) => ({
-					operations: prevState.operations + 1,
+					switches: prevState.switches + 1,
 				}));
 
 				// Update the state with the current step
@@ -134,6 +134,7 @@ class SortingVisualizer extends Component {
 		}
 
 		this.setState({ sorting: false });
+		console.log(Date.now());
 	}
 
 	handleSort() {
@@ -163,7 +164,7 @@ class SortingVisualizer extends Component {
 
 	render() {
 		const { array } = this.state;
-		const { selectedAlgorithm, sorting, operations } = this.state;
+		const { selectedAlgorithm, sorting, switches } = this.state;
 
 		return (
 			<div className="sorting-visualizer">
@@ -186,7 +187,7 @@ class SortingVisualizer extends Component {
 						<option value="quickSort">Quick Sort</option>
 					</select>
 				</div>
-				<div className="operations-count">Operations: {operations}</div>
+				<div className="operations-count">Switches: {switches}</div>
 			</div>
 		);
 	}
