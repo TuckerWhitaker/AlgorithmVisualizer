@@ -1,6 +1,6 @@
+import React, { useState } from "react";
 import "./Astar.css";
 import Tile from "./Tile";
-import React, { useState } from "react";
 
 function Astar() {
 	var mouseDown = 0;
