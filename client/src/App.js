@@ -13,10 +13,10 @@ import Graph from "./components/Graph";
 import Main from "./components/Main";
 import MergeSort from "./components/MergeSort";
 import River from "./components/River";
+import RiverV2 from "./components/RiverV2";
 import SortingAlgorithms from "./components/SortingAlgorithms";
 import SortingVisualizerParent from "./components/SortingVisualizerParent";
 import Test from "./components/Test";
-
 function App() {
 	return (
 		<div className="App">
@@ -24,6 +24,7 @@ function App() {
 				<Routes>
 					<Route path="/" element={<Main />} />
 					<Route path="/River" element={<River />} />
+					<Route path="/River2" element={<RiverV2 />} />
 					<Route path="/test" element={<Test />} />
 					<Route path="/BubbleSort" element={<BubbleSort />} />
 					<Route path="/BogoSort" element={<BogoSort />} />
