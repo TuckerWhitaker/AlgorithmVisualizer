@@ -53,7 +53,7 @@ function River() {
 
 		setInterval(
 			() => {
-				TerrainArray[5010].Water += 5;
+				TerrainArray[5010].Water += 50;
 				let Neighbors = [];
 				let lowest = 10000000;
 				let lowestIndex = 0;
@@ -65,8 +65,8 @@ function River() {
 						currentTerrain.DirectionX == 0 &&
 						currentTerrain.DirectionY == 0
 					) {
-						currentTerrain.elevation *= 1.00001;
-						currentTerrain.Water *= 0.99999;
+						currentTerrain.elevation *= 1.001;
+						currentTerrain.Water *= 0.999;
 					}
 
 					if (currentTerrain.Water > 10) {
@@ -108,14 +108,14 @@ function River() {
 						let lasttile = 0;
 
 						for (let l = 0; l < Neighbors.length; l++) {
-							if (Neighbors[l].Water < 1 && Neighbors[l].elevation > 50) {
+							if (Neighbors[l].elevation > 50 && Math.random() > 0.9999) {
 								speed = Math.round(
 									(currentTerrain.DirectionX + currentTerrain.DirectionY) / 2
 								);
 
 								lasttile = currentTerrain;
 								Neighbors[l].elevation -= speed;
-								SedimentSize = speed;
+								SedimentSize = speed / 2;
 								SedimentI = currentTerrain.I;
 								SedimentJ = currentTerrain.J;
 
@@ -141,7 +141,7 @@ function River() {
 						", " +
 						TerrainArray[WaterArray[i]].elevation * 2.5 +
 						", " +
-						TerrainArray[WaterArray[i]].Water * 22.5 +
+						TerrainArray[WaterArray[i]].Water * 5 +
 						")";
 					/*
 					ctx.fillStyle =
@@ -153,6 +153,7 @@ function River() {
 						Math.abs(TerrainArray[WaterArray[i]].DirectionY) * 255 +
 						")";
 					*/
+
 					ctx.fillRect(
 						TerrainArray[WaterArray[i]].I,
 						TerrainArray[WaterArray[i]].J,
@@ -171,7 +172,7 @@ function River() {
 				}
 			},
 
-			1
+			0
 		);
 		console.log("End");
 	};
