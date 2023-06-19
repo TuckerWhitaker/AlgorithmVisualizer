@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import Astar from "./components/AStar";
+import BinaryTree from "./components/BinaryTree";
 import BogoSort from "./components/BogoSort";
 import Boids from "./components/Boids";
 import BubbleSort from "./components/BubbleSort";
@@ -17,6 +18,7 @@ import RiverV2 from "./components/RiverV2";
 import SortingAlgorithms from "./components/SortingAlgorithms";
 import SortingVisualizerParent from "./components/SortingVisualizerParent";
 import Test from "./components/Test";
+
 function App() {
 	return (
 		<div className="App">
@@ -34,6 +36,7 @@ function App() {
 					<Route path="/SortingAlgorithms" element={<SortingAlgorithms />} />
 					<Route path="/Graph" element={<Graph />} />
 					<Route path="/S" element={<SortingVisualizerParent />} />
+					<Route path="/BinaryTree" element={<BinaryTree />} />
 				</Routes>
 			</Router>
 		</div>
