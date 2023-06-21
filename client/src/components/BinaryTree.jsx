@@ -13,11 +13,11 @@ Tree.prototype.addValue = function (val) {
 	var n = new Node(val);
 	if (this.root == null) {
 		this.root = n;
-		this.root.x = 1000 / 2;
-		this.root.y = 10;
+		this.root.x = 750 / 2;
+		this.root.y = 30;
 		ctx.fillText(this.root.value, this.root.x, this.root.y);
 	} else {
-		this.root.addNode(n, 1000, 1);
+		this.root.addNode(n, 500, 1);
 	}
 };
 
@@ -29,11 +29,14 @@ function Node(value, x, y) {
 	this.right = null;
 }
 Node.prototype.addNode = function (n, w, level) {
+	let fontSize = Math.max(10 / level, 15); // Decreases font size as level increases but not less than 10.
+	ctx.font = `${fontSize}px Arial`;
 	if (n.value < this.value) {
 		if (this.left == null) {
 			this.left = n;
 			this.left.x = this.x - w / 2 ** (level + 1);
-			this.left.y = this.y + 200 / (level + 1);
+			this.left.y = this.y + 250 / (level + 1);
+
 			ctx.fillText(this.left.value, this.left.x, this.left.y);
 			ctx.beginPath();
 			ctx.moveTo(this.left.x, this.left.y);
@@ -46,9 +49,8 @@ Node.prototype.addNode = function (n, w, level) {
 		if (this.right == null) {
 			this.right = n;
 			this.right.x = this.x + w / 2 ** (level + 1);
-			this.right.y = this.y + 200 / (level + 1);
-			let fontSize = Math.max(10 / level, 10); // Decreases font size as level increases but not less than 10.
-			ctx.font = `${fontSize}px Arial`;
+			this.right.y = this.y + 250 / (level + 1);
+
 			ctx.fillText(this.right.value, this.right.x, this.right.y);
 			ctx.beginPath();
 			ctx.moveTo(this.right.x, this.right.y);
@@ -63,6 +65,8 @@ function BinaryTree() {
 	useEffect(() => {
 		ctx = document.getElementById("BinaryTreeCanvas").getContext("2d");
 		ctx.strokeStyle = "#FFFFFF";
+		ctx.fillStyle = "#000000";
+		ctx.fillRect(0, 0, 750, 600);
 		ctx.fillStyle = "#FFFFFF";
 		ctx.font = "20px arial";
 		//ctx.fillText("50", 250, 50);
@@ -70,7 +74,7 @@ function BinaryTree() {
 		tree = new Tree();
 
 		tree.addValue(50);
-		for (let i = 0; i < 100; i++) {
+		for (let i = 0; i < 20; i++) {
 			tree.addValue(Math.round(Math.random() * 100));
 		}
 
@@ -78,7 +82,7 @@ function BinaryTree() {
 	}, []);
 	return (
 		<div className="BinaryTree">
-			<canvas id="BinaryTreeCanvas" width={1000} height={500}></canvas>
+			<canvas id="BinaryTreeCanvas" width={750} height={700}></canvas>
 		</div>
 	);
 }

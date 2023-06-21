@@ -15,6 +15,7 @@ import Main from "./components/Main";
 import MergeSort from "./components/MergeSort";
 import River from "./components/River";
 import RiverV2 from "./components/RiverV2";
+import SearchAlgorithms from "./components/SearchAlgorithms";
 import SortingAlgorithms from "./components/SortingAlgorithms";
 import SortingVisualizerParent from "./components/SortingVisualizerParent";
 import Test from "./components/Test";
@@ -37,6 +38,7 @@ function App() {
 					<Route path="/Graph" element={<Graph />} />
 					<Route path="/S" element={<SortingVisualizerParent />} />
 					<Route path="/BinaryTree" element={<BinaryTree />} />
+					<Route path="/SearchAlgorithms" element={<SearchAlgorithms />} />
 				</Routes>
 			</Router>
 		</div>

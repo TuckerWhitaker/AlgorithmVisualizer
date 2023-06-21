@@ -1,0 +1,15 @@
+.SearchAlgorithms {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+	background-color: #282c34;
+	color: white;
+}
+
+.SearchAlgorithmsTitle {
+	font-size: 2vw;
+	margin-bottom: 5%;
+	padding-top: 2.5%;
+}
