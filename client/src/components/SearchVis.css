@@ -37,6 +37,7 @@
 }
 
 .SearchVisInfoHalf {
+	text-align: left;
 	font-size: 1.5vw;
 	width: 50%;
 	padding: 1%;
@@ -46,5 +47,4 @@
 	background-color: #18191b;
 	width: 50%;
 	height: 92%;
-	text-align: left;
 }
