@@ -7,64 +7,31 @@ function SearchAlgorithms() {
 			<SearchVis
 				SearchFunction={async function LinearSearch(
 					array,
-					CodeHighlightIndex,
-					forceUpdate,
 					Delay,
-					delay
+					delay,
+					HighLightCode,
+					HighLightNumber,
+					GrayOutNumber
 				) {
 					for (let i = 0; i < array.length; i++) {
-						document.getElementById(
-							"Code" + CodeHighlightIndex
-						).style.backgroundColor = "rgba(49, 78, 136, 0)";
-						CodeHighlightIndex = 0;
-						document.getElementById(
-							"Code" + CodeHighlightIndex
-						).style.backgroundColor = "rgba(49, 78, 136, 1)";
-
-						document.getElementById("SearchVisNum" + i).style.backgroundColor =
-							"rgba(0, 150, 0, 1)";
+						HighLightCode(0);
 						if (i > 0) {
-							document.getElementById(
-								"SearchVisNum" + (i - 1)
-							).style.backgroundColor = "rgba(0, 150, 0, 0)";
-							document.getElementById("SearchVisNum" + (i - 1)).style.color =
-								"rgba(100,100,100,1)";
+							GrayOutNumber(i - 1);
 						}
+						HighLightNumber(i);
 
-						forceUpdate();
 						await Delay(delay);
-						document.getElementById(
-							"Code" + CodeHighlightIndex
-						).style.backgroundColor = "rgba(49, 78, 136, 0)";
-						CodeHighlightIndex = 1;
-						document.getElementById(
-							"Code" + CodeHighlightIndex
-						).style.backgroundColor = "rgba(49, 78, 136, 1)";
 
-						forceUpdate();
+						HighLightCode(1);
+
 						await Delay(delay);
 
 						if (array[i] == 9) {
-							document.getElementById(
-								"Code" + CodeHighlightIndex
-							).style.backgroundColor = "rgba(49, 78, 136, 0)";
-							CodeHighlightIndex = 2;
-							document.getElementById(
-								"Code" + CodeHighlightIndex
-							).style.backgroundColor = "rgba(49, 78, 136, 1)";
-
-							forceUpdate();
+							HighLightCode(2);
 							return array[i];
 						}
-						document.getElementById(
-							"Code" + CodeHighlightIndex
-						).style.backgroundColor = "rgba(49, 78, 136, 0)";
-						CodeHighlightIndex = 4;
-						document.getElementById(
-							"Code" + CodeHighlightIndex
-						).style.backgroundColor = "rgba(49, 78, 136, 1)";
+						HighLightCode(4);
 
-						forceUpdate();
 						await Delay(delay);
 					}
 				}}

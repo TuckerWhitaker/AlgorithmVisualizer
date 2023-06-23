@@ -21,6 +21,33 @@ function SearchVis(props) {
 	const forceUpdate = React.useCallback(() => updateState({}), []);
 
 	let CodeHighlightIndex = 0;
+	let NumberHighlightIndex = 0;
+
+	function HighLightCode(newHighlight) {
+		document.getElementById("Code" + CodeHighlightIndex).style.backgroundColor =
+			"rgba(49, 78, 136, 0)";
+		document.getElementById("Code" + newHighlight).style.backgroundColor =
+			"rgba(49, 78, 136, 1)";
+		CodeHighlightIndex = newHighlight;
+	}
+
+	function GrayOutNumber(number) {
+		document.getElementById("SearchVisNum" + number).style.color =
+			"rgba(100,100,100,1)";
+	}
+
+	function HighLightNumber(newHighlight) {
+		/*document.getElementById("SearchVisNum" + (i - 1)).style.color =
+				"rgba(100,100,100,1)";*/
+
+		document.getElementById(
+			"SearchVisNum" + NumberHighlightIndex
+		).style.backgroundColor = "rgba(49, 78, 136, 0)";
+		document.getElementById(
+			"SearchVisNum" + newHighlight
+		).style.backgroundColor = "rgba(0, 150, 0, 1)";
+		NumberHighlightIndex = newHighlight;
+	}
 
 	return (
 		<div className="SearchVis">
@@ -62,10 +89,11 @@ function SearchVis(props) {
 					//LinearSearch();
 					props.SearchFunction(
 						array,
-						CodeHighlightIndex,
-						forceUpdate,
 						Delay,
-						delay
+						delay,
+						HighLightCode,
+						HighLightNumber,
+						GrayOutNumber
 					);
 				}}
 			>
