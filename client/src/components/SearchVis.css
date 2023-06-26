@@ -1,7 +1,8 @@
 .SearchVis {
+	margin: 2%;
 	display: flex;
-	width: 50vw;
-	height: 40%;
+	width: 70vw;
+	height: fit-content;
 	background-color: #33373f;
 }
 .SearchVis {
@@ -21,10 +22,11 @@
 }
 
 .SearchVisNumber {
+	font-size: 75%;
 	border-style: solid;
 	border-width: 1px;
 	background-color: #1f2226;
-	padding: 3%;
+	padding: 0.5%;
 }
 
 .SearchVisInfo {
