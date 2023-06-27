@@ -40,12 +40,13 @@
 
 .SearchVisInfoHalf {
 	text-align: left;
-	font-size: 1.5vw;
+	font-size: 65%;
 	width: 50%;
 	padding: 1%;
 }
 
 .SearchVisCode {
+	font-size: 65%;
 	background-color: #18191b;
 	width: 50%;
 	height: 92%;
