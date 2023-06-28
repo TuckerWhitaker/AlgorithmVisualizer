@@ -13,6 +13,7 @@ import BubbleSort from "./components/BubbleSort";
 import Graph from "./components/Graph";
 import Main from "./components/Main";
 import MergeSort from "./components/MergeSort";
+import Pathfinding from "./components/Pathfinding";
 import River from "./components/River";
 import RiverV2 from "./components/RiverV2";
 import SearchAlgorithms from "./components/SearchAlgorithms";
@@ -39,6 +40,7 @@ function App() {
 					<Route path="/S" element={<SortingVisualizerParent />} />
 					<Route path="/BinaryTree" element={<BinaryTree />} />
 					<Route path="/SearchAlgorithms" element={<SearchAlgorithms />} />
+					<Route path="/Pathfinding" element={<Pathfinding />} />
 				</Routes>
 			</Router>
 		</div>

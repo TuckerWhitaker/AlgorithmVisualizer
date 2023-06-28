@@ -1,0 +1,55 @@
+.Pathfinding {
+	display: flex;
+	justify-content: center;
+	width: 100vw;
+	height: 100vh;
+	background-color: #282c34;
+	text-align: left;
+	color: white;
+}
+
+.PathFindVis {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	margin: 3%;
+	width: 80%;
+	height: 70%;
+	background-color: #33373f;
+}
+
+.PathFindVisColumnParent {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+}
+
+.PathFindVisColumn {
+	width: 50%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	font-size: 125%;
+}
+
+.PathFindVisColumnCode {
+	align-items: center;
+}
+
+.PathFindVisGrid {
+	background-color: white;
+	width: 100%;
+	height: 60%;
+}
+
+.PathFindVisTitle {
+	font-size: 200%;
+}
+
+.PathFindVisCode {
+	width: 95%;
+	height: 95%;
+	background-color: #18191b;
+}
