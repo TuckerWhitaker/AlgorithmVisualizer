@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-function PathFindVis() {
+function PathFindVis(props) {
 	function Delay(time) {
 		return new Promise((resolve) => setTimeout(resolve, time));
 	}
 
 	let grid = [];
 	let stack = [];
+	let End = null;
 
 	useEffect(() => {
 		GenerateMaze();
@@ -20,6 +21,7 @@ function PathFindVis() {
 				hasvisited: false,
 				walls: [1, 1, 1, 1],
 				Index: i,
+				originIndex: null,
 			});
 		}
 
@@ -74,7 +76,9 @@ function PathFindVis() {
 			}
 		}
 
-		let ctx = document.getElementById("PathFindVisCanvas").getContext("2d");
+		let ctx = document
+			.getElementById(props.PathFindVisID + "PathFindVisCanvas")
+			.getContext("2d");
 
 		ctx.lineWidth = 2;
 
@@ -125,99 +129,35 @@ function PathFindVis() {
 			}
 		}
 
+		End = grid[Math.floor(Math.random() * grid.length - 1)];
+
 		ctx.fillStyle = "#00FF00";
 		ctx.fillRect(11, 11, 8, 8);
+
 		ctx.fillStyle = "#0000FF";
-		ctx.fillRect(301, 301, 8, 8);
+		ctx.fillRect(
+			(End.Index % 30) * 10 + 11,
+			Math.floor(End.Index / 30) * 10 + 11,
+			8,
+			8
+		);
 		for (let i = 0; i < grid.length; i++) {
 			grid[i].hasvisited = false;
 		}
 	};
 
-	async function Solve() {
-		let ctx = document.getElementById("PathFindVisCanvas").getContext("2d");
-		let stack = [];
-		let current = grid[0];
-		stack.push(grid[0]);
-
-		while (current.Index != 899) {
-			let currentCell = stack[stack.length - 1];
-
-			current = currentCell;
-
-			currentCell.hasvisited = true;
-
-			let neighbors = [];
-
-			let index = grid.indexOf(currentCell);
-
-			if (
-				index - 30 >= 0 &&
-				!grid[index - 30].hasvisited &&
-				grid[index].walls[0] == 0
-			)
-				neighbors.push(grid[index - 30]); // Top
-			if (
-				(index + 1) % 30 != 0 &&
-				!grid[index + 1].hasvisited &&
-				grid[index].walls[1] == 0
-			)
-				neighbors.push(grid[index + 1]); // Right
-			if (
-				index + 30 < 900 &&
-				!grid[index + 30].hasvisited &&
-				grid[index].walls[2] == 0
-			)
-				neighbors.push(grid[index + 30]); // Bottom
-			if (
-				index % 30 != 0 &&
-				!grid[index - 1].hasvisited &&
-				grid[index].walls[3] == 0
-			)
-				neighbors.push(grid[index - 1]); // Left
-
-			if (neighbors.length > 0) {
-				let neighbor = neighbors[Math.floor(Math.random() * neighbors.length)];
-
-				stack.push(neighbor);
-			} else {
-				// Pop a cell from the stack
-				stack.pop();
-			}
-		}
-
-		ctx.fillStyle = "#FF0000";
-		ctx.strokeStyle = "#FF0000";
-		let lastCell = [stack[0]].Index;
-
-		stack.pop();
-		for (let s = 0; s < stack.length; s++) {
-			await Delay(50);
-
-			ctx.beginPath();
-			ctx.moveTo(
-				(lastCell % 30) * 10 + 15,
-				Math.floor(lastCell / 30) * 10 + 15
-			);
-			ctx.lineTo(
-				(stack[s].Index % 30) * 10 + 15,
-				Math.floor(stack[s].Index / 30) * 10 + 15
-			);
-			ctx.stroke();
-
-			lastCell = stack[s].Index;
-		}
-		console.log("Solved");
-		//DFS
-	}
-
 	return (
 		<div className="PathFindVis">
-			<div className="PathFindVisTitle">Title</div>
+			<div className="PathFindVisTitle">{props.Title}</div>
 			<div className="PathFindVisColumnParent">
 				<div className="PathFindVisColumn">
 					<div className="PathFindVisGrid">
-						<canvas id="PathFindVisCanvas" width={320} height={320}></canvas>
+						<canvas
+							id={props.PathFindVisID + "PathFindVisCanvas"}
+							className="PathFindVisCanvas"
+							width={320}
+							height={320}
+						></canvas>
 					</div>
 				</div>
 				<div className="PathFindVisColumn PathFindVisColumnCode ">
@@ -227,7 +167,7 @@ function PathFindVis() {
 			<button
 				onClick={() => {
 					GenerateMaze();
-					Solve();
+					props.Solve(grid, Delay, End);
 				}}
 			>
 				Maze
