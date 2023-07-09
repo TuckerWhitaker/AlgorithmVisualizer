@@ -1,12 +1,12 @@
 .Main {
-	display: flex;
+	display: grid;
 	width: 100vw;
 	height: 100vh;
 	background-color: #1c1c1c;
 	color: white;
-	justify-content: flex-start;
-	flex-direction: column;
 	align-items: center;
+	justify-content: center;
+	grid-template-columns: 40vw 40vw;
 }
 
 .MainBtn {
@@ -24,4 +24,44 @@
 
 .MainBtn:active {
 	background-color: #5c5c5c;
+}
+
+.VisualizerTile {
+	transition-duration: 500ms;
+	width: 90%;
+	height: 60%;
+	background-color: #282828;
+}
+
+.VisualizerTile:hover {
+	font-size: 100%;
+	width: 95%;
+	height: 75%;
+	background-color: #484848;
+	cursor: pointer;
+}
+.VisualizerTile:active {
+	background-color: #949494;
+}
+
+.VisualizerTileTitle {
+	font-size: 2vw;
+	float: top;
+	text-align: left;
+	width: fit-content;
+	height: fit-content;
+}
+
+.VisualizerTileImg {
+	float: right;
+	margin-top: -5%;
+	align-self: right !important;
+	padding: 2%;
+	width: 20%;
+	height: 40%;
+}
+
+.VisualizerTileDesc {
+	font-size: 120%;
+	text-align: left;
 }
