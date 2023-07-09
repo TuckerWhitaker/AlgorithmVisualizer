@@ -21,7 +21,11 @@ function PathFindVis(props) {
 				hasvisited: false,
 				walls: [1, 1, 1, 1],
 				Index: i,
+				I: i % 30,
+				J: i / 30,
 				originIndex: null,
+				g: 0,
+				h: 0,
 			});
 		}
 
@@ -86,6 +90,18 @@ function PathFindVis(props) {
 		ctx.fillRect(0, 0, 320, 320);
 		ctx.fillStyle = "#000000";
 
+		/*for (let i = 0; i < grid.length; i++) {
+			ctx.fillStyle =
+				"rgb(" + grid[i].I * 8 + "," + grid[i].J * 8 + "," + 0 + ")";
+
+			ctx.fillRect(grid[i].I * 10 + 10, grid[i].J * 10 + 10, 11, 11);
+		}
+*/
+		//remove random walls
+		/*for (let i = 0; i < grid.length; i++) {
+			grid[i].walls = [0, 0, 0, 0];
+		}
+*/
 		for (let i = 10; i < 320 - 10; i += 10) {
 			for (let j = 10; j < 320 - 10; j += 10) {
 				// Calculate cell index from x and y

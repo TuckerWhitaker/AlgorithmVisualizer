@@ -65,7 +65,7 @@ function Pathfinding() {
 							stack.push(neighbor);
 						} else {
 							ctx.fillStyle = "#FFDDDD";
-							// Pop a cell from the stack
+
 							ctx.fillRect(
 								(stack[stack.length - 1].Index % 30) * 10 + 11,
 								Math.floor(stack[stack.length - 1].Index / 30) * 10 + 11,
@@ -165,7 +165,7 @@ function Pathfinding() {
 							grid[index - 1].origin = [index];
 							neighbors.push(grid[index - 1]); // Left
 						}
-						// Add all neighbors to the queue
+
 						neighbors.forEach((neighbor) => queue.push(neighbor));
 
 						if (queue.length > 0) {
@@ -177,7 +177,7 @@ function Pathfinding() {
 								8
 							);
 
-							queue.shift(); // Remove the current cell from the queue
+							queue.shift();
 						}
 					}
 
@@ -204,6 +204,159 @@ function Pathfinding() {
 					}
 					console.log("Solved");
 					// BFS
+				}}
+			></PathFindVis>
+			<PathFindVis
+				PathFindVisID={2}
+				Title="A* Pathfinding"
+				Solve={async function solve(grid, Delay, End) {
+					function getNeighbors(grid, node) {
+						let neighbors = [];
+						let index = grid.indexOf(node);
+
+						// Top
+						if (
+							index - 30 >= 0 &&
+							!grid[index - 30].hasvisited &&
+							grid[index].walls[0] === 0
+						) {
+							neighbors.push(grid[index - 30]);
+						}
+
+						// Right
+						if (
+							(index + 1) % 30 !== 0 &&
+							!grid[index + 1].hasvisited &&
+							grid[index].walls[1] === 0
+						) {
+							neighbors.push(grid[index + 1]);
+						}
+
+						// Bottom
+						if (
+							index + 30 < 900 &&
+							!grid[index + 30].hasvisited &&
+							grid[index].walls[2] === 0
+						) {
+							neighbors.push(grid[index + 30]);
+						}
+
+						// Left
+						if (
+							index % 30 !== 0 &&
+							!grid[index - 1].hasvisited &&
+							grid[index].walls[3] === 0
+						) {
+							neighbors.push(grid[index - 1]);
+						}
+
+						return neighbors;
+					}
+
+					function heuristic_cost_estimate(node, goal) {
+						let dx = Math.abs((node.Index % 30) - (goal.Index % 30));
+						let dy = Math.abs(
+							Math.floor(node.Index / 30) - Math.floor(goal.Index / 30)
+						);
+						let C = dx * dx + dy * dy;
+						C = Math.sqrt(C);
+
+						return C;
+					}
+
+					function reconstructPath(node) {
+						let path = [];
+						while (node != null) {
+							path.push(node);
+							node = node.origin;
+						}
+						path.reverse();
+						return path;
+					}
+
+					let ctx = document
+						.getElementById(2 + "PathFindVisCanvas")
+						.getContext("2d");
+					let open = [];
+					let closed = [];
+
+					open.push(grid[0]);
+
+					while (open.length > 0) {
+						open.sort((a, b) => a.f - b.f);
+						let current = open.shift();
+
+						if (current.Index === End.Index) {
+							console.log("Solved");
+							let Path = reconstructPath(current);
+							let LastIndex = 0;
+							let CurrentIndex = 0;
+							ctx.strokeStyle = "#FF0000";
+							for (let i = 0; i < Path.length; i++) {
+								await Delay(50);
+								ctx.beginPath();
+								ctx.moveTo(
+									(LastIndex % 30) * 10 + 15,
+									Math.floor(LastIndex / 30) * 10 + 15
+								);
+								ctx.lineTo(
+									(CurrentIndex % 30) * 10 + 15,
+									Math.floor(CurrentIndex / 30) * 10 + 15
+								);
+								ctx.stroke();
+
+								LastIndex = CurrentIndex;
+								CurrentIndex = Path[i].Index;
+							}
+							return reconstructPath(current);
+						}
+						await Delay(50);
+
+						ctx.fillStyle =
+							"rgb(" + 255 + "," + 255 + "," + current.f / 2 + ")";
+
+						ctx.fillRect(
+							(current.Index % 30) * 10 + 11,
+							Math.floor(current.Index / 30) * 10 + 11,
+							8,
+							8
+						);
+						closed.push(current);
+
+						let neighbors = getNeighbors(grid, current);
+
+						for (let i = 0; i < neighbors.length; i++) {
+							let neighbor = neighbors[i];
+
+							if (closed.includes(neighbor)) {
+								continue;
+							}
+
+							let tentative_gScore = current.g + 1;
+
+							if (!open.includes(neighbor)) {
+								open.push(neighbor);
+							} else if (tentative_gScore >= neighbor.g) {
+								continue;
+							}
+
+							neighbor.origin = current;
+							neighbor.g = tentative_gScore;
+							neighbor.h = heuristic_cost_estimate(neighbor, End);
+							neighbor.f = neighbor.g + neighbor.h;
+							ctx.fillStyle = "rgb(" + 0 + "," + neighbor.f * 8 + "," + 0 + ")";
+
+							ctx.fillRect(
+								(neighbor.Index % 30) * 10 + 11,
+								Math.floor(neighbor.Index / 30) * 10 + 11,
+								8,
+								8
+							);
+						}
+					}
+
+					console.log("No solution found");
+					return null;
 				}}
 			></PathFindVis>
 		</div>
