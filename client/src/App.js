@@ -14,8 +14,8 @@ import Graph from "./components/Graph";
 import Main from "./components/Main";
 
 import Pathfinding from "./components/Pathfinding";
-
 import SearchAlgorithms from "./components/SearchAlgorithms";
+import SortingAlgorithms from "./components/SortingAlgorithms";
 
 function App() {
 	return (
@@ -27,6 +27,7 @@ function App() {
 					<Route path="/Graph" element={<Graph />} />
 					<Route path="/BinaryTree" element={<BinaryTree />} />
 					<Route path="/SearchAlgorithms" element={<SearchAlgorithms />} />
+					<Route path="/SortingAlgorithms" element={<SortingAlgorithms />} />
 					<Route path="/Pathfinding" element={<Pathfinding />} />
 				</Routes>
 			</Router>

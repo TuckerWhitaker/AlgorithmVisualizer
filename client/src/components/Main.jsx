@@ -4,7 +4,6 @@ import VisualizerTile from "./VisualizerTile";
 import SortedSquares from "./SortedSquares.gif";
 import SortingAlgoGif from "./SortingAlgo.gif";
 import GridAnimation from "./grid_animation.gif";
-
 function Main() {
 	return (
 		<div className="Main">
