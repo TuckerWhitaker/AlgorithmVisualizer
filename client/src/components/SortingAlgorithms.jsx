@@ -93,6 +93,20 @@ function SortingAlgorithms() {
 									await Delay(delay);
 									HighLightCode(5);
 									await Delay(delay);
+
+									document
+										.getElementById(0 + "BarArray" + j)
+										.classList.add("swap-start");
+									document
+										.getElementById(0 + "BarArray" + (j + 1))
+										.classList.add("swap-end");
+									await Delay(100);
+									document
+										.getElementById(0 + "BarArray" + j)
+										.classList.remove("swap-start");
+									document
+										.getElementById(0 + "BarArray" + (j + 1))
+										.classList.remove("swap-end");
 									[array[j], array[j + 1]] = [array[j + 1], array[j]];
 									SetBarArray([...array]);
 								}

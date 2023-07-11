@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "./SearchVis.css";
 
 let array = [
@@ -44,9 +45,21 @@ function SearchVis(props) {
 		CodeHighlightIndex = newHighlight;
 	}
 
-	function GrayOutNumber(number) {
+	async function GrayOutNumber(number) {
 		document.getElementById(props.VisID + "SearchVisNum" + number).style.color =
 			"rgba(100,100,100,1)";
+		await Delay(500);
+		document.getElementById(props.VisID + "SearchVisNum" + number).innerHTML =
+			"";
+		document
+			.getElementById(props.VisID + "SearchVisNum" + number)
+			.classList.add("SearchVisNumberOut");
+
+		document.getElementById(props.VisID + "SearchVisNum" + number).style.color =
+			"rgba(100,100,100,0)";
+
+		await Delay(500);
+		document.getElementById(props.VisID + "SearchVisNum" + number).remove();
 	}
 
 	function HighLightNumber(newHighlight) {
@@ -62,20 +75,22 @@ function SearchVis(props) {
 	return (
 		<div className="SearchVis">
 			<div className="SearchVisTitle">{props.Title}</div>
-			<div className="SearchVisNumberParent">
+			<TransitionGroup className="SearchVisNumberParent">
 				{array.map((info, index) => {
 					return (
-						<div
-							className="SearchVisNumber"
-							key={index}
-							style={{ backgroundColor: "rgba(0, 150, 0, 0)" }}
-							id={props.VisID + "SearchVisNum" + index}
-						>
-							{info}
-						</div>
+						<CSSTransition key={info} timeout={200} className="SearchVisNumber">
+							<div
+								className="SearchVisNumber"
+								key={index}
+								style={{ backgroundColor: "rgba(0, 150, 0, 0)" }}
+								id={props.VisID + "SearchVisNum" + index}
+							>
+								{info}
+							</div>
+						</CSSTransition>
 					);
 				})}
-			</div>
+			</TransitionGroup>
 			<div className="SearchVisInfo">
 				<div className="SearchVisInfoHalf">{props.Description}</div>
 				<div className="SearchVisInfoHalf SearchVisCode">
