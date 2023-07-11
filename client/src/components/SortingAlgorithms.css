@@ -1,15 +1,18 @@
 .SortingAlgorithms {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	width: 100vw;
-	height: 100vh;
+	height: fit-content;
 	background-color: #282c34;
 	color: white;
+	min-height: 100vh;
 }
 
 .SortAlgoVis {
 	flex-direction: column;
+	margin: 2%;
 	width: 70%;
 	height: fit-content;
 	background-color: #33373f;
@@ -50,7 +53,7 @@
 .SortAlgoVisCode {
 	font-size: 150%;
 	background-color: #18191b;
-	height: 25vh;
+	height: fit-content;
 	width: 50%;
 }
 

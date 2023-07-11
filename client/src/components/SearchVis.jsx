@@ -20,8 +20,9 @@ function SearchVis(props) {
 	}, []);
 
 	const [Target, SetTarget] = useState(0);
-	//SetTarget(array[Math.round(Math.random() * array.length)]);
+
 	CodeArray = props.CodeArray;
+
 	if (props.simplified) {
 		CodeArray = props.SimplifiedCodeArray;
 		console.log("Simplified Code Array");

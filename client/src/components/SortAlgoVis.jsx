@@ -1,20 +1,27 @@
-let Array = [10];
-let Code =
-	"let bubbleSort = (arr) => { let len = arr.length; for (let i = len-1; i >=0; i--) { for(let j = 1; j<=i; j++){ if(arr[j-1]>arr[j]) { let temp = arr[j-1]; arr[j-1] = arr[j]; arr[j] = temp; } } } return arr; }";
-for (let i = 0; i < 40; i++) {
-	Array.push(Math.floor(Math.random() * 60) + 2);
-}
+import { useEffect, useState } from "react";
 
-function SortAlgoVis() {
+let CodeArray = [];
+function SortAlgoVis(props) {
+	const [BarArray, SetBarArray] = useState([]);
+
+	useEffect(() => {
+		CodeArray = props.CodeArray;
+		for (let i = 0; i < 40; i++) {
+			BarArray.push(Math.floor(Math.random() * 60) + 2);
+		}
+		SetBarArray([...BarArray]);
+	}, []);
+
 	return (
 		<div className="SortAlgoVis">
-			<div className="SortAlgoVisTitle">Title</div>
+			<div className="SortAlgoVisTitle">{props.Title}</div>
 
 			<div className="SortAlgoVisGraph">
-				{Array.map((info, index) => {
+				{BarArray.map((info, index) => {
 					return (
 						<div
 							className="SortAlgoVisGraphBar"
+							id={props.VisID + "BarArray" + index}
 							key={index}
 							style={{ height: info / 2 + "vh" }}
 						>
@@ -24,18 +31,30 @@ function SortAlgoVis() {
 				})}
 			</div>
 			<div className="SortAlgoVisBottomHalf">
-				<div className="SortAlgoVisDesc">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-					eiusmod tempor incididunt ut labore et dolore magna aliqua. Eget
-					egestas purus viverra accumsan in nisl nisi scelerisque. Elementum
-					integer enim neque volutpat. Nunc id cursus metus aliquam eleifend mi
-					in nulla posuere. Nunc mi ipsum faucibus vitae aliquet nec. Habitant
-					morbi tristique senectus et netus et. Mauris a diam maecenas sed enim
-					ut sem viverra. Integer vitae justo eget magna fermentum iaculis eu
-					non. Massa sapien faucibus et molestie ac feugiat.
+				<div className="SortAlgoVisDesc">{props.Description}</div>
+				<div className="SortAlgoVisCode">
+					{CodeArray.map((info, index) => {
+						var tempColor = "rgba(49, 78, 136," + info.HighLight + ")";
+						return (
+							<div
+								id={props.VisID + "Code" + index}
+								className="CodeLine"
+								key={index}
+								style={{ marginLeft: info.Tab, backgroundColor: tempColor }}
+							>
+								{info.string}
+							</div>
+						);
+					})}
 				</div>
-				<div className="SortAlgoVisCode">{Code}</div>
 			</div>
+			<button
+				onClick={() => {
+					props.Sort(BarArray, SetBarArray);
+				}}
+			>
+				button
+			</button>
 		</div>
 	);
 }
