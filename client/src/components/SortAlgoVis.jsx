@@ -1,7 +1,25 @@
+import { Highlight, themes } from "prism-react-renderer";
+import Prism from "prismjs";
 import { useEffect, useState } from "react";
+
+const codeBlock = ` for (let i = 0; i < array.len; i++) {
+	 for (let j = 0; j < array.len - i - 1; j++) {
+	 	 if (array[j] > array[j + 1]) {
+			 let temp = array[j];
+			 array[j] = array[j + 1];
+			 array[j + 1] = temp;
+		 }
+	 }
+ }`;
 
 let CodeArray = [];
 function SortAlgoVis(props) {
+	const [HighlightedLines, SetHighlightedLines] = useState([]);
+
+	function highlightCode(i) {
+		SetHighlightedLines([i]);
+	}
+
 	const [BarArray, SetBarArray] = useState([]);
 
 	useEffect(() => {
@@ -33,24 +51,45 @@ function SortAlgoVis(props) {
 			<div className="SortAlgoVisBottomHalf">
 				<div className="SortAlgoVisDesc">{props.Description}</div>
 				<div className="SortAlgoVisCode">
-					{CodeArray.map((info, index) => {
-						var tempColor = "rgba(49, 78, 136," + info.HighLight + ")";
-						return (
-							<div
-								id={props.VisID + "Code" + index}
-								className="CodeLine"
-								key={index}
-								style={{ marginLeft: info.Tab, backgroundColor: tempColor }}
-							>
-								{info.string}
-							</div>
-						);
-					})}
+					<Highlight code={codeBlock} language="jsx" theme={themes.vsDark}>
+						{({ className, style, tokens, getLineProps, getTokenProps }) => (
+							<pre className={className} style={{ ...style, padding: "20px" }}>
+								{tokens.map((line, i) => {
+									let lineProps = getLineProps({ line, key: i });
+
+									// Check if line number is in the array of highlighted lines
+									if (HighlightedLines.includes(i)) {
+										// Add a custom style or class to the lineProps
+										lineProps.style = {
+											...lineProps.style,
+											backgroundColor: "rgba(173, 216, 230, 0.3)",
+										}; // for example
+									}
+
+									return (
+										<div key={i} {...lineProps}>
+											<span>{i + 1}</span>
+											{line.map((token, key) => {
+												// Override the text-shadow style in each token
+												let tokenProps = getTokenProps({ token });
+												tokenProps.style = {
+													...tokenProps.style,
+													textShadow: "none",
+												};
+
+												return <span key={key} {...tokenProps} />;
+											})}
+										</div>
+									);
+								})}
+							</pre>
+						)}
+					</Highlight>
 				</div>
 			</div>
 			<button
 				onClick={() => {
-					props.Sort(BarArray, SetBarArray);
+					props.Sort(BarArray, SetBarArray, highlightCode);
 				}}
 			>
 				button

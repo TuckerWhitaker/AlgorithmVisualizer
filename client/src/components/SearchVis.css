@@ -25,9 +25,8 @@
 }
 
 .SearchVisNumber {
-	width: 22px;
-	transition-duration: 500ms;
-
+	width: fit-content;
+	transition-duration: 200ms;
 	font-size: 75%;
 	border-style: solid;
 	border-width: 1px;
@@ -36,14 +35,12 @@
 }
 
 .SearchVisNumberOut {
+	transform: translateY(-30px);
 	width: 0px;
 	border-width: 0px;
 	border-color: transparent transparent;
 	font-size: 0px;
-}
-
-.SearchVisNumber-exit {
-	opacity: 1;
+	padding: 0%;
 }
 
 .SearchVisInfo {
@@ -63,8 +60,8 @@
 }
 
 .SearchVisCode {
-	font-size: 65%;
-	background-color: #18191b;
+	font-size: 50%;
+	background-color: #18191b00;
 	width: 50%;
 	height: 92%;
 	margin-right: 1%;

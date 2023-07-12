@@ -1,7 +1,7 @@
+import { Highlight, themes } from "prism-react-renderer";
 import React, { useEffect, useState } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "./SearchVis.css";
-
 let array = [
 	1, 2, 3, 4, 7, 11, 15, 17, 21, 23, 24, 26, 29, 31, 34, 35, 36, 39, 41, 44, 45,
 	52, 53, 59, 64, 65, 66, 70, 71, 75, 76, 79, 81, 86, 87, 91, 92, 95, 98, 99,
@@ -16,6 +16,8 @@ function Delay(time) {
 let CodeArray = [];
 
 function SearchVis(props) {
+	const [HighlightedLines, SetHighlightedLines] = useState([]);
+
 	useEffect(() => {
 		SetTarget(array[Math.round(Math.random() * array.length)]);
 	}, []);
@@ -36,13 +38,7 @@ function SearchVis(props) {
 	let NumberHighlightIndex = 0;
 
 	function HighLightCode(newHighlight) {
-		document.getElementById(
-			props.VisID + "Code" + CodeHighlightIndex
-		).style.backgroundColor = "rgba(49, 78, 136, 0)";
-		document.getElementById(
-			props.VisID + "Code" + newHighlight
-		).style.backgroundColor = "rgba(49, 78, 136, 1)";
-		CodeHighlightIndex = newHighlight;
+		SetHighlightedLines([newHighlight]);
 	}
 
 	async function GrayOutNumber(number) {
@@ -75,44 +71,64 @@ function SearchVis(props) {
 	return (
 		<div className="SearchVis">
 			<div className="SearchVisTitle">{props.Title}</div>
-			<TransitionGroup className="SearchVisNumberParent">
+			<div className="SearchVisNumberParent">
 				{array.map((info, index) => {
 					return (
-						<CSSTransition key={info} timeout={200} className="SearchVisNumber">
-							<div
-								className="SearchVisNumber"
-								key={index}
-								style={{ backgroundColor: "rgba(0, 150, 0, 0)" }}
-								id={props.VisID + "SearchVisNum" + index}
-							>
-								{info}
-							</div>
-						</CSSTransition>
+						<div
+							className="SearchVisNumber"
+							key={index}
+							style={{ backgroundColor: "rgba(0, 150, 0, 0)" }}
+							id={props.VisID + "SearchVisNum" + index}
+						>
+							{info}
+						</div>
 					);
 				})}
-			</TransitionGroup>
+			</div>
 			<div className="SearchVisInfo">
 				<div className="SearchVisInfoHalf">{props.Description}</div>
+
 				<div className="SearchVisInfoHalf SearchVisCode">
 					<div>Target = {Target}</div>
-					{CodeArray.map((info, index) => {
-						var tempColor = "rgba(49, 78, 136," + info.HighLight + ")";
-						return (
-							<div
-								id={props.VisID + "Code" + index}
-								className="CodeLine"
-								key={index}
-								style={{ marginLeft: info.Tab, backgroundColor: tempColor }}
-							>
-								{info.string}
-							</div>
-						);
-					})}
+					<Highlight
+						code={props.codeBlock}
+						language="jsx"
+						theme={themes.vsDark}
+					>
+						{({ className, style, tokens, getLineProps, getTokenProps }) => (
+							<pre className={className} style={{ ...style, padding: "20px" }}>
+								{tokens.map((line, i) => {
+									let lineProps = getLineProps({ line, key: i });
+
+									if (HighlightedLines.includes(i)) {
+										lineProps.style = {
+											...lineProps.style,
+											backgroundColor: "rgba(173, 216, 230, 0.3)",
+										};
+									}
+
+									return (
+										<div key={i} {...lineProps}>
+											<span>{i + 1}</span>
+											{line.map((token, key) => {
+												let tokenProps = getTokenProps({ token });
+												tokenProps.style = {
+													...tokenProps.style,
+													textShadow: "none",
+												};
+
+												return <span key={key} {...tokenProps} />;
+											})}
+										</div>
+									);
+								})}
+							</pre>
+						)}
+					</Highlight>
 				</div>
 			</div>
 			<button
 				onClick={() => {
-					//LinearSearch();
 					props.SearchFunction(
 						array,
 						Delay,

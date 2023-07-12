@@ -1,11 +1,59 @@
 import "./SearchAlgorithms.css";
 import SearchVis from "./SearchVis";
+
+const CodeBlocks = [
+	` let left = 0;
+ let right = array.length - 1;
+ while (left <= right) {
+		const mid = Math.floor((left + right) / 2);
+		if (array[mid] === Target) {
+			return mid;
+		}
+		if (array[mid] < Target) {
+			left = mid + 1;
+		} else {
+			right = mid - 1;
+		}
+ }`,
+	` let left = 0;
+ let right = array.length - 1;
+ while (left <= right) {
+		const mid = Math.floor((left + right) / 2);
+		if (array[mid] === Target) {
+			return mid;
+		}
+		if (array[mid] < Target) {
+			left = mid + 1;
+		} else {
+			right = mid - 1;
+		}
+ }`,
+	` let start = 0;
+ let end = arr.length - 1;
+ while (start <= end && key >= arr[start] && key <= arr[end]) {
+		if (start === end) {
+			if (arr[start] === key) return start;
+			return -1;
+		}
+		let pos =
+			start + ((end - start) * (key - arr[start])) / (arr[end] - arr[start]);
+		pos = Math.floor(pos);
+		if (arr[pos] === key) return pos;
+		if (arr[pos] < key) {
+			start = pos + 1;
+		} else {
+			end = pos - 1;
+		}
+ }`,
+];
+
 function SearchAlgorithms() {
 	return (
 		<div className="SearchAlgorithms">
 			<div className="SearchAlgorithmsTitle">Search Algorithms</div>
 			<SearchVis
 				VisID={0}
+				codeBlock={CodeBlocks[0]}
 				SearchFunction={async function LinearSearch(
 					array,
 					Delay,
@@ -72,6 +120,7 @@ function SearchAlgorithms() {
 				Description="The Linear Search sequentially checks each element of the list until a match is found or the whole list has been searched"
 			></SearchVis>
 			<SearchVis
+				codeBlock={CodeBlocks[1]}
 				VisID={1}
 				SearchFunction={async function BinarySearch(
 					array,
@@ -238,6 +287,7 @@ function SearchAlgorithms() {
 				"
 			></SearchVis>
 			<SearchVis
+				codeBlock={CodeBlocks[2]}
 				VisID={2}
 				SearchFunction={async function InterpolationSearch(
 					array,
