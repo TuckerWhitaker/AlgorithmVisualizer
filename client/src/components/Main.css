@@ -5,7 +5,8 @@ button:hover {
 .Main {
 	display: grid;
 	width: 100vw;
-	height: 100vh;
+	height: fit-content;
+	min-height: 100vh;
 	background-color: #1c1c1c;
 	color: white;
 	align-items: center;
@@ -14,9 +15,11 @@ button:hover {
 }
 
 .VisualizerTile {
+	padding: 2%;
+	font-size: 100%;
 	transition-duration: 500ms;
 	width: 90%;
-	height: 60%;
+	height: fit-content;
 	background-color: #282828;
 }
 
@@ -53,4 +56,32 @@ button:hover {
 	margin-left: 1%;
 	font-size: 120%;
 	text-align: left;
+}
+
+@media (max-width: 500px) {
+	.Main {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+	}
+
+	.VisualizerTileTitle {
+		margin-left: 1%;
+		font-size: 150%;
+		margin-bottom: 5%;
+		float: top;
+		text-align: left;
+		width: fit-content;
+		height: fit-content;
+	}
+
+	.VisualizerTile {
+		font-size: 75%;
+		transition-duration: 500ms;
+		width: 70%;
+		height: fit-content;
+		background-color: #282828;
+		margin-bottom: 10%;
+	}
 }

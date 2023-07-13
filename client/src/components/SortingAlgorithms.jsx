@@ -60,7 +60,6 @@ function SortingAlgorithms() {
 				]}
 				Sort={async function bubbleSort(barArray, setBarArray, highlightCode) {
 					let highlightedBarIndex = 0;
-					let highlightedCodeIndex = 0;
 
 					const delayTime = 20;
 					const array = [...barArray];

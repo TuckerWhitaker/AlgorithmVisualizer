@@ -33,7 +33,7 @@ function SortAlgoVis(props) {
 	return (
 		<div className="SortAlgoVis">
 			<div className="SortAlgoVisTitle">{props.Title}</div>
-
+			<div className="SortAlgoVisDescTop">{props.Description}</div>
 			<div className="SortAlgoVisGraph">
 				{BarArray.map((info, index) => {
 					return (

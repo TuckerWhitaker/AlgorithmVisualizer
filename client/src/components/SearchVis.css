@@ -1,13 +1,10 @@
 .SearchVis {
+	font-size: 2vw;
 	margin: 2%;
 	display: flex;
 	width: 70vw;
 	height: fit-content;
 	background-color: #33373f;
-}
-.SearchVis {
-	font-size: 2vw;
-	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
@@ -27,11 +24,12 @@
 .SearchVisNumber {
 	width: fit-content;
 	transition-duration: 200ms;
-	font-size: 75%;
-	border-style: solid;
-	border-width: 1px;
+	font-size: 70%;
+	border-radius: 5%;
+	border-style: none;
+	border-width: 0.1px;
 	background-color: #1f2226;
-	padding: 0.5%;
+	padding: 0.3%;
 }
 
 .SearchVisNumberOut {
@@ -54,7 +52,7 @@
 
 .SearchVisInfoHalf {
 	text-align: left;
-	font-size: 65%;
+	font-size: 55%;
 	width: 50%;
 	padding: 1%;
 }
@@ -65,4 +63,29 @@
 	width: 50%;
 	height: 92%;
 	margin-right: 1%;
+}
+
+@media (max-width: 500px) {
+	.SearchVis {
+		width: 90%;
+		height: fit-content;
+		margin-bottom: 10%;
+	}
+	.SearchVisTitle {
+		font-size: 125%;
+	}
+	.SearchVisNumberParent {
+		font-size: 120%;
+	}
+	.SearchVisNumber {
+		padding: 1%;
+		border-style: none;
+		border-width: 0.1px;
+	}
+	.SearchVisCode {
+		font-size: 100%;
+	}
+	.SearchVisInfoHalf {
+		font-size: 100%;
+	}
 }

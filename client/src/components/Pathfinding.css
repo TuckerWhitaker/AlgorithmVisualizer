@@ -61,3 +61,21 @@
 	height: 100%;
 	width: 100%;
 }
+
+@media (max-width: 500px) {
+	.PathFindVisTitle {
+		font-size: 150%;
+	}
+	.PathFindVisColumnParent {
+		flex-direction: column;
+	}
+	.PathFindVisColumn {
+		width: 100%;
+	}
+	.PathFindVisCode {
+		align-self: flex-end;
+		width: 50%;
+		height: 90%;
+		background-color: #18191b;
+	}
+}

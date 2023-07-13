@@ -2,7 +2,6 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
 	width: 100vw;
 	height: fit-content;
 	background-color: #282c34;
@@ -51,7 +50,7 @@
 }
 
 .SortAlgoVisCode {
-	font-size: 125%;
+	font-size: 100%;
 	background-color: #18191b;
 	height: fit-content;
 	width: 50%;
@@ -68,14 +67,11 @@
 	background-color: rgb(84, 84, 228);
 }
 
-/* Assuming you're adding these classes via JS to represent the blocks to be swapped */
 .SortAlgoVisGraphBar.swap-start {
-	/* Moves the block to the right */
 	transform: translateX(31px);
 }
 
 .SortAlgoVisGraphBar.swap-end {
-	/* Moves the block to the left */
 	transform: translateX(-31px);
 }
 
@@ -84,4 +80,47 @@
 	height: 100%;
 	display: flex;
 	flex-direction: row;
+}
+.SortAlgoVisDescTop {
+	font-size: 0%;
+	width: 0%;
+}
+
+@media (max-width: 500px) {
+	.SortAlgoVisGraphBar {
+		width: 10px;
+		font-size: 0px;
+	}
+	.SortAlgoVis {
+		flex-direction: column;
+		margin: 1%;
+		width: 90%;
+		height: fit-content;
+		background-color: #33373f;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		text-align: left;
+		padding: 2%;
+	}
+	.SortAlgoVisCode {
+		width: 100%;
+		font-size: 90%;
+	}
+	.SortAlgoVisDesc {
+		font-size: 0%;
+		width: 0%;
+	}
+	.SortAlgoVisDescTop {
+		font-size: 100%;
+		width: 100%;
+		height: fit-content;
+	}
+	.SortAlgoVisGraphBar.swap-start {
+		transform: translateX(11px);
+	}
+
+	.SortAlgoVisGraphBar.swap-end {
+		transform: translateX(-11px);
+	}
 }

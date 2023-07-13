@@ -7,6 +7,12 @@ let array = [
 	52, 53, 59, 64, 65, 66, 70, 71, 75, 76, 79, 81, 86, 87, 91, 92, 95, 98, 99,
 ];
 
+if (window.screen.width <= 500) {
+	for (let i = 1; i < array.length; i += 2) {
+		array.splice(i, 1);
+	}
+}
+
 let delay = 500;
 
 function Delay(time) {
@@ -80,7 +86,7 @@ function SearchVis(props) {
 							style={{ backgroundColor: "rgba(0, 150, 0, 0)" }}
 							id={props.VisID + "SearchVisNum" + index}
 						>
-							{info}
+							{info},
 						</div>
 					);
 				})}
