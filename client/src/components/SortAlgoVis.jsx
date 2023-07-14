@@ -23,7 +23,7 @@ function SortAlgoVis(props) {
 	const [BarArray, SetBarArray] = useState([]);
 
 	useEffect(() => {
-		CodeArray = props.CodeArray;
+		CodeArray = props.codeBlock;
 		for (let i = 0; i < 40; i++) {
 			BarArray.push(Math.floor(Math.random() * 60) + 2);
 		}
@@ -51,7 +51,11 @@ function SortAlgoVis(props) {
 			<div className="SortAlgoVisBottomHalf">
 				<div className="SortAlgoVisDesc">{props.Description}</div>
 				<div className="SortAlgoVisCode">
-					<Highlight code={codeBlock} language="jsx" theme={themes.vsDark}>
+					<Highlight
+						code={props.codeBlock}
+						language="jsx"
+						theme={themes.vsDark}
+					>
 						{({ className, style, tokens, getLineProps, getTokenProps }) => (
 							<pre className={className} style={{ ...style, padding: "20px" }}>
 								{tokens.map((line, i) => {

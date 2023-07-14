@@ -11,53 +11,15 @@ function SortingAlgorithms() {
 				VisID={0}
 				Title="BubbleSort"
 				Description="Bubble Sort Algorithm"
-				CodeArray={[
-					{
-						Tab: 0,
-						string: "for (let i = 0; i < array.len; i++) {",
-						HighLight: 0,
-					},
-					{
-						Tab: 50,
-						string: "for (let j = 0; j < array.len - i - 1; j++) {",
-						HighLight: 0,
-					},
-					{
-						Tab: 100,
-						string: "if (array[j] > array[j + 1]) {",
-						HighLight: 0,
-					},
-					{
-						Tab: 150,
-						string: "let temp = array[j];",
-						HighLight: 0,
-					},
-					{
-						Tab: 150,
-						string: "array[j] = array[j + 1];",
-						HighLight: 0,
-					},
-					{
-						Tab: 150,
-						string: "array[j + 1] = temp;",
-						HighLight: 0,
-					},
-					{
-						Tab: 100,
-						string: "}",
-						HighLight: 0,
-					},
-					{
-						Tab: 50,
-						string: "}",
-						HighLight: 0,
-					},
-					{
-						Tab: 0,
-						string: "}",
-						HighLight: 0,
-					},
-				]}
+				codeBlock={` for (let i = 0; i < array.len; i++) {
+	for (let j = 0; j < array.len - i - 1; j++) {
+		if (array[j] > array[j + 1]) {
+			let temp = array[j];
+			array[j] = array[j + 1];
+			array[j + 1] = temp;
+		}
+	}
+ }`}
 				Sort={async function bubbleSort(barArray, setBarArray, highlightCode) {
 					let highlightedBarIndex = 0;
 
@@ -138,6 +100,146 @@ function SortingAlgorithms() {
 					highlightCode(0);
 					await Delay(delayTime);
 					bubbleSortHelper(0, 0);
+				}}
+			></SortAlgoVis>
+			<SortAlgoVis
+				VisID={1}
+				Title="SelectionSort"
+				Description="Selection Sort Algorithm"
+				codeBlock={` for (let i = 0; i < array.len; i++) {
+ 	let minIndex = i;
+ 	for (let j = i + 1; j < array.len; j++) {
+ 		if (array[j] < array[minIndex]) {
+			minIndex = j;
+		}
+ 	}
+ 	let temp = array[i];
+ 	array[i] = array[minIndex];
+ 	array[minIndex] = temp;
+}`}
+				Sort={async function selectionSort(
+					barArray,
+					setBarArray,
+					highlightCode
+				) {
+					let highlightedBarIndex = 0;
+					let minBarIndex = 0;
+
+					const delayTime = 50;
+					const array = [...barArray];
+					const arrayLen = array.length;
+
+					function changeBarColors(barIndex, newColor, oldColor) {
+						const currentBar = document.getElementById(`1BarArray${barIndex}`);
+						const highlightedBar = document.getElementById(
+							`1BarArray${highlightedBarIndex}`
+						);
+
+						currentBar.style.backgroundColor = newColor;
+						highlightedBar.style.backgroundColor = oldColor;
+
+						highlightedBarIndex = barIndex;
+					}
+
+					async function startSwapAnimation(barIndex1, barIndex2) {
+						const bar1 = document.getElementById(`1BarArray${barIndex1}`);
+						const bar2 = document.getElementById(`1BarArray${barIndex2}`);
+
+						// calculate the actual distance between the bars
+						const rect1 = bar1.getBoundingClientRect();
+						const rect2 = bar2.getBoundingClientRect();
+						const distance = Math.abs(rect1.left - rect2.left);
+
+						bar1.style.transitionDuration = "0ms";
+						bar2.style.transitionDuration = "0ms";
+						if (barIndex1 < barIndex2) {
+							bar1.style.transform = `translateX(${distance}px)`;
+							bar2.style.transform = `translateX(-${distance}px)`;
+						} else {
+							bar1.style.transform = `translateX(-${distance}px)`;
+							bar2.style.transform = `translateX(${distance}px)`;
+						}
+						bar1.style.transitionDuration = "0.4s";
+						bar2.style.transitionDuration = "0.4s";
+
+						await Delay(100);
+
+						bar1.style.transform = "";
+						bar2.style.transform = "";
+					}
+
+					async function selectionSortHelper(i) {
+						if (i < arrayLen) {
+							highlightCode(1);
+							await Delay(delayTime);
+							let BarMinIndex = 1;
+							let minIndex = i;
+
+							for (let j = i + 1; j < arrayLen; j++) {
+								changeBarColors(j, "rgb(0,255,0)", "rgb(84, 84, 228)");
+								document.getElementById(
+									`1BarArray${minIndex}`
+								).style.backgroundColor = "rgb(200, 200, 0)";
+								highlightCode(2);
+								await Delay(delayTime);
+								highlightCode(3);
+								await Delay(delayTime);
+
+								if (array[j] < array[minIndex]) {
+									document.getElementById(
+										`1BarArray${minIndex}`
+									).style.backgroundColor = "rgb(84, 84, 228)";
+									minIndex = j;
+
+									highlightCode(4);
+									await Delay(delayTime);
+								}
+
+								highlightCode(5);
+								await Delay(delayTime);
+							}
+							document.getElementById(
+								`1BarArray${minIndex}`
+							).style.backgroundColor = "rgb(84, 84, 228)";
+
+							highlightCode(6);
+							await Delay(delayTime);
+
+							if (minIndex != i) {
+								startSwapAnimation(i, minIndex);
+
+								highlightCode(7);
+								let temp = array[i];
+								array[i] = array[minIndex];
+								array[minIndex] = temp;
+								setBarArray([...array]);
+
+								highlightCode(8);
+								await Delay(delayTime);
+
+								highlightCode(9);
+								await Delay(delayTime);
+							}
+
+							document.getElementById(
+								`1BarArray${minBarIndex}`
+							).style.backgroundColor = "rgb(84, 84, 228)";
+							document.getElementById(`1BarArray${i}`).style.backgroundColor =
+								"rgb(255,0,0)";
+							minBarIndex = i;
+							highlightCode(10);
+							await Delay(delayTime);
+
+							//changeBarColors(i, "rgb(255,0,0)", "rgb(84, 84, 228)");
+							setTimeout(() => selectionSortHelper(i + 1), 10);
+						} else {
+							console.log("Sorting done.");
+						}
+					}
+
+					highlightCode(0);
+					await Delay(delayTime);
+					selectionSortHelper(0);
 				}}
 			></SortAlgoVis>
 		</div>
