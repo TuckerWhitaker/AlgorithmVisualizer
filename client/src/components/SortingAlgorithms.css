@@ -86,6 +86,13 @@
 	width: 0%;
 }
 
+.SortAlgoSlider {
+	width: 50%;
+}
+.SortAlgoSlider:hover {
+	cursor: pointer;
+}
+
 @media (max-width: 500px) {
 	.SortAlgoVisGraphBar {
 		width: 10px;

@@ -14,6 +14,7 @@ const codeBlock = ` for (let i = 0; i < array.len; i++) {
 
 let CodeArray = [];
 function SortAlgoVis(props) {
+	const [DelaySlider, SetDelaySlider] = useState(25);
 	const [HighlightedLines, SetHighlightedLines] = useState([]);
 
 	function highlightCode(i) {
@@ -93,11 +94,20 @@ function SortAlgoVis(props) {
 			</div>
 			<button
 				onClick={() => {
-					props.Sort(BarArray, SetBarArray, highlightCode);
+					props.Sort(BarArray, SetBarArray, highlightCode, DelaySlider);
 				}}
 			>
 				button
 			</button>
+			<input
+				type="range"
+				min="1"
+				max="100"
+				className="SortAlgoSlider"
+				onChange={(e) => {
+					SetDelaySlider(e.target.value);
+				}}
+			></input>
 		</div>
 	);
 }

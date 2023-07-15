@@ -20,10 +20,14 @@ function SortingAlgorithms() {
 		}
 	}
  }`}
-				Sort={async function bubbleSort(barArray, setBarArray, highlightCode) {
+				Sort={async function bubbleSort(
+					barArray,
+					setBarArray,
+					highlightCode,
+					DelaySlider
+				) {
 					let highlightedBarIndex = 0;
 
-					const delayTime = 20;
 					const array = [...barArray];
 					const arrayLen = array.length;
 
@@ -55,20 +59,20 @@ function SortingAlgorithms() {
 					async function bubbleSortHelper(i, j) {
 						if (i < arrayLen) {
 							highlightCode(1);
-							await Delay(delayTime);
+							await Delay(DelaySlider);
 							if (j < arrayLen - i - 1) {
 								highlightCode(2);
-								await Delay(delayTime);
+								await Delay(DelaySlider);
 								if (array[j] > array[j + 1]) {
 									highlightCode(3);
-									await Delay(delayTime);
+									await Delay(DelaySlider);
 									highlightCode(4);
-									await Delay(delayTime);
+									await Delay(DelaySlider);
 									highlightCode(5);
-									await Delay(delayTime);
+									await Delay(DelaySlider);
 
 									changeBarColors(j, "rgb(255,0,0)", "rgb(84, 84, 228)");
-									await Delay(delayTime);
+									await Delay(DelaySlider);
 
 									await startSwapAnimation(j);
 
@@ -80,25 +84,25 @@ function SortingAlgorithms() {
 								highlightCode(6);
 								setTimeout(() => bubbleSortHelper(i, j + 1), 10);
 								highlightCode(7);
-								await Delay(delayTime);
+								await Delay(DelaySlider);
 							} else {
 								highlightCode(7);
-								await Delay(delayTime);
+								await Delay(DelaySlider);
 								highlightCode(8);
-								await Delay(delayTime);
+								await Delay(DelaySlider);
 
 								changeBarColors(j, "rgb(255,0,0)", "rgb(84, 84, 228)");
 								setTimeout(() => bubbleSortHelper(i + 1, 0), 10);
 							}
 						} else {
 							highlightCode(9);
-							await Delay(delayTime);
+							await Delay(DelaySlider);
 							console.log("Sorting done.", array);
 						}
 					}
 
 					highlightCode(0);
-					await Delay(delayTime);
+					await Delay(DelaySlider);
 					bubbleSortHelper(0, 0);
 				}}
 			></SortAlgoVis>
@@ -120,11 +124,11 @@ function SortingAlgorithms() {
 				Sort={async function selectionSort(
 					barArray,
 					setBarArray,
-					highlightCode
+					highlightCode,
+					DelaySlider
 				) {
 					let highlightedBarIndex = 0;
 					let minBarIndex = 0;
-
 					const delayTime = 50;
 					const array = [...barArray];
 					const arrayLen = array.length;
@@ -171,7 +175,7 @@ function SortingAlgorithms() {
 					async function selectionSortHelper(i) {
 						if (i < arrayLen) {
 							highlightCode(1);
-							await Delay(delayTime);
+							await Delay(DelaySlider);
 							let BarMinIndex = 1;
 							let minIndex = i;
 
@@ -181,9 +185,9 @@ function SortingAlgorithms() {
 									`1BarArray${minIndex}`
 								).style.backgroundColor = "rgb(200, 200, 0)";
 								highlightCode(2);
-								await Delay(delayTime);
+								await Delay(DelaySlider);
 								highlightCode(3);
-								await Delay(delayTime);
+								await Delay(DelaySlider);
 
 								if (array[j] < array[minIndex]) {
 									document.getElementById(
@@ -192,18 +196,18 @@ function SortingAlgorithms() {
 									minIndex = j;
 
 									highlightCode(4);
-									await Delay(delayTime);
+									await Delay(DelaySlider);
 								}
 
 								highlightCode(5);
-								await Delay(delayTime);
+								await Delay(DelaySlider);
 							}
 							document.getElementById(
 								`1BarArray${minIndex}`
 							).style.backgroundColor = "rgb(84, 84, 228)";
 
 							highlightCode(6);
-							await Delay(delayTime);
+							await Delay(DelaySlider);
 
 							if (minIndex != i) {
 								startSwapAnimation(i, minIndex);
@@ -215,10 +219,10 @@ function SortingAlgorithms() {
 								setBarArray([...array]);
 
 								highlightCode(8);
-								await Delay(delayTime);
+								await Delay(DelaySlider);
 
 								highlightCode(9);
-								await Delay(delayTime);
+								await Delay(DelaySlider);
 							}
 
 							document.getElementById(
@@ -228,7 +232,7 @@ function SortingAlgorithms() {
 								"rgb(255,0,0)";
 							minBarIndex = i;
 							highlightCode(10);
-							await Delay(delayTime);
+							await Delay(DelaySlider);
 
 							//changeBarColors(i, "rgb(255,0,0)", "rgb(84, 84, 228)");
 							setTimeout(() => selectionSortHelper(i + 1), 10);
@@ -238,7 +242,7 @@ function SortingAlgorithms() {
 					}
 
 					highlightCode(0);
-					await Delay(delayTime);
+					await Delay(DelaySlider);
 					selectionSortHelper(0);
 				}}
 			></SortAlgoVis>
