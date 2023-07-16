@@ -149,7 +149,6 @@ function SortingAlgorithms() {
 						const bar1 = document.getElementById(`1BarArray${barIndex1}`);
 						const bar2 = document.getElementById(`1BarArray${barIndex2}`);
 
-						// calculate the actual distance between the bars
 						const rect1 = bar1.getBoundingClientRect();
 						const rect2 = bar2.getBoundingClientRect();
 						const distance = Math.abs(rect1.left - rect2.left);
@@ -244,6 +243,259 @@ function SortingAlgorithms() {
 					highlightCode(0);
 					await Delay(DelaySlider);
 					selectionSortHelper(0);
+				}}
+			></SortAlgoVis>
+			<SortAlgoVis
+				VisID={2}
+				Title="HeapSort"
+				Description="Heap Sort Algorithm"
+				codeBlock={`
+function heapify(array, heapSize, i) {
+	let max = i;
+	let left = 2 * i + 1;
+	let right = 2 * i + 2;
+
+	if (left < heapSize && array[left] > array[max]) {
+		max = left;
+	}
+	if (right < heapSize && array[right] > array[max]) {
+		max = right;
+	}
+	if (max !== i) {
+		let temp = array[i];
+		array[i] = array[max];
+		array[max] = temp;
+		heapify(array, heapSize, max);
+	}
+}
+
+for (let i = Math.floor(array.len / 2 - 1); i >= 0; i--) {
+	heapify(array, array.len, i);
+}
+
+for (let i = array.len - 1; i >= 0; i--) {
+	let temp = array[0];
+	array[0] = array[i];
+	array[i] = temp;
+	heapify(array, i, 0);
+}`}
+				Sort={async function heapSort(
+					barArray,
+					setBarArray,
+					highlightCode,
+					DelaySlider
+				) {
+					let array = [...barArray];
+					const arrayLen = array.length;
+
+					function changeBarColors(barIndex, newColor, oldColor) {
+						const currentBar = document.getElementById(`2BarArray${barIndex}`);
+						if (currentBar) currentBar.style.backgroundColor = newColor;
+						const maxBar = document.getElementById(`2BarArray0`);
+						if (maxBar) maxBar.style.backgroundColor = oldColor;
+					}
+
+					async function startSwapAnimation(barIndex1, barIndex2) {
+						const bar1 = document.getElementById(`2BarArray${barIndex1}`);
+						const bar2 = document.getElementById(`2BarArray${barIndex2}`);
+
+						const rect1 = bar1.getBoundingClientRect();
+						const rect2 = bar2.getBoundingClientRect();
+						const distance = Math.abs(rect1.left - rect2.left);
+
+						bar1.style.transitionDuration = "0ms";
+						bar2.style.transitionDuration = "0ms";
+						if (barIndex1 < barIndex2) {
+							bar1.style.transform = `translateX(${distance}px)`;
+							bar2.style.transform = `translateX(-${distance}px)`;
+						} else {
+							bar1.style.transform = `translateX(-${distance}px)`;
+							bar2.style.transform = `translateX(${distance}px)`;
+						}
+						bar1.style.transitionDuration = "0.4s";
+						bar2.style.transitionDuration = "0.4s";
+
+						await Delay(100);
+
+						bar1.style.transform = "";
+						bar2.style.transform = "";
+					}
+
+					async function heapify(heapSize, i) {
+						let max = i;
+						let left = 2 * i + 1;
+						let right = 2 * i + 2;
+
+						if (left < heapSize && array[left] > array[max]) {
+							max = left;
+						}
+
+						if (right < heapSize && array[right] > array[max]) {
+							max = right;
+						}
+
+						if (max !== i) {
+							await startSwapAnimation(i, max);
+							let temp = array[i];
+							array[i] = array[max];
+							array[max] = temp;
+							setBarArray([...array]);
+							await heapify(heapSize, max);
+						}
+					}
+
+					for (let i = Math.floor(arrayLen / 2 - 1); i >= 0; i--) {
+						changeBarColors(i, "rgb(0,255,0)", "rgb(84, 84, 228)");
+						await heapify(arrayLen, i);
+					}
+
+					for (let i = arrayLen - 1; i >= 0; i--) {
+						changeBarColors(i, "rgb(255,0,0)", "rgb(84, 84, 228)");
+						await startSwapAnimation(0, i);
+						let temp = array[0];
+						array[0] = array[i];
+						array[i] = temp;
+						setBarArray([...array]);
+						await heapify(i, 0);
+					}
+
+					console.log("Sorting done.");
+				}}
+			></SortAlgoVis>
+			<SortAlgoVis
+				VisID={3}
+				Title="QuickSort"
+				Description="Quick Sort Algorithm"
+				codeBlock={` function quickSort(array, start, end) {
+ 	if (start < end) {
+ 		let pivotIndex = partition(array, start, end);
+
+ 		quickSort(array, start, pivotIndex - 1);
+ 		quickSort(array, pivotIndex + 1, end);
+ 	}
+ }
+
+ function partition(array, start, end) {
+ 	let pivotValue = array[end];
+ 	let pivotIndex = start;
+ 	
+ 	for (let i = start; i < end; i++) {
+ 		if (array[i] < pivotValue) {
+ 			[array[i], array[pivotIndex]] = [array[pivotIndex], array[i]];
+ 			pivotIndex++;
+ 		}
+ 	}
+
+ 	[array[pivotIndex], array[end]] = [array[end], array[pivotIndex]];
+ 	return pivotIndex;
+ }
+
+ quickSort(array, 0, array.len - 1);`}
+				Sort={async function quickSort(
+					barArray,
+					setBarArray,
+					highlightCode,
+					DelaySlider
+				) {
+					let highlightedBarIndex = 0;
+					const delayTime = 50;
+					const array = [...barArray];
+					const arrayLen = array.length;
+
+					function changeBarColors(barIndex, newColor, oldColor) {
+						const currentBar = document.getElementById(`3BarArray${barIndex}`);
+						const highlightedBar = document.getElementById(
+							`3BarArray${highlightedBarIndex}`
+						);
+
+						currentBar.style.backgroundColor = newColor;
+						highlightedBar.style.backgroundColor = oldColor;
+
+						highlightedBarIndex = barIndex;
+					}
+
+					async function startSwapAnimation(barIndex1, barIndex2) {
+						const bar1 = document.getElementById(`3BarArray${barIndex1}`);
+						const bar2 = document.getElementById(`3BarArray${barIndex2}`);
+
+						const rect1 = bar1.getBoundingClientRect();
+						const rect2 = bar2.getBoundingClientRect();
+						const distance = Math.abs(rect1.left - rect2.left);
+
+						bar1.style.transitionDuration = "0ms";
+						bar2.style.transitionDuration = "0ms";
+						if (barIndex1 < barIndex2) {
+							bar1.style.transform = `translateX(${distance}px)`;
+							bar2.style.transform = `translateX(-${distance}px)`;
+						} else {
+							bar1.style.transform = `translateX(-${distance}px)`;
+							bar2.style.transform = `translateX(${distance}px)`;
+						}
+						bar1.style.transitionDuration = "0.4s";
+						bar2.style.transitionDuration = "0.4s";
+
+						await Delay(100);
+
+						bar1.style.transform = "";
+						bar2.style.transform = "";
+					}
+
+					async function quickSortHelper(start, end) {
+						if (start < end) {
+							let pivotIndex = await partitionHelper(start, end);
+							document.getElementById(
+								`3BarArray${pivotIndex}`
+							).style.backgroundColor = "rgb(200, 200, 0)";
+							//await Delay(DelaySlider);
+							await quickSortHelper(start, pivotIndex - 1);
+							await quickSortHelper(pivotIndex + 1, end);
+							document.getElementById(
+								`3BarArray${pivotIndex}`
+							).style.backgroundColor = "rgb(84, 84, 228)";
+						}
+					}
+
+					async function partitionHelper(start, end) {
+						let pivotValue = array[end];
+						let pivotIndex = start;
+
+						for (let i = start; i < end; i++) {
+							changeBarColors(i, "rgb(0,255,0)", "rgb(84, 84, 228)");
+
+							highlightCode(1);
+							await Delay(DelaySlider);
+
+							if (array[i] < pivotValue) {
+								await startSwapAnimation(i, pivotIndex);
+								await Delay(DelaySlider);
+								[array[i], array[pivotIndex]] = [array[pivotIndex], array[i]];
+								pivotIndex++;
+								setBarArray([...array]);
+
+								highlightCode(2);
+								await Delay(DelaySlider);
+							}
+
+							highlightCode(3);
+							await Delay(DelaySlider);
+						}
+
+						await startSwapAnimation(pivotIndex, end);
+						[array[pivotIndex], array[end]] = [array[end], array[pivotIndex]];
+
+						highlightCode(4);
+						await Delay(DelaySlider);
+
+						setBarArray([...array]);
+						highlightCode(5);
+						await Delay(DelaySlider);
+
+						return pivotIndex;
+					}
+
+					highlightCode(0);
+					await Delay(DelaySlider);
+					quickSortHelper(0, arrayLen - 1);
 				}}
 			></SortAlgoVis>
 		</div>
