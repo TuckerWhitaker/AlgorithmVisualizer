@@ -498,6 +498,111 @@ for (let i = array.len - 1; i >= 0; i--) {
 					quickSortHelper(0, arrayLen - 1);
 				}}
 			></SortAlgoVis>
+			<SortAlgoVis
+				VisID={4}
+				Title="RadixSort"
+				Description={`The Radix Sort algorithm sorts integers by processing individual digits. It exploits the fact that information about the size of a number is encoded in the number of digits. More efficient than comparison sorts, it operates on a per-digit basis, usually from least significant digit (LSD) to most significant digit (MSD).
+
+				In our visualization, the algorithm moves through each digit place, grouping numbers by the value of their digits at that position.
+				
+				Starting from the least significant digit, all the bars are 'binned' according to that digit's value. A bar's color changes to red when it's about to be moved to a new position based on its current digit's value. The bar's color then changes back to its original color once it has been placed at its correct position in that pass.
+				
+				The process repeats, moving to the next more significant digit, until the most significant digit is reached and all bars have been sorted.
+				
+				This means that numbers with the same value for the current digit being looked at will be grouped together. As the algorithm progresses to the next more significant digit, these groups are further divided based on that digit's value.
+				
+				By the end of the sorting process, the bars are fully sorted according to their value. Since each digit is handled separately, the final sorted sequence can be achieved more efficiently than comparison-based algorithms.`}
+				codeBlock={`
+    function getMax(array, n) {
+        let max = array[0];
+        for (let i = 1; i < n; i++)
+            if (array[i] > max)
+                max = array[i];
+        return max;
+    }
+    
+    function countSort(array, n, exp) {
+        let output = new Array(n);
+        let count = new Array(10).fill(0);
+    
+        for (let i = 0; i < n; i++)
+            count[Math.floor(array[i] / exp) % 10]++;
+    
+        for (let i = 1; i < 10; i++)
+            count[i] += count[i - 1];
+    
+        for (let i = n - 1; i >= 0; i--) {
+            output[count[Math.floor(array[i] / exp) % 10] - 1] = array[i];
+            count[Math.floor(array[i] / exp) % 10]--;
+        }
+    
+        for (let i = 0; i < n; i++)
+            array[i] = output[i];
+    }
+    
+    function radixsort(array, n) {
+        let m = getMax(array, n);
+    
+        for (let exp = 1; Math.floor(m / exp) > 0; exp *= 10)
+            countSort(array, n, exp);
+    }
+    
+    radixsort(array, array.length);`}
+				Sort={async function radixSort(
+					barArray,
+					setBarArray,
+					highlightCode,
+					DelaySlider
+				) {
+					const delayTime = 50;
+					const array = [...barArray];
+					const arrayLen = array.length;
+
+					function changeBarColors(barIndex, newColor) {
+						const currentBar = document.getElementById(`4BarArray${barIndex}`);
+						currentBar.style.backgroundColor = newColor;
+					}
+
+					async function countSort(exp) {
+						let output = new Array(arrayLen);
+						let count = new Array(10).fill(0);
+
+						for (let i = 0; i < arrayLen; i++)
+							count[Math.floor(array[i] / exp) % 10]++;
+
+						for (let i = 1; i < 10; i++) count[i] += count[i - 1];
+
+						for (let i = arrayLen - 1; i >= 0; i--) {
+							output[count[Math.floor(array[i] / exp) % 10] - 1] = array[i];
+							count[Math.floor(array[i] / exp) % 10]--;
+						}
+
+						for (let i = 0; i < arrayLen; i++) {
+							if (array[i] !== output[i]) {
+								changeBarColors(i, "rgb(255, 0, 0)");
+								await Delay(DelaySlider);
+								array[i] = output[i];
+								setBarArray([...array]);
+								changeBarColors(i, "rgb(84, 84, 228)");
+							}
+						}
+					}
+
+					function getMax() {
+						let max = array[0];
+						for (let i = 1; i < arrayLen; i++)
+							if (array[i] > max) max = array[i];
+						return max;
+					}
+
+					let m = getMax();
+
+					for (let exp = 1; Math.floor(m / exp) > 0; exp *= 10) {
+						await countSort(exp);
+						await Delay(DelaySlider);
+					}
+				}}
+			></SortAlgoVis>
 		</div>
 	);
 }

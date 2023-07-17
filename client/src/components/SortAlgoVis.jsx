@@ -25,9 +25,27 @@ function SortAlgoVis(props) {
 
 	useEffect(() => {
 		CodeArray = props.codeBlock;
-		for (let i = 0; i < 40; i++) {
-			BarArray.push(Math.floor(Math.random() * 60) + 2);
+		for (let i = 1; i <= 35; i++) {
+			BarArray.push(i);
+			//BarArray.push(Math.floor(Math.random() * 60) + 2);
 		}
+
+		var currentIndex = BarArray.length,
+			temporaryValue,
+			randomIndex;
+
+		// While there remain elements to shuffle...
+		while (0 !== currentIndex) {
+			// Pick a remaining element...
+			randomIndex = Math.floor(Math.random() * currentIndex);
+			currentIndex -= 1;
+
+			// And swap it with the current element.
+			temporaryValue = BarArray[currentIndex];
+			BarArray[currentIndex] = BarArray[randomIndex];
+			BarArray[randomIndex] = temporaryValue;
+		}
+
 		SetBarArray([...BarArray]);
 	}, []);
 
@@ -62,20 +80,17 @@ function SortAlgoVis(props) {
 								{tokens.map((line, i) => {
 									let lineProps = getLineProps({ line, key: i });
 
-									// Check if line number is in the array of highlighted lines
 									if (HighlightedLines.includes(i)) {
-										// Add a custom style or class to the lineProps
 										lineProps.style = {
 											...lineProps.style,
 											backgroundColor: "rgba(173, 216, 230, 0.3)",
-										}; // for example
+										};
 									}
 
 									return (
 										<div key={i} {...lineProps}>
 											<span>{i + 1}</span>
 											{line.map((token, key) => {
-												// Override the text-shadow style in each token
 												let tokenProps = getTokenProps({ token });
 												tokenProps.style = {
 													...tokenProps.style,
@@ -93,11 +108,12 @@ function SortAlgoVis(props) {
 				</div>
 			</div>
 			<button
+				className="SortAlgoVisButton"
 				onClick={() => {
 					props.Sort(BarArray, SetBarArray, highlightCode, DelaySlider);
 				}}
 			>
-				button
+				Sort
 			</button>
 			<input
 				type="range"
