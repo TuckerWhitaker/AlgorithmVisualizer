@@ -512,8 +512,7 @@ for (let i = array.len - 1; i >= 0; i--) {
 				This means that numbers with the same value for the current digit being looked at will be grouped together. As the algorithm progresses to the next more significant digit, these groups are further divided based on that digit's value.
 				
 				By the end of the sorting process, the bars are fully sorted according to their value. Since each digit is handled separately, the final sorted sequence can be achieved more efficiently than comparison-based algorithms.`}
-				codeBlock={`
-    function getMax(array, n) {
+				codeBlock={`	function getMax(array, n) {
         let max = array[0];
         for (let i = 1; i < n; i++)
             if (array[i] > max)

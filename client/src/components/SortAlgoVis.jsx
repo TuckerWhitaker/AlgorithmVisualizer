@@ -2,16 +2,6 @@ import { Highlight, themes } from "prism-react-renderer";
 import Prism from "prismjs";
 import { useEffect, useState } from "react";
 
-const codeBlock = ` for (let i = 0; i < array.len; i++) {
-	 for (let j = 0; j < array.len - i - 1; j++) {
-	 	 if (array[j] > array[j + 1]) {
-			 let temp = array[j];
-			 array[j] = array[j + 1];
-			 array[j + 1] = temp;
-		 }
-	 }
- }`;
-
 let CodeArray = [];
 function SortAlgoVis(props) {
 	const [DelaySlider, SetDelaySlider] = useState(25);
@@ -25,7 +15,7 @@ function SortAlgoVis(props) {
 
 	useEffect(() => {
 		CodeArray = props.codeBlock;
-		for (let i = 1; i <= 35; i++) {
+		for (let i = 1; i <= 41; i++) {
 			BarArray.push(i);
 			//BarArray.push(Math.floor(Math.random() * 60) + 2);
 		}
@@ -34,13 +24,10 @@ function SortAlgoVis(props) {
 			temporaryValue,
 			randomIndex;
 
-		// While there remain elements to shuffle...
 		while (0 !== currentIndex) {
-			// Pick a remaining element...
 			randomIndex = Math.floor(Math.random() * currentIndex);
 			currentIndex -= 1;
 
-			// And swap it with the current element.
 			temporaryValue = BarArray[currentIndex];
 			BarArray[currentIndex] = BarArray[randomIndex];
 			BarArray[randomIndex] = temporaryValue;
