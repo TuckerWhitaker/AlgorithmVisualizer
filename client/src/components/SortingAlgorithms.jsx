@@ -7,6 +7,13 @@ function SortingAlgorithms() {
 
 	return (
 		<div className="SortingAlgorithms">
+			<div className="SortingAlgorithmNavBar">
+				<button className="SortingAlgorithmNavBarButton">Bubble Sort</button>
+				<button className="SortingAlgorithmNavBarButton">Selection Sort</button>
+				<button className="SortingAlgorithmNavBarButton">Heap Sort</button>
+				<button className="SortingAlgorithmNavBarButton">Quick Sort</button>
+				<button className="SortingAlgorithmNavBarButton">Radix Sort</button>
+			</div>
 			<SortAlgoVis
 				VisID={0}
 				Title="BubbleSort"

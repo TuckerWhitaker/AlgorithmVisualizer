@@ -49,6 +49,30 @@
 	align-items: end;
 }
 
+.SortingAlgorithmNavBar {
+	background-color: #33373f;
+	margin-top: 1%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+.SortingAlgorithmNavBarButton {
+	background-color: #ffffff00;
+	border-style: none;
+	color: white;
+	padding: 2%;
+	width: 10vw;
+	font-size: 150%;
+}
+
+.SortingAlgorithmNavBarButton:hover {
+	background-color: #41454e;
+}
+.SortingAlgorithmNavBarButton:active {
+	background-color: #595d67;
+}
+
 .SortAlgoVisCode {
 	font-size: 100%;
 	background-color: #18191b;
