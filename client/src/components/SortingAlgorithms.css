@@ -14,14 +14,16 @@
 	margin: 2%;
 	width: 70%;
 	height: fit-content;
-	background-color: #33373f;
-	display: flex;
+	background-color: #33373f00;
+	display: none;
 	justify-content: space-between;
 	align-items: center;
 	text-align: left;
-	padding: 20px;
+	padding: 5px;
 }
-
+#SortAlgoVis0 {
+	display: flex;
+}
 .SortAlgoVisColumn {
 	display: flex;
 	flex-direction: column;
@@ -36,12 +38,14 @@
 }
 
 .SortAlgoVisDesc {
+	margin: 1%;
 	font-size: 125%;
 	width: 50%;
 	height: 100%;
 }
 
 .SortAlgoVisGraph {
+	margin: 1%;
 	width: 100%;
 	height: 50%;
 	display: flex;
@@ -74,8 +78,8 @@
 }
 
 .SortAlgoVisCode {
+	margin: 1%;
 	font-size: 100%;
-	background-color: #18191b;
 	height: fit-content;
 	width: 50%;
 }
@@ -117,7 +121,6 @@
 	cursor: pointer;
 }
 .SortAlgoSlider {
-	margin-top: 2.5%;
 	width: 50%;
 	height: 15px;
 	-webkit-appearance: none;

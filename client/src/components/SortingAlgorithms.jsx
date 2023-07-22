@@ -1,3 +1,4 @@
+import { useState } from "react";
 import SortAlgoVis from "./SortAlgoVis";
 import "./SortingAlgorithms.css";
 function SortingAlgorithms() {
@@ -5,16 +6,65 @@ function SortingAlgorithms() {
 		return new Promise((resolve) => setTimeout(resolve, time));
 	}
 
+	let DelaySlider = 25;
+
+	//const [DelaySlider, SetDelaySlider] = useState(25);
+
+	let selectedAlgoIndex = 0;
+
+	const SelectAlgo = (Index) => {
+		document.getElementById("SortAlgoVis" + selectedAlgoIndex).style.display =
+			"none";
+		document.getElementById("SortAlgoVis" + Index).style.display = "flex";
+		selectedAlgoIndex = Index;
+	};
+
 	return (
 		<div className="SortingAlgorithms">
 			<div className="SortingAlgorithmNavBar">
-				<button className="SortingAlgorithmNavBarButton">Bubble Sort</button>
-				<button className="SortingAlgorithmNavBarButton">Selection Sort</button>
-				<button className="SortingAlgorithmNavBarButton">Heap Sort</button>
-				<button className="SortingAlgorithmNavBarButton">Quick Sort</button>
-				<button className="SortingAlgorithmNavBarButton">Radix Sort</button>
+				<button
+					className="SortingAlgorithmNavBarButton"
+					onClick={() => {
+						SelectAlgo(0);
+					}}
+				>
+					Bubble Sort
+				</button>
+				<button
+					className="SortingAlgorithmNavBarButton"
+					onClick={() => {
+						SelectAlgo(1);
+					}}
+				>
+					Selection Sort
+				</button>
+				<button
+					className="SortingAlgorithmNavBarButton"
+					onClick={() => {
+						SelectAlgo(2);
+					}}
+				>
+					Heap Sort
+				</button>
+				<button
+					className="SortingAlgorithmNavBarButton"
+					onClick={() => {
+						SelectAlgo(3);
+					}}
+				>
+					Quick Sort
+				</button>
+				<button
+					className="SortingAlgorithmNavBarButton"
+					onClick={() => {
+						SelectAlgo(4);
+					}}
+				>
+					Radix Sort
+				</button>
 			</div>
 			<SortAlgoVis
+				id={"SortAlgoVis" + 0}
 				VisID={0}
 				Title="BubbleSort"
 				Description="Bubble Sort Algorithm"
@@ -27,12 +77,7 @@ function SortingAlgorithms() {
 		}
 	}
  }`}
-				Sort={async function bubbleSort(
-					barArray,
-					setBarArray,
-					highlightCode,
-					DelaySlider
-				) {
+				Sort={async function bubbleSort(barArray, setBarArray, highlightCode) {
 					let highlightedBarIndex = 0;
 
 					const array = [...barArray];
@@ -66,6 +111,7 @@ function SortingAlgorithms() {
 					async function bubbleSortHelper(i, j) {
 						if (i < arrayLen) {
 							highlightCode(1);
+
 							await Delay(DelaySlider);
 							if (j < arrayLen - i - 1) {
 								highlightCode(2);
@@ -114,6 +160,7 @@ function SortingAlgorithms() {
 				}}
 			></SortAlgoVis>
 			<SortAlgoVis
+				id={"SortAlgoVis" + 1}
 				VisID={1}
 				Title="SelectionSort"
 				Description="Selection Sort Algorithm"
@@ -131,8 +178,7 @@ function SortingAlgorithms() {
 				Sort={async function selectionSort(
 					barArray,
 					setBarArray,
-					highlightCode,
-					DelaySlider
+					highlightCode
 				) {
 					let highlightedBarIndex = 0;
 					let minBarIndex = 0;
@@ -253,6 +299,7 @@ function SortingAlgorithms() {
 				}}
 			></SortAlgoVis>
 			<SortAlgoVis
+				id={"SortAlgoVis" + 2}
 				VisID={2}
 				Title="HeapSort"
 				Description="Heap Sort Algorithm"
@@ -286,12 +333,7 @@ for (let i = array.len - 1; i >= 0; i--) {
 	array[i] = temp;
 	heapify(array, i, 0);
 }`}
-				Sort={async function heapSort(
-					barArray,
-					setBarArray,
-					highlightCode,
-					DelaySlider
-				) {
+				Sort={async function heapSort(barArray, setBarArray, highlightCode) {
 					let array = [...barArray];
 					const arrayLen = array.length;
 
@@ -370,6 +412,7 @@ for (let i = array.len - 1; i >= 0; i--) {
 				}}
 			></SortAlgoVis>
 			<SortAlgoVis
+				id={"SortAlgoVis" + 3}
 				VisID={3}
 				Title="QuickSort"
 				Description="Quick Sort Algorithm"
@@ -398,12 +441,7 @@ for (let i = array.len - 1; i >= 0; i--) {
  }
 
  quickSort(array, 0, array.len - 1);`}
-				Sort={async function quickSort(
-					barArray,
-					setBarArray,
-					highlightCode,
-					DelaySlider
-				) {
+				Sort={async function quickSort(barArray, setBarArray, highlightCode) {
 					let highlightedBarIndex = 0;
 					const delayTime = 50;
 					const array = [...barArray];
@@ -506,6 +544,7 @@ for (let i = array.len - 1; i >= 0; i--) {
 				}}
 			></SortAlgoVis>
 			<SortAlgoVis
+				id={"SortAlgoVis" + 4}
 				VisID={4}
 				Title="RadixSort"
 				Description={`The Radix Sort algorithm sorts integers by processing individual digits. It exploits the fact that information about the size of a number is encoded in the number of digits. More efficient than comparison sorts, it operates on a per-digit basis, usually from least significant digit (LSD) to most significant digit (MSD).
@@ -554,12 +593,7 @@ for (let i = array.len - 1; i >= 0; i--) {
     }
     
     radixsort(array, array.length);`}
-				Sort={async function radixSort(
-					barArray,
-					setBarArray,
-					highlightCode,
-					DelaySlider
-				) {
+				Sort={async function radixSort(barArray, setBarArray, highlightCode) {
 					const delayTime = 50;
 					const array = [...barArray];
 					const arrayLen = array.length;
@@ -609,6 +643,18 @@ for (let i = array.len - 1; i >= 0; i--) {
 					}
 				}}
 			></SortAlgoVis>
+			<div id="DelaySliderNum">{DelaySlider}</div>
+			<input
+				type="range"
+				min="0"
+				max="300"
+				className="SortAlgoSlider"
+				onChange={(e) => {
+					DelaySlider = e.target.value;
+					document.getElementById("DelaySliderNum").innerHTML = e.target.value;
+					//SetDelaySlider(e.target.value);
+				}}
+			></input>
 		</div>
 	);
 }

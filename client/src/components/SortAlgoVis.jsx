@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 
 let CodeArray = [];
 function SortAlgoVis(props) {
-	const [DelaySlider, SetDelaySlider] = useState(25);
 	const [HighlightedLines, SetHighlightedLines] = useState([]);
 
 	function highlightCode(i) {
@@ -37,7 +36,7 @@ function SortAlgoVis(props) {
 	}, []);
 
 	return (
-		<div className="SortAlgoVis">
+		<div className="SortAlgoVis" id={props.id}>
 			<div className="SortAlgoVisTitle">{props.Title}</div>
 			<div className="SortAlgoVisDescTop">{props.Description}</div>
 			<div className="SortAlgoVisGraph">
@@ -97,20 +96,11 @@ function SortAlgoVis(props) {
 			<button
 				className="SortAlgoVisButton"
 				onClick={() => {
-					props.Sort(BarArray, SetBarArray, highlightCode, DelaySlider);
+					props.Sort(BarArray, SetBarArray, highlightCode);
 				}}
 			>
 				Sort
 			</button>
-			<input
-				type="range"
-				min="1"
-				max="100"
-				className="SortAlgoSlider"
-				onChange={(e) => {
-					SetDelaySlider(e.target.value);
-				}}
-			></input>
 		</div>
 	);
 }
