@@ -53,6 +53,25 @@ function SortAlgoVis(props) {
 					);
 				})}
 			</div>
+			<input
+				type="range"
+				min="0"
+				max="300"
+				className="SortAlgoSlider"
+				onChange={(e) => {
+					//DelaySlider = e.target.value;
+					document.getElementById("DelaySliderNum").innerHTML = e.target.value;
+					//SetDelaySlider(e.target.value);
+				}}
+			></input>
+			<button
+				className="SortAlgoVisButton"
+				onClick={() => {
+					props.Sort(BarArray, SetBarArray, highlightCode);
+				}}
+			>
+				Sort
+			</button>
 			<div className="SortAlgoVisBottomHalf">
 				<div className="SortAlgoVisDesc">{props.Description}</div>
 				<div className="SortAlgoVisCode">
@@ -93,14 +112,6 @@ function SortAlgoVis(props) {
 					</Highlight>
 				</div>
 			</div>
-			<button
-				className="SortAlgoVisButton"
-				onClick={() => {
-					props.Sort(BarArray, SetBarArray, highlightCode);
-				}}
-			>
-				Sort
-			</button>
 		</div>
 	);
 }

@@ -121,6 +121,7 @@
 	cursor: pointer;
 }
 .SortAlgoSlider {
+	margin: 1.5%;
 	width: 50%;
 	height: 15px;
 	-webkit-appearance: none;
@@ -133,6 +134,10 @@
 
 .SortAlgoSlider:hover {
 	opacity: 1;
+}
+#DelaySliderNum {
+	color: transparent;
+	font-size: 0px;
 }
 
 .SortAlgoSlider::-webkit-slider-thumb {
@@ -163,7 +168,6 @@
 }
 
 .SortAlgoVisButton {
-	margin: 1%;
 	font-size: 150%;
 }
 
