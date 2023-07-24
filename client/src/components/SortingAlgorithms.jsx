@@ -6,10 +6,7 @@ function SortingAlgorithms() {
 		return new Promise((resolve) => setTimeout(resolve, time));
 	}
 
-	function GetDelay() {
-		return document.getElementById("DelaySliderNum").innerHTML;
-	}
-
+	let DelayTime = 25;
 	let DelaySlider = 25;
 
 	//const [DelaySlider, SetDelaySlider] = useState(25);
@@ -70,6 +67,10 @@ function SortingAlgorithms() {
 			<div id="DelaySliderNum">{DelaySlider}</div>
 
 			<SortAlgoVis
+				SetDelay={(d) => {
+					DelayTime = d;
+					document.getElementById("DelaySliderNum").innerHTML = d;
+				}}
 				id={"SortAlgoVis" + 0}
 				VisID={0}
 				Title="BubbleSort"
@@ -118,20 +119,20 @@ function SortingAlgorithms() {
 						if (i < arrayLen) {
 							highlightCode(1);
 
-							await Delay(GetDelay());
+							await Delay(DelayTime);
 							if (j < arrayLen - i - 1) {
 								highlightCode(2);
-								await Delay(GetDelay());
+								await Delay(DelayTime);
 								if (array[j] > array[j + 1]) {
 									highlightCode(3);
-									await Delay(GetDelay());
+									await Delay(DelayTime);
 									highlightCode(4);
-									await Delay(GetDelay());
+									await Delay(DelayTime);
 									highlightCode(5);
-									await Delay(GetDelay());
+									await Delay(DelayTime);
 
 									changeBarColors(j, "rgb(255,0,0)", "rgb(84, 84, 228)");
-									await Delay(GetDelay());
+									await Delay(DelayTime);
 
 									await startSwapAnimation(j);
 
@@ -143,29 +144,33 @@ function SortingAlgorithms() {
 								highlightCode(6);
 								setTimeout(() => bubbleSortHelper(i, j + 1), 10);
 								highlightCode(7);
-								await Delay(GetDelay());
+								await Delay(DelayTime);
 							} else {
 								highlightCode(7);
-								await Delay(GetDelay());
+								await Delay(DelayTime);
 								highlightCode(8);
-								await Delay(GetDelay());
+								await Delay(DelayTime);
 
 								changeBarColors(j, "rgb(255,0,0)", "rgb(84, 84, 228)");
 								setTimeout(() => bubbleSortHelper(i + 1, 0), 10);
 							}
 						} else {
 							highlightCode(9);
-							await Delay(GetDelay());
+							await Delay(DelayTime);
 							console.log("Sorting done.", array);
 						}
 					}
 
 					highlightCode(0);
-					await Delay(GetDelay());
+					await Delay(DelayTime);
 					bubbleSortHelper(0, 0);
 				}}
 			></SortAlgoVis>
 			<SortAlgoVis
+				SetDelay={(d) => {
+					DelayTime = d;
+					document.getElementById("DelaySliderNum").innerHTML = d;
+				}}
 				id={"SortAlgoVis" + 1}
 				VisID={1}
 				Title="SelectionSort"
@@ -233,7 +238,8 @@ function SortingAlgorithms() {
 					async function selectionSortHelper(i) {
 						if (i < arrayLen) {
 							highlightCode(1);
-							await Delay(GetDelay());
+							await Delay(DelayTime);
+
 							let BarMinIndex = 1;
 							let minIndex = i;
 
@@ -243,9 +249,9 @@ function SortingAlgorithms() {
 									`1BarArray${minIndex}`
 								).style.backgroundColor = "rgb(200, 200, 0)";
 								highlightCode(2);
-								await Delay(GetDelay());
+								await Delay(DelayTime);
 								highlightCode(3);
-								await Delay(GetDelay());
+								await Delay(DelayTime);
 
 								if (array[j] < array[minIndex]) {
 									document.getElementById(
@@ -254,18 +260,18 @@ function SortingAlgorithms() {
 									minIndex = j;
 
 									highlightCode(4);
-									await Delay(GetDelay());
+									await Delay(DelayTime);
 								}
 
 								highlightCode(5);
-								await Delay(GetDelay());
+								await Delay(DelayTime);
 							}
 							document.getElementById(
 								`1BarArray${minIndex}`
 							).style.backgroundColor = "rgb(84, 84, 228)";
 
 							highlightCode(6);
-							await Delay(GetDelay());
+							await Delay(DelayTime);
 
 							if (minIndex != i) {
 								startSwapAnimation(i, minIndex);
@@ -277,10 +283,10 @@ function SortingAlgorithms() {
 								setBarArray([...array]);
 
 								highlightCode(8);
-								await Delay(GetDelay());
+								await Delay(DelayTime);
 
 								highlightCode(9);
-								await Delay(GetDelay());
+								await Delay(DelayTime);
 							}
 
 							document.getElementById(
@@ -290,7 +296,7 @@ function SortingAlgorithms() {
 								"rgb(255,0,0)";
 							minBarIndex = i;
 							highlightCode(10);
-							await Delay(GetDelay());
+							await Delay(DelayTime);
 
 							//changeBarColors(i, "rgb(255,0,0)", "rgb(84, 84, 228)");
 							setTimeout(() => selectionSortHelper(i + 1), 10);
@@ -300,11 +306,15 @@ function SortingAlgorithms() {
 					}
 
 					highlightCode(0);
-					await Delay(GetDelay());
+					await Delay(DelayTime);
 					selectionSortHelper(0);
 				}}
 			></SortAlgoVis>
 			<SortAlgoVis
+				SetDelay={(d) => {
+					DelayTime = d;
+					document.getElementById("DelaySliderNum").innerHTML = d;
+				}}
 				id={"SortAlgoVis" + 2}
 				VisID={2}
 				Title="HeapSort"
@@ -418,6 +428,10 @@ for (let i = array.len - 1; i >= 0; i--) {
 				}}
 			></SortAlgoVis>
 			<SortAlgoVis
+				SetDelay={(d) => {
+					DelayTime = d;
+					document.getElementById("DelaySliderNum").innerHTML = d;
+				}}
 				id={"SortAlgoVis" + 3}
 				VisID={3}
 				Title="QuickSort"
@@ -497,7 +511,7 @@ for (let i = array.len - 1; i >= 0; i--) {
 							document.getElementById(
 								`3BarArray${pivotIndex}`
 							).style.backgroundColor = "rgb(200, 200, 0)";
-							//await Delay(GetDelay());
+							//await Delay(DelayTime);
 							await quickSortHelper(start, pivotIndex - 1);
 							await quickSortHelper(pivotIndex + 1, end);
 							document.getElementById(
@@ -514,42 +528,46 @@ for (let i = array.len - 1; i >= 0; i--) {
 							changeBarColors(i, "rgb(0,255,0)", "rgb(84, 84, 228)");
 
 							highlightCode(1);
-							await Delay(GetDelay());
+							await Delay(DelayTime);
 
 							if (array[i] < pivotValue) {
 								await startSwapAnimation(i, pivotIndex);
-								await Delay(GetDelay());
+								await Delay(DelayTime);
 								[array[i], array[pivotIndex]] = [array[pivotIndex], array[i]];
 								pivotIndex++;
 								setBarArray([...array]);
 
 								highlightCode(2);
-								await Delay(GetDelay());
+								await Delay(DelayTime);
 							}
 
 							highlightCode(3);
-							await Delay(GetDelay());
+							await Delay(DelayTime);
 						}
 
 						await startSwapAnimation(pivotIndex, end);
 						[array[pivotIndex], array[end]] = [array[end], array[pivotIndex]];
 
 						highlightCode(4);
-						await Delay(GetDelay());
+						await Delay(DelayTime);
 
 						setBarArray([...array]);
 						highlightCode(5);
-						await Delay(GetDelay());
+						await Delay(DelayTime);
 
 						return pivotIndex;
 					}
 
 					highlightCode(0);
-					await Delay(GetDelay());
+					await Delay(DelayTime);
 					quickSortHelper(0, arrayLen - 1);
 				}}
 			></SortAlgoVis>
 			<SortAlgoVis
+				SetDelay={(d) => {
+					DelayTime = d;
+					document.getElementById("DelaySliderNum").innerHTML = d;
+				}}
 				id={"SortAlgoVis" + 4}
 				VisID={4}
 				Title="RadixSort"
@@ -626,7 +644,7 @@ for (let i = array.len - 1; i >= 0; i--) {
 						for (let i = 0; i < arrayLen; i++) {
 							if (array[i] !== output[i]) {
 								changeBarColors(i, "rgb(255, 0, 0)");
-								await Delay(GetDelay());
+								await Delay(DelayTime);
 								array[i] = output[i];
 								setBarArray([...array]);
 								changeBarColors(i, "rgb(84, 84, 228)");
@@ -645,7 +663,7 @@ for (let i = array.len - 1; i >= 0; i--) {
 
 					for (let exp = 1; Math.floor(m / exp) > 0; exp *= 10) {
 						await countSort(exp);
-						await Delay(GetDelay());
+						await Delay(DelayTime);
 					}
 				}}
 			></SortAlgoVis>

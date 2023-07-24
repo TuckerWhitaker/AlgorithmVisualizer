@@ -59,9 +59,7 @@ function SortAlgoVis(props) {
 				max="300"
 				className="SortAlgoSlider"
 				onChange={(e) => {
-					//DelaySlider = e.target.value;
-					document.getElementById("DelaySliderNum").innerHTML = e.target.value;
-					//SetDelaySlider(e.target.value);
+					props.SetDelay(e.target.value);
 				}}
 			></input>
 			<button
