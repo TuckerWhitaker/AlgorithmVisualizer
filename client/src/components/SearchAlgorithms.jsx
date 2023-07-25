@@ -1,6 +1,13 @@
 import "./SearchAlgorithms.css";
 import SearchVis from "./SearchVis";
+let selectedAlgoIndex = 0;
 
+const SelectAlgo = (Index) => {
+	document.getElementById("SearchAlgoVis" + selectedAlgoIndex).style.display =
+		"none";
+	document.getElementById("SearchAlgoVis" + Index).style.display = "flex";
+	selectedAlgoIndex = Index;
+};
 const CodeBlocks = [
 	` let left = 0;
  let right = array.length - 1;
@@ -50,8 +57,34 @@ const CodeBlocks = [
 function SearchAlgorithms() {
 	return (
 		<div className="SearchAlgorithms">
-			<div className="SearchAlgorithmsTitle">Search Algorithms</div>
+			<div className="SortingAlgorithmNavBar">
+				<button
+					className="SortingAlgorithmNavBarButton"
+					onClick={() => {
+						SelectAlgo(0);
+					}}
+				>
+					Linear Search
+				</button>
+				<button
+					className="SortingAlgorithmNavBarButton"
+					onClick={() => {
+						SelectAlgo(1);
+					}}
+				>
+					Binary Search
+				</button>
+				<button
+					className="SortingAlgorithmNavBarButton"
+					onClick={() => {
+						SelectAlgo(2);
+					}}
+				>
+					Interpolation Search
+				</button>
+			</div>
 			<SearchVis
+				id={"SearchAlgoVis" + 0}
 				VisID={0}
 				codeBlock={CodeBlocks[0]}
 				SearchFunction={async function LinearSearch(
@@ -120,6 +153,7 @@ function SearchAlgorithms() {
 				Description="The Linear Search sequentially checks each element of the list until a match is found or the whole list has been searched"
 			></SearchVis>
 			<SearchVis
+				id={"SearchAlgoVis" + 1}
 				codeBlock={CodeBlocks[1]}
 				VisID={1}
 				SearchFunction={async function BinarySearch(
@@ -287,6 +321,7 @@ function SearchAlgorithms() {
 				"
 			></SearchVis>
 			<SearchVis
+				id={"SearchAlgoVis" + 2}
 				codeBlock={CodeBlocks[2]}
 				VisID={2}
 				SearchFunction={async function InterpolationSearch(

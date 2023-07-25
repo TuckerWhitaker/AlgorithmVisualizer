@@ -75,7 +75,7 @@ function SearchVis(props) {
 	}
 
 	return (
-		<div className="SearchVis">
+		<div className="SearchVis" id={props.id}>
 			<div className="SearchVisTitle">{props.Title}</div>
 			<div className="SearchVisNumberParent">
 				{array.map((info, index) => {
