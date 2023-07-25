@@ -5,17 +5,20 @@
 	justify-content: center;
 	overflow-x: hidden;
 	width: 100vw;
-	height: 300vh;
+	height: fit-content;
+	min-height: 100vh;
 	background-color: #282c34;
 	text-align: left;
 	color: white;
 }
-
-.PathFindVis {
+#PathFindVis0 {
 	display: flex;
+}
+.PathFindVis {
+	display: none;
 	justify-content: center;
 	flex-direction: column;
-	margin: 3%;
+	margin: 1%;
 	width: 80%;
 	height: 70%;
 	background-color: #33373f;

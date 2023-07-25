@@ -163,7 +163,7 @@ function PathFindVis(props) {
 	};
 
 	return (
-		<div className="PathFindVis">
+		<div className="PathFindVis" id={props.id}>
 			<div className="PathFindVisTitle">{props.Title}</div>
 			<div className="PathFindVisColumnParent">
 				<div className="PathFindVisColumn">

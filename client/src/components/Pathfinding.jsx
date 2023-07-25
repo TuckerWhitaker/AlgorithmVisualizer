@@ -1,9 +1,46 @@
 import "./Pathfinding.css";
 import PathFindVis from "./PathFindVis";
+
+let selectedAlgoIndex = 0;
+
+const SelectAlgo = (Index) => {
+	document.getElementById("PathFindVis" + selectedAlgoIndex).style.display =
+		"none";
+	document.getElementById("PathFindVis" + Index).style.display = "flex";
+	selectedAlgoIndex = Index;
+};
+
 function Pathfinding() {
 	return (
 		<div className="Pathfinding">
+			<div className="SortingAlgorithmNavBar">
+				<button
+					className="SortingAlgorithmNavBarButton"
+					onClick={() => {
+						SelectAlgo(0);
+					}}
+				>
+					Depth First Search
+				</button>
+				<button
+					className="SortingAlgorithmNavBarButton"
+					onClick={() => {
+						SelectAlgo(1);
+					}}
+				>
+					Bredth First Search
+				</button>
+				<button
+					className="SortingAlgorithmNavBarButton"
+					onClick={() => {
+						SelectAlgo(2);
+					}}
+				>
+					A* Pathfinding
+				</button>
+			</div>
 			<PathFindVis
+				id={"PathFindVis" + 0}
 				PathFindVisID={0}
 				Title="Depth First Search"
 				Solve={async (grid, Delay, End) => {
@@ -103,6 +140,7 @@ function Pathfinding() {
 				}}
 			></PathFindVis>
 			<PathFindVis
+				id={"PathFindVis" + 1}
 				PathFindVisID={1}
 				Title="Bredth First Search"
 				Solve={async (grid, Delay, End) => {
@@ -207,6 +245,7 @@ function Pathfinding() {
 				}}
 			></PathFindVis>
 			<PathFindVis
+				id={"PathFindVis" + 2}
 				PathFindVisID={2}
 				Title="A* Pathfinding"
 				Solve={async function solve(grid, Delay, End) {
