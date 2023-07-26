@@ -91,6 +91,33 @@ function SearchVis(props) {
 					);
 				})}
 			</div>
+			<input
+				type="range"
+				min="0"
+				max="300"
+				className="SortAlgoSlider"
+				onChange={(e) => {
+					props.SetDelay(e.target.value);
+				}}
+			></input>
+
+			<button
+				className="SearchAlgoVisButton"
+				onClick={() => {
+					props.SearchFunction(
+						array,
+						Delay,
+						delay,
+						HighLightCode,
+						HighLightNumber,
+						GrayOutNumber,
+						Target
+					);
+				}}
+			>
+				Search
+			</button>
+
 			<div className="SearchVisInfo">
 				<div className="SearchVisInfoHalf">{props.Description}</div>
 
@@ -133,21 +160,6 @@ function SearchVis(props) {
 					</Highlight>
 				</div>
 			</div>
-			<button
-				onClick={() => {
-					props.SearchFunction(
-						array,
-						Delay,
-						delay,
-						HighLightCode,
-						HighLightNumber,
-						GrayOutNumber,
-						Target
-					);
-				}}
-			>
-				Search
-			</button>
 		</div>
 	);
 }

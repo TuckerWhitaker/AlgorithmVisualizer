@@ -2,6 +2,7 @@ import "./SearchAlgorithms.css";
 import SearchVis from "./SearchVis";
 let selectedAlgoIndex = 0;
 
+let DelayTime = 25;
 const SelectAlgo = (Index) => {
 	document.getElementById("SearchAlgoVis" + selectedAlgoIndex).style.display =
 		"none";
@@ -84,6 +85,10 @@ function SearchAlgorithms() {
 				</button>
 			</div>
 			<SearchVis
+				SetDelay={(d) => {
+					DelayTime = d;
+					document.getElementById("DelaySliderNum").innerHTML = d;
+				}}
 				id={"SearchAlgoVis" + 0}
 				VisID={0}
 				codeBlock={CodeBlocks[0]}
@@ -102,11 +107,11 @@ function SearchAlgorithms() {
 						}
 						HighLightNumber(i);
 
-						await Delay(delay);
+						await Delay(DelayTime);
 
 						HighLightCode(1);
 
-						await Delay(delay);
+						await Delay(DelayTime);
 
 						if (array[i] == 36) {
 							HighLightCode(2);
@@ -114,7 +119,7 @@ function SearchAlgorithms() {
 						}
 						HighLightCode(4);
 
-						await Delay(delay);
+						await Delay(DelayTime);
 					}
 				}}
 				Id={0}
@@ -153,6 +158,10 @@ function SearchAlgorithms() {
 				Description="The Linear Search sequentially checks each element of the list until a match is found or the whole list has been searched"
 			></SearchVis>
 			<SearchVis
+				SetDelay={(d) => {
+					DelayTime = d;
+					document.getElementById("DelaySliderNum").innerHTML = d;
+				}}
 				id={"SearchAlgoVis" + 1}
 				codeBlock={CodeBlocks[1]}
 				VisID={1}
@@ -169,22 +178,22 @@ function SearchAlgorithms() {
 					let right = array.length - 1;
 
 					HighLightCode(0);
-					await Delay(delay / 2);
+					await Delay(DelayTime / 2);
 					HighLightCode(1);
-					await Delay(delay / 2);
+					await Delay(DelayTime / 2);
 
 					while (left <= right) {
 						HighLightCode(2);
-						await Delay(delay);
+						await Delay(DelayTime);
 						const mid = Math.floor((left + right) / 2);
 						HighLightCode(3);
-						await Delay(delay);
+						await Delay(DelayTime);
 						HighLightNumber(mid);
 						HighLightCode(4);
-						await Delay(delay);
+						await Delay(DelayTime);
 						if (array[mid] === Target) {
 							HighLightCode(5);
-							await Delay(delay);
+							await Delay(DelayTime);
 							for (let i = 0; i < mid; i++) {
 								GrayOutNumber(i);
 							}
@@ -194,35 +203,35 @@ function SearchAlgorithms() {
 							return mid;
 						}
 						HighLightCode(6);
-						await Delay(delay);
+						await Delay(DelayTime);
 						HighLightCode(7);
-						await Delay(delay);
+						await Delay(DelayTime);
 						if (array[mid] < Target) {
 							HighLightCode(8);
-							await Delay(delay);
+							await Delay(DelayTime);
 							for (let i = 0; i < mid; i++) {
 								GrayOutNumber(i);
 							}
 
 							left = mid + 1;
 							HighLightCode(9);
-							await Delay(delay);
+							await Delay(DelayTime);
 						} else {
 							HighLightCode(9);
-							await Delay(delay);
+							await Delay(DelayTime);
 							HighLightCode(10);
-							await Delay(delay);
+							await Delay(DelayTime);
 							HighLightCode(11);
-							await Delay(delay);
+							await Delay(DelayTime);
 							for (let i = mid + 1; i < array.length; i++) {
 								GrayOutNumber(i);
 							}
 							right = mid - 1;
 							HighLightCode(12);
-							await Delay(delay);
+							await Delay(DelayTime);
 						}
 						HighLightCode(13);
-						await Delay(delay);
+						await Delay(DelayTime);
 					}
 				}}
 				Id={0}
@@ -321,6 +330,10 @@ function SearchAlgorithms() {
 				"
 			></SearchVis>
 			<SearchVis
+				SetDelay={(d) => {
+					DelayTime = d;
+					document.getElementById("DelaySliderNum").innerHTML = d;
+				}}
 				id={"SearchAlgoVis" + 2}
 				codeBlock={CodeBlocks[2]}
 				VisID={2}
@@ -337,11 +350,11 @@ function SearchAlgorithms() {
 					let end = array.length - 1;
 
 					HighLightCode(0);
-					await Delay(delay / 2);
+					await Delay(DelayTime / 2);
 					HighLightCode(1);
-					await Delay(delay / 2);
+					await Delay(DelayTime / 2);
 					HighLightCode(2);
-					await Delay(delay);
+					await Delay(DelayTime);
 
 					while (
 						start <= end &&
@@ -349,20 +362,20 @@ function SearchAlgorithms() {
 						Target <= array[end]
 					) {
 						HighLightCode(3);
-						await Delay(delay);
+						await Delay(DelayTime);
 
 						if (start === end) {
 							HighLightCode(4);
-							await Delay(delay);
+							await Delay(DelayTime);
 
 							if (array[start] === Target) {
 								HighLightCode(5);
-								await Delay(delay);
+								await Delay(DelayTime);
 								return start;
 							}
 
 							HighLightCode(6);
-							await Delay(delay);
+							await Delay(DelayTime);
 							return -1;
 						}
 
@@ -372,14 +385,14 @@ function SearchAlgorithms() {
 								(array[end] - array[start]);
 						pos = Math.floor(pos);
 						HighLightCode(7);
-						await Delay(delay);
+						await Delay(DelayTime);
 						HighLightNumber(pos);
 
 						console.log(pos);
 
 						if (array[pos] === Target) {
 							HighLightCode(8);
-							await Delay(delay);
+							await Delay(DelayTime);
 
 							for (let i = 0; i < pos; i++) {
 								GrayOutNumber(i);
@@ -389,13 +402,13 @@ function SearchAlgorithms() {
 								GrayOutNumber(i);
 							}
 							HighLightCode(9);
-							await Delay(delay);
+							await Delay(DelayTime);
 							return pos;
 						}
 
 						if (array[pos] < Target) {
 							HighLightCode(10);
-							await Delay(delay);
+							await Delay(DelayTime);
 
 							for (let i = 0; i < pos; i++) {
 								GrayOutNumber(i);
@@ -403,17 +416,17 @@ function SearchAlgorithms() {
 
 							start = pos + 1;
 							HighLightCode(11);
-							await Delay(delay);
+							await Delay(DelayTime);
 						} else {
 							HighLightCode(12);
-							await Delay(delay);
+							await Delay(DelayTime);
 							end = pos - 1;
 						}
 						HighLightCode(13);
-						await Delay(delay);
+						await Delay(DelayTime);
 					}
 					HighLightCode(14);
-					await Delay(delay);
+					await Delay(DelayTime);
 				}}
 				Id={0}
 				Title="Interpolation Search"

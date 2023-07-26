@@ -180,6 +180,16 @@ function PathFindVis(props) {
 					<div className="PathFindVisCode "></div>
 				</div>
 			</div>
+			<input
+				id="PathFindSlider"
+				type="range"
+				min="0"
+				max="300"
+				className="SortAlgoSlider"
+				onChange={(e) => {
+					props.SetDelay(e.target.value);
+				}}
+			></input>
 			<button
 				onClick={() => {
 					GenerateMaze();

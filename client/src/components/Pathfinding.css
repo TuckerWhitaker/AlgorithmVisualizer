@@ -46,7 +46,7 @@
 
 .PathFindVisGrid {
 	background-color: white;
-	width: 100%;
+	width: 90%;
 	height: fit-content;
 }
 
@@ -63,6 +63,10 @@
 .PathFindVisCanvas {
 	height: 100%;
 	width: 100%;
+}
+
+#PathFindSlider {
+	align-self: center;
 }
 
 @media (max-width: 500px) {

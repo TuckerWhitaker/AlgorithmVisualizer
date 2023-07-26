@@ -2,7 +2,7 @@ import "./Pathfinding.css";
 import PathFindVis from "./PathFindVis";
 
 let selectedAlgoIndex = 0;
-
+let DelayTime = 25;
 const SelectAlgo = (Index) => {
 	document.getElementById("PathFindVis" + selectedAlgoIndex).style.display =
 		"none";
@@ -40,6 +40,10 @@ function Pathfinding() {
 				</button>
 			</div>
 			<PathFindVis
+				SetDelay={(d) => {
+					DelayTime = d;
+					document.getElementById("DelaySliderNum").innerHTML = d;
+				}}
 				id={"PathFindVis" + 0}
 				PathFindVisID={0}
 				Title="Depth First Search"
@@ -61,7 +65,7 @@ function Pathfinding() {
 						let neighbors = [];
 
 						let index = grid.indexOf(currentCell);
-						await Delay(25);
+						await Delay(DelayTime);
 
 						ctx.fillStyle = "#DDDDFF";
 						ctx.fillRect(
@@ -120,7 +124,7 @@ function Pathfinding() {
 
 					stack.pop();
 					for (let s = 0; s < stack.length; s++) {
-						await Delay(10);
+						await Delay(DelayTime);
 
 						ctx.beginPath();
 						ctx.moveTo(
@@ -140,6 +144,10 @@ function Pathfinding() {
 				}}
 			></PathFindVis>
 			<PathFindVis
+				SetDelay={(d) => {
+					DelayTime = d;
+					document.getElementById("DelaySliderNum").innerHTML = d;
+				}}
 				id={"PathFindVis" + 1}
 				PathFindVisID={1}
 				Title="Bredth First Search"
@@ -161,7 +169,7 @@ function Pathfinding() {
 						let neighbors = [];
 
 						let index = grid.indexOf(currentCell);
-						await Delay(25);
+						await Delay(DelayTime);
 
 						ctx.fillStyle = "#DDDDFF";
 						ctx.fillRect(
@@ -225,7 +233,7 @@ function Pathfinding() {
 					let LastCellOrigin = grid[End.Index].index;
 					let CurrentCellOrigin = grid[End.Index].origin;
 					while (CurrentCellOrigin != null) {
-						await Delay(50);
+						await Delay(DelayTime);
 						ctx.beginPath();
 						ctx.moveTo(
 							(LastCellOrigin % 30) * 10 + 15,
@@ -245,6 +253,10 @@ function Pathfinding() {
 				}}
 			></PathFindVis>
 			<PathFindVis
+				SetDelay={(d) => {
+					DelayTime = d;
+					document.getElementById("DelaySliderNum").innerHTML = d;
+				}}
 				id={"PathFindVis" + 2}
 				PathFindVisID={2}
 				Title="A* Pathfinding"
@@ -332,7 +344,7 @@ function Pathfinding() {
 							let CurrentIndex = 0;
 							ctx.strokeStyle = "#FF0000";
 							for (let i = 0; i < Path.length; i++) {
-								await Delay(50);
+								await Delay(DelayTime);
 								ctx.beginPath();
 								ctx.moveTo(
 									(LastIndex % 30) * 10 + 15,
@@ -349,7 +361,7 @@ function Pathfinding() {
 							}
 							return reconstructPath(current);
 						}
-						await Delay(50);
+						await Delay(DelayTime);
 
 						ctx.fillStyle =
 							"rgb(" + 255 + "," + 255 + "," + current.f / 2 + ")";

@@ -12,6 +12,9 @@
 #SearchAlgoVis0 {
 	display: flex;
 }
+.SearchAlgoVisButton {
+	font-size: 60%;
+}
 
 .SearchVisNumberParent {
 	display: flex;
