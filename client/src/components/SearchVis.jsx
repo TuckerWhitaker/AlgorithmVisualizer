@@ -22,6 +22,10 @@ function Delay(time) {
 let CodeArray = [];
 
 function SearchVis(props) {
+	const [BtnDisabled, SetBtnDisabled] = useState(0);
+	function SetBtnDis(bool) {
+		SetBtnDisabled(bool);
+	}
 	const [HighlightedLines, SetHighlightedLines] = useState([]);
 
 	useEffect(() => {
@@ -34,7 +38,6 @@ function SearchVis(props) {
 
 	if (props.simplified) {
 		CodeArray = props.SimplifiedCodeArray;
-		console.log("Simplified Code Array");
 	}
 
 	const [, updateState] = React.useState();
@@ -48,20 +51,23 @@ function SearchVis(props) {
 	}
 
 	async function GrayOutNumber(number) {
-		document.getElementById(props.VisID + "SearchVisNum" + number).style.color =
-			"rgba(100,100,100,1)";
-		await Delay(500);
-		document.getElementById(props.VisID + "SearchVisNum" + number).innerHTML =
-			"";
-		document
-			.getElementById(props.VisID + "SearchVisNum" + number)
-			.classList.add("SearchVisNumberOut");
+		let Number = document.getElementById(props.VisID + "SearchVisNum" + number);
+		if (Number) {
+			document.getElementById(
+				props.VisID + "SearchVisNum" + number
+			).style.color = "rgba(100,100,100,1)";
+			await Delay(500);
+			Number.innerHTML = "";
+			document
+				.getElementById(props.VisID + "SearchVisNum" + number)
+				.classList.add("SearchVisNumberOut");
 
-		document.getElementById(props.VisID + "SearchVisNum" + number).style.color =
-			"rgba(100,100,100,0)";
+			Number.style.color = "rgba(100,100,100,0)";
 
-		await Delay(500);
-		document.getElementById(props.VisID + "SearchVisNum" + number).remove();
+			await Delay(500);
+
+			Number.remove();
+		}
 	}
 
 	function HighLightNumber(newHighlight) {
@@ -102,6 +108,8 @@ function SearchVis(props) {
 			></input>
 
 			<button
+				id={"SearchAlgoVisButton" + props.id}
+				disabled={BtnDisabled}
 				className="SearchAlgoVisButton"
 				onClick={() => {
 					props.SearchFunction(
@@ -111,8 +119,11 @@ function SearchVis(props) {
 						HighLightCode,
 						HighLightNumber,
 						GrayOutNumber,
-						Target
+						Target,
+						SetBtnDis
 					);
+
+					SetBtnDis(true);
 				}}
 			>
 				Search

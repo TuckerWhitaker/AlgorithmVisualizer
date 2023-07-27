@@ -87,7 +87,6 @@ function SearchAlgorithms() {
 			<SearchVis
 				SetDelay={(d) => {
 					DelayTime = d;
-					document.getElementById("DelaySliderNum").innerHTML = d;
 				}}
 				id={"SearchAlgoVis" + 0}
 				VisID={0}
@@ -98,7 +97,9 @@ function SearchAlgorithms() {
 					delay,
 					HighLightCode,
 					HighLightNumber,
-					GrayOutNumber
+					GrayOutNumber,
+					Target,
+					SetBtnDis
 				) {
 					for (let i = 0; i < array.length; i++) {
 						HighLightCode(0);
@@ -113,8 +114,16 @@ function SearchAlgorithms() {
 
 						await Delay(DelayTime);
 
-						if (array[i] == 36) {
+						if (array[i] == Target) {
 							HighLightCode(2);
+
+							for (let j = array.length; j > i; j--) {
+								await Delay(DelayTime / 2);
+								GrayOutNumber(j);
+							}
+
+							console.log("finished");
+							SetBtnDis(false);
 							return array[i];
 						}
 						HighLightCode(4);
@@ -160,7 +169,6 @@ function SearchAlgorithms() {
 			<SearchVis
 				SetDelay={(d) => {
 					DelayTime = d;
-					document.getElementById("DelaySliderNum").innerHTML = d;
 				}}
 				id={"SearchAlgoVis" + 1}
 				codeBlock={CodeBlocks[1]}
@@ -172,7 +180,8 @@ function SearchAlgorithms() {
 					HighLightCode,
 					HighLightNumber,
 					GrayOutNumber,
-					Target
+					Target,
+					SetBtnDis
 				) {
 					let left = 0;
 					let right = array.length - 1;
@@ -183,6 +192,9 @@ function SearchAlgorithms() {
 					await Delay(DelayTime / 2);
 
 					while (left <= right) {
+						if (right - left < 2) {
+							SetBtnDis(false);
+						}
 						HighLightCode(2);
 						await Delay(DelayTime);
 						const mid = Math.floor((left + right) / 2);
@@ -195,9 +207,11 @@ function SearchAlgorithms() {
 							HighLightCode(5);
 							await Delay(DelayTime);
 							for (let i = 0; i < mid; i++) {
+								await Delay(DelayTime / 2);
 								GrayOutNumber(i);
 							}
 							for (let i = mid + 1; i < array.length; i++) {
+								await Delay(DelayTime / 2);
 								GrayOutNumber(i);
 							}
 							return mid;
@@ -210,6 +224,7 @@ function SearchAlgorithms() {
 							HighLightCode(8);
 							await Delay(DelayTime);
 							for (let i = 0; i < mid; i++) {
+								await Delay(DelayTime / 2);
 								GrayOutNumber(i);
 							}
 
@@ -224,12 +239,14 @@ function SearchAlgorithms() {
 							HighLightCode(11);
 							await Delay(DelayTime);
 							for (let i = mid + 1; i < array.length; i++) {
+								await Delay(DelayTime / 2);
 								GrayOutNumber(i);
 							}
 							right = mid - 1;
 							HighLightCode(12);
 							await Delay(DelayTime);
 						}
+
 						HighLightCode(13);
 						await Delay(DelayTime);
 					}
@@ -332,7 +349,6 @@ function SearchAlgorithms() {
 			<SearchVis
 				SetDelay={(d) => {
 					DelayTime = d;
-					document.getElementById("DelaySliderNum").innerHTML = d;
 				}}
 				id={"SearchAlgoVis" + 2}
 				codeBlock={CodeBlocks[2]}
@@ -344,7 +360,8 @@ function SearchAlgorithms() {
 					HighLightCode,
 					HighLightNumber,
 					GrayOutNumber,
-					Target
+					Target,
+					SetBtnDis
 				) {
 					let start = 0;
 					let end = array.length - 1;
@@ -395,14 +412,17 @@ function SearchAlgorithms() {
 							await Delay(DelayTime);
 
 							for (let i = 0; i < pos; i++) {
+								await Delay(DelayTime / 2);
 								GrayOutNumber(i);
 							}
 
 							for (let i = pos + 1; i < array.length; i++) {
+								await Delay(DelayTime / 2);
 								GrayOutNumber(i);
 							}
 							HighLightCode(9);
 							await Delay(DelayTime);
+							SetBtnDis(false);
 							return pos;
 						}
 
@@ -411,6 +431,7 @@ function SearchAlgorithms() {
 							await Delay(DelayTime);
 
 							for (let i = 0; i < pos; i++) {
+								await Delay(DelayTime / 2);
 								GrayOutNumber(i);
 							}
 
