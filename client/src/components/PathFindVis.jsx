@@ -1,5 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 function PathFindVis(props) {
+	const [BtnDisabled, SetBtnDisabled] = useState(0);
+	function SetBtnDis(bool) {
+		SetBtnDisabled(bool);
+	}
+
 	function Delay(time) {
 		return new Promise((resolve) => setTimeout(resolve, time));
 	}
@@ -191,9 +196,13 @@ function PathFindVis(props) {
 				}}
 			></input>
 			<button
-				onClick={() => {
+				id={"PathFindVisButton" + props.id}
+				disabled={BtnDisabled}
+				onClick={async function () {
+					SetBtnDis(true);
+					await Delay(100);
 					GenerateMaze();
-					props.Solve(grid, Delay, End);
+					props.Solve(grid, Delay, End, SetBtnDis);
 				}}
 			>
 				Maze

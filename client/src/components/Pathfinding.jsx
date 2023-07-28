@@ -47,7 +47,7 @@ function Pathfinding() {
 				id={"PathFindVis" + 0}
 				PathFindVisID={0}
 				Title="Depth First Search"
-				Solve={async (grid, Delay, End) => {
+				Solve={async (grid, Delay, End, SetBtnDis) => {
 					let ctx = document
 						.getElementById(0 + "PathFindVisCanvas")
 						.getContext("2d");
@@ -140,6 +140,7 @@ function Pathfinding() {
 						lastCell = stack[s].Index;
 					}
 					console.log("Solved");
+					SetBtnDis(false);
 					//DFS
 				}}
 			></PathFindVis>
@@ -151,7 +152,7 @@ function Pathfinding() {
 				id={"PathFindVis" + 1}
 				PathFindVisID={1}
 				Title="Bredth First Search"
-				Solve={async (grid, Delay, End) => {
+				Solve={async (grid, Delay, End, SetBtnDis) => {
 					let ctx = document
 						.getElementById(1 + "PathFindVisCanvas")
 						.getContext("2d");
@@ -249,6 +250,7 @@ function Pathfinding() {
 						CurrentCellOrigin = grid[CurrentCellOrigin].origin;
 					}
 					console.log("Solved");
+					SetBtnDis(false);
 					// BFS
 				}}
 			></PathFindVis>
@@ -260,7 +262,7 @@ function Pathfinding() {
 				id={"PathFindVis" + 2}
 				PathFindVisID={2}
 				Title="A* Pathfinding"
-				Solve={async function solve(grid, Delay, End) {
+				Solve={async function solve(grid, Delay, End, SetBtnDis) {
 					function getNeighbors(grid, node) {
 						let neighbors = [];
 						let index = grid.indexOf(node);
@@ -339,6 +341,7 @@ function Pathfinding() {
 
 						if (current.Index === End.Index) {
 							console.log("Solved");
+							SetBtnDis(false);
 							let Path = reconstructPath(current);
 							let LastIndex = 0;
 							let CurrentIndex = 0;
@@ -393,7 +396,7 @@ function Pathfinding() {
 
 							neighbor.origin = current;
 							neighbor.g = tentative_gScore;
-							neighbor.h = heuristic_cost_estimate(neighbor, End);
+							neighbor.h = heuristic_cost_estimate(neighbor, End, SetBtnDis);
 							neighbor.f = neighbor.g + neighbor.h;
 							ctx.fillStyle = "rgb(" + 0 + "," + neighbor.f * 8 + "," + 0 + ")";
 

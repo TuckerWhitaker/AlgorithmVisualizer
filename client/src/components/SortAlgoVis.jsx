@@ -4,6 +4,10 @@ import { useEffect, useState } from "react";
 
 let CodeArray = [];
 function SortAlgoVis(props) {
+	const [BtnDisabled, SetBtnDisabled] = useState(0);
+	function SetBtnDis(bool) {
+		SetBtnDisabled(bool);
+	}
 	const [HighlightedLines, SetHighlightedLines] = useState([]);
 
 	function highlightCode(i) {
@@ -63,9 +67,12 @@ function SortAlgoVis(props) {
 				}}
 			></input>
 			<button
+				id={"SortAlgoVisButton" + props.id}
+				disabled={BtnDisabled}
 				className="SortAlgoVisButton"
 				onClick={() => {
-					props.Sort(BarArray, SetBarArray, highlightCode);
+					props.Sort(BarArray, SetBarArray, highlightCode, SetBtnDis);
+					SetBtnDis(true);
 				}}
 			>
 				Sort

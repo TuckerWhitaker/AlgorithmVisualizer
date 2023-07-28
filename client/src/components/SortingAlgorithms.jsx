@@ -84,7 +84,12 @@ function SortingAlgorithms() {
 		}
 	}
  }`}
-				Sort={async function bubbleSort(barArray, setBarArray, highlightCode) {
+				Sort={async function bubbleSort(
+					barArray,
+					setBarArray,
+					highlightCode,
+					SetBtnDis
+				) {
 					let highlightedBarIndex = 0;
 
 					const array = [...barArray];
@@ -158,6 +163,7 @@ function SortingAlgorithms() {
 							highlightCode(9);
 							await Delay(DelayTime);
 							console.log("Sorting done.", array);
+							SetBtnDis(false);
 						}
 					}
 
@@ -189,7 +195,8 @@ function SortingAlgorithms() {
 				Sort={async function selectionSort(
 					barArray,
 					setBarArray,
-					highlightCode
+					highlightCode,
+					SetBtnDis
 				) {
 					let highlightedBarIndex = 0;
 					let minBarIndex = 0;
@@ -302,6 +309,7 @@ function SortingAlgorithms() {
 							setTimeout(() => selectionSortHelper(i + 1), 10);
 						} else {
 							console.log("Sorting done.");
+							SetBtnDis(false);
 						}
 					}
 
@@ -349,7 +357,12 @@ for (let i = array.len - 1; i >= 0; i--) {
 	array[i] = temp;
 	heapify(array, i, 0);
 }`}
-				Sort={async function heapSort(barArray, setBarArray, highlightCode) {
+				Sort={async function heapSort(
+					barArray,
+					setBarArray,
+					highlightCode,
+					SetBtnDis
+				) {
 					let array = [...barArray];
 					const arrayLen = array.length;
 
@@ -425,6 +438,7 @@ for (let i = array.len - 1; i >= 0; i--) {
 					}
 
 					console.log("Sorting done.");
+					SetBtnDis(false);
 				}}
 			></SortAlgoVis>
 			<SortAlgoVis
@@ -461,7 +475,12 @@ for (let i = array.len - 1; i >= 0; i--) {
  }
 
  quickSort(array, 0, array.len - 1);`}
-				Sort={async function quickSort(barArray, setBarArray, highlightCode) {
+				Sort={async function quickSort(
+					barArray,
+					setBarArray,
+					highlightCode,
+					SetBtnDis
+				) {
 					let highlightedBarIndex = 0;
 					const delayTime = 50;
 					const array = [...barArray];
@@ -517,6 +536,10 @@ for (let i = array.len - 1; i >= 0; i--) {
 							document.getElementById(
 								`3BarArray${pivotIndex}`
 							).style.backgroundColor = "rgb(84, 84, 228)";
+						}
+						if (start == 0 && end == 40) {
+							console.log("End");
+							SetBtnDis(false);
 						}
 					}
 
@@ -617,7 +640,12 @@ for (let i = array.len - 1; i >= 0; i--) {
     }
     
     radixsort(array, array.length);`}
-				Sort={async function radixSort(barArray, setBarArray, highlightCode) {
+				Sort={async function radixSort(
+					barArray,
+					setBarArray,
+					highlightCode,
+					SetBtnDis
+				) {
 					const delayTime = 50;
 					const array = [...barArray];
 					const arrayLen = array.length;
@@ -648,6 +676,11 @@ for (let i = array.len - 1; i >= 0; i--) {
 								array[i] = output[i];
 								setBarArray([...array]);
 								changeBarColors(i, "rgb(84, 84, 228)");
+							}
+							//console.log(array[i] + " " + i);
+							if (array[i] == 41 && i == 40) {
+								console.log("end");
+								SetBtnDis(false);
 							}
 						}
 					}
