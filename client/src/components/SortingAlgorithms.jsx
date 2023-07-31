@@ -618,7 +618,7 @@ for (let i = array.len - 1; i >= 0; i--) {
 								setBarArray([...array]);
 								changeBarColors(i, "rgb(84, 84, 228)");
 							}
-							//console.log(array[i] + " " + i);
+
 							if (array[i] == 41 && i == 40) {
 								console.log("end");
 								SetBtnDis(false);

@@ -15,7 +15,7 @@ function PathFindVis(props) {
 
 	useEffect(() => {
 		GenerateMaze();
-	});
+	}, []);
 
 	const GenerateMaze = () => {
 		grid = [];
@@ -195,18 +195,29 @@ function PathFindVis(props) {
 					props.SetDelay(e.target.value);
 				}}
 			></input>
-			<button
-				id={"PathFindVisButton" + props.id}
-				disabled={BtnDisabled}
-				onClick={async function () {
-					SetBtnDis(true);
-					await Delay(100);
-					GenerateMaze();
-					props.Solve(grid, Delay, End, SetBtnDis);
-				}}
-			>
-				Maze
-			</button>
+			<div className="PathFindVisButtonContainer">
+				<button
+					className="PathFindVisButton"
+					id={"PathFindVisButton" + props.id}
+					disabled={BtnDisabled}
+					onClick={async function () {
+						SetBtnDis(true);
+						props.Solve(grid, Delay, End, SetBtnDis);
+					}}
+				>
+					Solve
+				</button>
+				<button
+					className="PathFindVisButton"
+					id={"PathFindVisButton" + props.id}
+					disabled={BtnDisabled}
+					onClick={async function () {
+						GenerateMaze();
+					}}
+				>
+					Randomize
+				</button>
+			</div>
 		</div>
 	);
 }

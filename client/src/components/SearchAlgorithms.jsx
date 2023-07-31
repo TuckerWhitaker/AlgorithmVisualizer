@@ -104,9 +104,9 @@ function SearchAlgorithms() {
 					for (let i = 0; i < array.length; i++) {
 						HighLightCode(0);
 						if (i > 0) {
-							GrayOutNumber(i - 1);
+							await GrayOutNumber(i - 1);
 						}
-						HighLightNumber(i);
+						await HighLightNumber(i);
 
 						await Delay(DelayTime);
 
@@ -119,10 +119,9 @@ function SearchAlgorithms() {
 
 							for (let j = array.length; j > i; j--) {
 								await Delay(DelayTime / 2);
-								GrayOutNumber(j);
+								await GrayOutNumber(j);
 							}
 
-							console.log("finished");
 							SetBtnDis(false);
 							return array[i];
 						}
@@ -200,7 +199,7 @@ function SearchAlgorithms() {
 						const mid = Math.floor((left + right) / 2);
 						HighLightCode(3);
 						await Delay(DelayTime);
-						HighLightNumber(mid);
+						await HighLightNumber(mid);
 						HighLightCode(4);
 						await Delay(DelayTime);
 						if (array[mid] === Target) {
@@ -208,11 +207,11 @@ function SearchAlgorithms() {
 							await Delay(DelayTime);
 							for (let i = 0; i < mid; i++) {
 								await Delay(DelayTime / 2);
-								GrayOutNumber(i);
+								await GrayOutNumber(i);
 							}
 							for (let i = mid + 1; i < array.length; i++) {
 								await Delay(DelayTime / 2);
-								GrayOutNumber(i);
+								await GrayOutNumber(i);
 							}
 							return mid;
 						}
@@ -220,12 +219,16 @@ function SearchAlgorithms() {
 						await Delay(DelayTime);
 						HighLightCode(7);
 						await Delay(DelayTime);
+
+						if (array[mid] == Target) {
+							console.log("Target");
+						}
 						if (array[mid] < Target) {
 							HighLightCode(8);
 							await Delay(DelayTime);
 							for (let i = 0; i < mid; i++) {
 								await Delay(DelayTime / 2);
-								GrayOutNumber(i);
+								await GrayOutNumber(i);
 							}
 
 							left = mid + 1;
@@ -240,7 +243,7 @@ function SearchAlgorithms() {
 							await Delay(DelayTime);
 							for (let i = mid + 1; i < array.length; i++) {
 								await Delay(DelayTime / 2);
-								GrayOutNumber(i);
+								await GrayOutNumber(i);
 							}
 							right = mid - 1;
 							HighLightCode(12);
@@ -403,9 +406,7 @@ function SearchAlgorithms() {
 						pos = Math.floor(pos);
 						HighLightCode(7);
 						await Delay(DelayTime);
-						HighLightNumber(pos);
-
-						console.log(pos);
+						await HighLightNumber(pos);
 
 						if (array[pos] === Target) {
 							HighLightCode(8);
@@ -413,12 +414,12 @@ function SearchAlgorithms() {
 
 							for (let i = 0; i < pos; i++) {
 								await Delay(DelayTime / 2);
-								GrayOutNumber(i);
+								await GrayOutNumber(i);
 							}
 
 							for (let i = pos + 1; i < array.length; i++) {
 								await Delay(DelayTime / 2);
-								GrayOutNumber(i);
+								await GrayOutNumber(i);
 							}
 							HighLightCode(9);
 							await Delay(DelayTime);
@@ -432,7 +433,7 @@ function SearchAlgorithms() {
 
 							for (let i = 0; i < pos; i++) {
 								await Delay(DelayTime / 2);
-								GrayOutNumber(i);
+								await GrayOutNumber(i);
 							}
 
 							start = pos + 1;

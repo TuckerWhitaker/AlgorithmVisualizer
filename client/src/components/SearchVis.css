@@ -30,7 +30,7 @@
 
 .SearchVisNumber {
 	width: fit-content;
-	transition-duration: 200ms;
+	transition-duration: 50ms;
 	font-size: 70%;
 	border-radius: 5%;
 	border-style: none;
@@ -70,6 +70,39 @@
 	width: 50%;
 	height: 92%;
 	margin-right: 1%;
+}
+
+.SearchAlgoVisButton {
+	background-color: #3c4049;
+	border: none;
+	color: #fff;
+	padding: 5px 20px;
+	font-size: 60%;
+	cursor: pointer;
+	border-radius: 4px;
+	transition: background-color 0.3s ease, transform 0.3s ease;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	margin: 0.5%;
+}
+
+.SearchAlgoVisButton:hover {
+	background-color: #595d67;
+	transform: scale(1.1);
+}
+
+.SearchAlgoVisButton:active {
+	background-color: #6d717a;
+	transform: scale(0.95);
+}
+.SearchAlgoVisButton:disabled {
+	background-color: #6c6c6c;
+	cursor: not-allowed;
+	opacity: 0.7;
+	box-shadow: none;
+}
+
+.SearchAlgoVisButton:disabled:hover {
+	transform: none;
 }
 
 @media (max-width: 500px) {

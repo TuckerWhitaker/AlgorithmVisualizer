@@ -16,13 +16,7 @@ function SortAlgoVis(props) {
 
 	const [BarArray, SetBarArray] = useState([]);
 
-	useEffect(() => {
-		CodeArray = props.codeBlock;
-		for (let i = 1; i <= 41; i++) {
-			BarArray.push(i);
-			//BarArray.push(Math.floor(Math.random() * 60) + 2);
-		}
-
+	const resetArray = () => {
 		var currentIndex = BarArray.length,
 			temporaryValue,
 			randomIndex;
@@ -37,6 +31,16 @@ function SortAlgoVis(props) {
 		}
 
 		SetBarArray([...BarArray]);
+	};
+
+	useEffect(() => {
+		CodeArray = props.codeBlock;
+		for (let i = 1; i <= 41; i++) {
+			BarArray.push(i);
+			//BarArray.push(Math.floor(Math.random() * 60) + 2);
+		}
+
+		resetArray();
 	}, []);
 
 	return (
@@ -66,17 +70,28 @@ function SortAlgoVis(props) {
 					props.SetDelay(e.target.value);
 				}}
 			></input>
-			<button
-				id={"SortAlgoVisButton" + props.id}
-				disabled={BtnDisabled}
-				className="SortAlgoVisButton"
-				onClick={() => {
-					props.Sort(BarArray, SetBarArray, highlightCode, SetBtnDis);
-					SetBtnDis(true);
-				}}
-			>
-				Sort
-			</button>
+			<div className="SortAlgoBtnContainer">
+				<button
+					id={"SortAlgoVisButton" + props.id}
+					disabled={BtnDisabled}
+					className="SortAlgoVisButton"
+					onClick={() => {
+						props.Sort(BarArray, SetBarArray, highlightCode, SetBtnDis);
+						SetBtnDis(true);
+					}}
+				>
+					Sort
+				</button>
+				<button
+					disabled={BtnDisabled}
+					className="SortAlgoVisButton"
+					onClick={() => {
+						resetArray();
+					}}
+				>
+					Randomize
+				</button>
+			</div>
 			<div className="SortAlgoVisBottomHalf">
 				<div className="SortAlgoVisDesc">{props.Description}</div>
 				<div className="SortAlgoVisCode">
