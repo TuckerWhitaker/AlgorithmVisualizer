@@ -20,6 +20,32 @@ function SortingAlgorithms() {
 		selectedAlgoIndex = Index;
 	};
 
+	async function startSwapAnimation(barIndex1, barIndex2, VisID) {
+		const bar1 = document.getElementById(`${VisID}BarArray${barIndex1}`);
+		const bar2 = document.getElementById(`${VisID}BarArray${barIndex2}`);
+
+		const rect1 = bar1.getBoundingClientRect();
+		const rect2 = bar2.getBoundingClientRect();
+		const distance = Math.abs(rect1.left - rect2.left);
+
+		bar1.style.transitionDuration = "0ms";
+		bar2.style.transitionDuration = "0ms";
+		if (barIndex1 < barIndex2) {
+			bar1.style.transform = `translateX(${distance}px)`;
+			bar2.style.transform = `translateX(-${distance}px)`;
+		} else {
+			bar1.style.transform = `translateX(-${distance}px)`;
+			bar2.style.transform = `translateX(${distance}px)`;
+		}
+		bar1.style.transitionDuration = "0.4s";
+		bar2.style.transitionDuration = "0.4s";
+
+		await Delay(100);
+
+		bar1.style.transform = "";
+		bar2.style.transform = "";
+	}
+
 	return (
 		<div className="SortingAlgorithms">
 			<div className="SortingAlgorithmNavBar">
@@ -107,19 +133,6 @@ function SortingAlgorithms() {
 						highlightedBarIndex = barIndex;
 					}
 
-					async function startSwapAnimation(barIndex) {
-						const currentBar = document.getElementById(`0BarArray${barIndex}`);
-						const nextBar = document.getElementById(`0BarArray${barIndex + 1}`);
-
-						currentBar.classList.add("swap-start");
-						nextBar.classList.add("swap-end");
-
-						await Delay(100);
-
-						currentBar.classList.remove("swap-start");
-						nextBar.classList.remove("swap-end");
-					}
-
 					async function bubbleSortHelper(i, j) {
 						if (i < arrayLen) {
 							highlightCode(1);
@@ -139,7 +152,7 @@ function SortingAlgorithms() {
 									changeBarColors(j, "rgb(255,0,0)", "rgb(84, 84, 228)");
 									await Delay(DelayTime);
 
-									await startSwapAnimation(j);
+									await startSwapAnimation(j, j + 1, 0);
 
 									[array[j], array[j + 1]] = [array[j + 1], array[j]];
 									setBarArray([...array]);
@@ -216,32 +229,6 @@ function SortingAlgorithms() {
 						highlightedBarIndex = barIndex;
 					}
 
-					async function startSwapAnimation(barIndex1, barIndex2) {
-						const bar1 = document.getElementById(`1BarArray${barIndex1}`);
-						const bar2 = document.getElementById(`1BarArray${barIndex2}`);
-
-						const rect1 = bar1.getBoundingClientRect();
-						const rect2 = bar2.getBoundingClientRect();
-						const distance = Math.abs(rect1.left - rect2.left);
-
-						bar1.style.transitionDuration = "0ms";
-						bar2.style.transitionDuration = "0ms";
-						if (barIndex1 < barIndex2) {
-							bar1.style.transform = `translateX(${distance}px)`;
-							bar2.style.transform = `translateX(-${distance}px)`;
-						} else {
-							bar1.style.transform = `translateX(-${distance}px)`;
-							bar2.style.transform = `translateX(${distance}px)`;
-						}
-						bar1.style.transitionDuration = "0.4s";
-						bar2.style.transitionDuration = "0.4s";
-
-						await Delay(100);
-
-						bar1.style.transform = "";
-						bar2.style.transform = "";
-					}
-
 					async function selectionSortHelper(i) {
 						if (i < arrayLen) {
 							highlightCode(1);
@@ -281,7 +268,7 @@ function SortingAlgorithms() {
 							await Delay(DelayTime);
 
 							if (minIndex != i) {
-								startSwapAnimation(i, minIndex);
+								await startSwapAnimation(i, minIndex, 1);
 
 								highlightCode(7);
 								let temp = array[i];
@@ -363,40 +350,20 @@ for (let i = array.len - 1; i >= 0; i--) {
 					highlightCode,
 					SetBtnDis
 				) {
+					let highlightedBarIndex = 0;
 					let array = [...barArray];
 					const arrayLen = array.length;
 
 					function changeBarColors(barIndex, newColor, oldColor) {
 						const currentBar = document.getElementById(`2BarArray${barIndex}`);
-						if (currentBar) currentBar.style.backgroundColor = newColor;
-						const maxBar = document.getElementById(`2BarArray0`);
-						if (maxBar) maxBar.style.backgroundColor = oldColor;
-					}
+						const highlightedBar = document.getElementById(
+							`2BarArray${highlightedBarIndex}`
+						);
 
-					async function startSwapAnimation(barIndex1, barIndex2) {
-						const bar1 = document.getElementById(`2BarArray${barIndex1}`);
-						const bar2 = document.getElementById(`2BarArray${barIndex2}`);
+						currentBar.style.backgroundColor = newColor;
+						highlightedBar.style.backgroundColor = oldColor;
 
-						const rect1 = bar1.getBoundingClientRect();
-						const rect2 = bar2.getBoundingClientRect();
-						const distance = Math.abs(rect1.left - rect2.left);
-
-						bar1.style.transitionDuration = "0ms";
-						bar2.style.transitionDuration = "0ms";
-						if (barIndex1 < barIndex2) {
-							bar1.style.transform = `translateX(${distance}px)`;
-							bar2.style.transform = `translateX(-${distance}px)`;
-						} else {
-							bar1.style.transform = `translateX(-${distance}px)`;
-							bar2.style.transform = `translateX(${distance}px)`;
-						}
-						bar1.style.transitionDuration = "0.4s";
-						bar2.style.transitionDuration = "0.4s";
-
-						await Delay(100);
-
-						bar1.style.transform = "";
-						bar2.style.transform = "";
+						highlightedBarIndex = barIndex;
 					}
 
 					async function heapify(heapSize, i) {
@@ -413,7 +380,7 @@ for (let i = array.len - 1; i >= 0; i--) {
 						}
 
 						if (max !== i) {
-							await startSwapAnimation(i, max);
+							await startSwapAnimation(i, max, 2);
 							let temp = array[i];
 							array[i] = array[max];
 							array[max] = temp;
@@ -429,7 +396,7 @@ for (let i = array.len - 1; i >= 0; i--) {
 
 					for (let i = arrayLen - 1; i >= 0; i--) {
 						changeBarColors(i, "rgb(255,0,0)", "rgb(84, 84, 228)");
-						await startSwapAnimation(0, i);
+						await startSwapAnimation(0, i, 2);
 						let temp = array[0];
 						array[0] = array[i];
 						array[i] = temp;
@@ -498,32 +465,6 @@ for (let i = array.len - 1; i >= 0; i--) {
 						highlightedBarIndex = barIndex;
 					}
 
-					async function startSwapAnimation(barIndex1, barIndex2) {
-						const bar1 = document.getElementById(`3BarArray${barIndex1}`);
-						const bar2 = document.getElementById(`3BarArray${barIndex2}`);
-
-						const rect1 = bar1.getBoundingClientRect();
-						const rect2 = bar2.getBoundingClientRect();
-						const distance = Math.abs(rect1.left - rect2.left);
-
-						bar1.style.transitionDuration = "0ms";
-						bar2.style.transitionDuration = "0ms";
-						if (barIndex1 < barIndex2) {
-							bar1.style.transform = `translateX(${distance}px)`;
-							bar2.style.transform = `translateX(-${distance}px)`;
-						} else {
-							bar1.style.transform = `translateX(-${distance}px)`;
-							bar2.style.transform = `translateX(${distance}px)`;
-						}
-						bar1.style.transitionDuration = "0.4s";
-						bar2.style.transitionDuration = "0.4s";
-
-						await Delay(100);
-
-						bar1.style.transform = "";
-						bar2.style.transform = "";
-					}
-
 					async function quickSortHelper(start, end) {
 						if (start < end) {
 							let pivotIndex = await partitionHelper(start, end);
@@ -554,7 +495,7 @@ for (let i = array.len - 1; i >= 0; i--) {
 							await Delay(DelayTime);
 
 							if (array[i] < pivotValue) {
-								await startSwapAnimation(i, pivotIndex);
+								await startSwapAnimation(i, pivotIndex, 3);
 								await Delay(DelayTime);
 								[array[i], array[pivotIndex]] = [array[pivotIndex], array[i]];
 								pivotIndex++;
@@ -568,7 +509,7 @@ for (let i = array.len - 1; i >= 0; i--) {
 							await Delay(DelayTime);
 						}
 
-						await startSwapAnimation(pivotIndex, end);
+						await startSwapAnimation(pivotIndex, end, 3);
 						[array[pivotIndex], array[end]] = [array[end], array[pivotIndex]];
 
 						highlightCode(4);
