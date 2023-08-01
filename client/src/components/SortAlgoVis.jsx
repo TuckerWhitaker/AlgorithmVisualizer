@@ -3,6 +3,10 @@ import Prism from "prismjs";
 import { useEffect, useState } from "react";
 
 let CodeArray = [];
+function Delay(time) {
+	return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 function SortAlgoVis(props) {
 	const [BtnDisabled, SetBtnDisabled] = useState(0);
 	function SetBtnDis(bool) {
@@ -10,8 +14,9 @@ function SortAlgoVis(props) {
 	}
 	const [HighlightedLines, SetHighlightedLines] = useState([]);
 
-	function highlightCode(i) {
+	async function highlightCode(i, delaytime) {
 		SetHighlightedLines([i]);
+		await Delay(delaytime);
 	}
 
 	const [BarArray, SetBarArray] = useState([]);

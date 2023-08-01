@@ -134,20 +134,19 @@ function SortingAlgorithms() {
 					}
 
 					async function bubbleSortHelper(i, j) {
+						await highlightCode(0, DelayTime);
 						if (i < arrayLen) {
-							highlightCode(1);
+							await highlightCode(1, DelayTime);
 
-							await Delay(DelayTime);
 							if (j < arrayLen - i - 1) {
-								highlightCode(2);
-								await Delay(DelayTime);
+								await highlightCode(2, DelayTime);
+
 								if (array[j] > array[j + 1]) {
-									highlightCode(3);
-									await Delay(DelayTime);
-									highlightCode(4);
-									await Delay(DelayTime);
-									highlightCode(5);
-									await Delay(DelayTime);
+									await highlightCode(3, DelayTime);
+
+									await highlightCode(4, DelayTime);
+
+									await highlightCode(5, DelayTime);
 
 									changeBarColors(j, "rgb(255,0,0)", "rgb(84, 84, 228)");
 									await Delay(DelayTime);
@@ -155,33 +154,32 @@ function SortingAlgorithms() {
 									await startSwapAnimation(j, j + 1, 0);
 
 									[array[j], array[j + 1]] = [array[j + 1], array[j]];
+									await highlightCode(6, DelayTime);
+
 									setBarArray([...array]);
-									await Delay(100);
 								}
 
-								highlightCode(6);
+								await highlightCode(6, DelayTime);
 								setTimeout(() => bubbleSortHelper(i, j + 1), 10);
-								highlightCode(7);
-								await Delay(DelayTime);
+								await highlightCode(7, DelayTime);
 							} else {
-								highlightCode(7);
-								await Delay(DelayTime);
-								highlightCode(8);
-								await Delay(DelayTime);
+								await highlightCode(7, DelayTime);
+
+								await highlightCode(8, DelayTime);
 
 								changeBarColors(j, "rgb(255,0,0)", "rgb(84, 84, 228)");
 								setTimeout(() => bubbleSortHelper(i + 1, 0), 10);
 							}
 						} else {
-							highlightCode(9);
-							await Delay(DelayTime);
+							await highlightCode(9, DelayTime);
+
 							console.log("Sorting done.", array);
 							SetBtnDis(false);
 						}
 					}
 
-					highlightCode(0);
-					await Delay(DelayTime);
+					await highlightCode(0, DelayTime);
+
 					bubbleSortHelper(0, 0);
 				}}
 			></SortAlgoVis>
@@ -231,8 +229,7 @@ function SortingAlgorithms() {
 
 					async function selectionSortHelper(i) {
 						if (i < arrayLen) {
-							highlightCode(1);
-							await Delay(DelayTime);
+							await highlightCode(1, DelayTime);
 
 							let BarMinIndex = 1;
 							let minIndex = i;
@@ -242,10 +239,9 @@ function SortingAlgorithms() {
 								document.getElementById(
 									`1BarArray${minIndex}`
 								).style.backgroundColor = "rgb(200, 200, 0)";
-								highlightCode(2);
-								await Delay(DelayTime);
-								highlightCode(3);
-								await Delay(DelayTime);
+								await highlightCode(2, DelayTime);
+
+								await highlightCode(3, DelayTime);
 
 								if (array[j] < array[minIndex]) {
 									document.getElementById(
@@ -253,34 +249,31 @@ function SortingAlgorithms() {
 									).style.backgroundColor = "rgb(84, 84, 228)";
 									minIndex = j;
 
-									highlightCode(4);
-									await Delay(DelayTime);
+									await highlightCode(4, DelayTime);
 								}
 
-								highlightCode(5);
-								await Delay(DelayTime);
+								await highlightCode(5, DelayTime);
 							}
 							document.getElementById(
 								`1BarArray${minIndex}`
 							).style.backgroundColor = "rgb(84, 84, 228)";
 
-							highlightCode(6);
-							await Delay(DelayTime);
+							await highlightCode(6, DelayTime);
 
 							if (minIndex != i) {
 								await startSwapAnimation(i, minIndex, 1);
 
-								highlightCode(7);
+								await highlightCode(6, DelayTime);
 								let temp = array[i];
 								array[i] = array[minIndex];
 								array[minIndex] = temp;
 								setBarArray([...array]);
 
-								highlightCode(8);
-								await Delay(DelayTime);
+								await highlightCode(7, DelayTime);
 
-								highlightCode(9);
-								await Delay(DelayTime);
+								await highlightCode(8, DelayTime);
+
+								await highlightCode(9, DelayTime);
 							}
 
 							document.getElementById(
@@ -289,8 +282,7 @@ function SortingAlgorithms() {
 							document.getElementById(`1BarArray${i}`).style.backgroundColor =
 								"rgb(255,0,0)";
 							minBarIndex = i;
-							highlightCode(10);
-							await Delay(DelayTime);
+							await highlightCode(10, DelayTime);
 
 							//changeBarColors(i, "rgb(255,0,0)", "rgb(84, 84, 228)");
 							setTimeout(() => selectionSortHelper(i + 1), 10);
@@ -300,8 +292,8 @@ function SortingAlgorithms() {
 						}
 					}
 
-					highlightCode(0);
-					await Delay(DelayTime);
+					await highlightCode(0, DelayTime);
+
 					selectionSortHelper(0);
 				}}
 			></SortAlgoVis>
@@ -314,8 +306,7 @@ function SortingAlgorithms() {
 				VisID={2}
 				Title="HeapSort"
 				Description="Heap Sort Algorithm"
-				codeBlock={`
-function heapify(array, heapSize, i) {
+				codeBlock={`function heapify(array, heapSize, i) {
 	let max = i;
 	let left = 2 * i + 1;
 	let right = 2 * i + 2;
@@ -367,19 +358,32 @@ for (let i = array.len - 1; i >= 0; i--) {
 					}
 
 					async function heapify(heapSize, i) {
+						await highlightCode(0, DelayTime);
+						await highlightCode(1, DelayTime);
+						await highlightCode(2, DelayTime);
+						await highlightCode(3, DelayTime);
+						await highlightCode(4, DelayTime);
 						let max = i;
 						let left = 2 * i + 1;
 						let right = 2 * i + 2;
-
+						await highlightCode(5, DelayTime);
 						if (left < heapSize && array[left] > array[max]) {
 							max = left;
+							await highlightCode(6, DelayTime);
 						}
-
+						await highlightCode(7, DelayTime);
+						await highlightCode(8, DelayTime);
 						if (right < heapSize && array[right] > array[max]) {
 							max = right;
+							await highlightCode(9, DelayTime);
 						}
-
+						await highlightCode(10, DelayTime);
+						await highlightCode(11, DelayTime);
 						if (max !== i) {
+							await highlightCode(12, DelayTime);
+							await highlightCode(13, DelayTime);
+							await highlightCode(14, DelayTime);
+							await highlightCode(15, DelayTime);
 							await startSwapAnimation(i, max, 2);
 							let temp = array[i];
 							array[i] = array[max];
@@ -387,14 +391,27 @@ for (let i = array.len - 1; i >= 0; i--) {
 							setBarArray([...array]);
 							await heapify(heapSize, max);
 						}
+						await highlightCode(16, DelayTime);
 					}
+					await highlightCode(17, DelayTime);
+					await highlightCode(18, DelayTime);
 
 					for (let i = Math.floor(arrayLen / 2 - 1); i >= 0; i--) {
+						await highlightCode(19, DelayTime);
+						await highlightCode(20, DelayTime);
+						await highlightCode(21, DelayTime);
 						changeBarColors(i, "rgb(0,255,0)", "rgb(84, 84, 228)");
 						await heapify(arrayLen, i);
 					}
+					await highlightCode(22, DelayTime);
 
 					for (let i = arrayLen - 1; i >= 0; i--) {
+						await highlightCode(23, DelayTime);
+						await highlightCode(24, DelayTime);
+						await highlightCode(25, DelayTime);
+						await highlightCode(26, DelayTime);
+						await highlightCode(27, DelayTime);
+						await highlightCode(28, DelayTime);
 						changeBarColors(i, "rgb(255,0,0)", "rgb(84, 84, 228)");
 						await startSwapAnimation(0, i, 2);
 						let temp = array[0];
@@ -466,7 +483,13 @@ for (let i = array.len - 1; i >= 0; i--) {
 					}
 
 					async function quickSortHelper(start, end) {
+						await highlightCode(0, DelayTime);
+						await highlightCode(1, DelayTime);
 						if (start < end) {
+							await highlightCode(2, DelayTime);
+							await highlightCode(3, DelayTime);
+							await highlightCode(4, DelayTime);
+							await highlightCode(5, DelayTime);
 							let pivotIndex = await partitionHelper(start, end);
 							document.getElementById(
 								`3BarArray${pivotIndex}`
@@ -478,52 +501,57 @@ for (let i = array.len - 1; i >= 0; i--) {
 								`3BarArray${pivotIndex}`
 							).style.backgroundColor = "rgb(84, 84, 228)";
 						}
+						await highlightCode(6, DelayTime);
 						if (start == 0 && end == 40) {
 							console.log("End");
 							SetBtnDis(false);
 						}
+						await highlightCode(7, DelayTime);
 					}
+					await highlightCode(8, DelayTime);
 
 					async function partitionHelper(start, end) {
+						await highlightCode(9, DelayTime);
+						await highlightCode(10, DelayTime);
+						await highlightCode(11, DelayTime);
+						await highlightCode(12, DelayTime);
 						let pivotValue = array[end];
 						let pivotIndex = start;
 
 						for (let i = start; i < end; i++) {
+							await highlightCode(13, DelayTime);
+							await highlightCode(14, DelayTime);
 							changeBarColors(i, "rgb(0,255,0)", "rgb(84, 84, 228)");
 
-							highlightCode(1);
-							await Delay(DelayTime);
-
 							if (array[i] < pivotValue) {
+								await highlightCode(15, DelayTime);
+								await highlightCode(16, DelayTime);
 								await startSwapAnimation(i, pivotIndex, 3);
 								await Delay(DelayTime);
 								[array[i], array[pivotIndex]] = [array[pivotIndex], array[i]];
 								pivotIndex++;
 								setBarArray([...array]);
-
-								highlightCode(2);
-								await Delay(DelayTime);
 							}
-
-							highlightCode(3);
-							await Delay(DelayTime);
+							await highlightCode(17, DelayTime);
+							await highlightCode(18, DelayTime);
 						}
-
+						await highlightCode(19, DelayTime);
+						await highlightCode(20, DelayTime);
+						await highlightCode(21, DelayTime);
+						await highlightCode(22, DelayTime);
+						await highlightCode(23, DelayTime);
 						await startSwapAnimation(pivotIndex, end, 3);
 						[array[pivotIndex], array[end]] = [array[end], array[pivotIndex]];
 
-						highlightCode(4);
-						await Delay(DelayTime);
-
 						setBarArray([...array]);
-						highlightCode(5);
-						await Delay(DelayTime);
+						await highlightCode(5, DelayTime);
 
 						return pivotIndex;
 					}
+					await highlightCode(24, DelayTime);
 
-					highlightCode(0);
-					await Delay(DelayTime);
+					await highlightCode(0, DelayTime);
+
 					quickSortHelper(0, arrayLen - 1);
 				}}
 			></SortAlgoVis>
@@ -587,6 +615,7 @@ for (let i = array.len - 1; i >= 0; i--) {
 					highlightCode,
 					SetBtnDis
 				) {
+					await highlightCode(34, DelayTime);
 					const delayTime = 50;
 					const array = [...barArray];
 					const arrayLen = array.length;
@@ -597,20 +626,42 @@ for (let i = array.len - 1; i >= 0; i--) {
 					}
 
 					async function countSort(exp) {
+						await highlightCode(8, DelayTime);
+						await highlightCode(9, DelayTime);
+						await highlightCode(10, DelayTime);
+						await highlightCode(11, DelayTime);
+
 						let output = new Array(arrayLen);
 						let count = new Array(10).fill(0);
 
-						for (let i = 0; i < arrayLen; i++)
+						for (let i = 0; i < arrayLen; i++) {
+							await highlightCode(12, DelayTime);
+							await highlightCode(13, DelayTime);
 							count[Math.floor(array[i] / exp) % 10]++;
+						}
 
-						for (let i = 1; i < 10; i++) count[i] += count[i - 1];
+						await highlightCode(14, DelayTime);
+						for (let i = 1; i < 10; i++) {
+							await highlightCode(15, DelayTime);
+							await highlightCode(16, DelayTime);
+							count[i] += count[i - 1];
+						}
+						await highlightCode(17, DelayTime);
 
 						for (let i = arrayLen - 1; i >= 0; i--) {
+							await highlightCode(18, DelayTime);
+							await highlightCode(19, DelayTime);
+							await highlightCode(20, DelayTime);
+							await highlightCode(21, DelayTime);
 							output[count[Math.floor(array[i] / exp) % 10] - 1] = array[i];
 							count[Math.floor(array[i] / exp) % 10]--;
 						}
+						await highlightCode(22, DelayTime);
 
 						for (let i = 0; i < arrayLen; i++) {
+							await highlightCode(23, DelayTime);
+							await highlightCode(24, DelayTime);
+
 							if (array[i] !== output[i]) {
 								changeBarColors(i, "rgb(255, 0, 0)");
 								await Delay(DelayTime);
@@ -624,18 +675,36 @@ for (let i = array.len - 1; i >= 0; i--) {
 								SetBtnDis(false);
 							}
 						}
+						await highlightCode(25, DelayTime);
 					}
 
-					function getMax() {
+					async function getMax() {
+						await highlightCode(0, DelayTime);
+						await highlightCode(1, DelayTime);
 						let max = array[0];
-						for (let i = 1; i < arrayLen; i++)
-							if (array[i] > max) max = array[i];
+						for (let i = 1; i < arrayLen; i++) {
+							await highlightCode(2, DelayTime);
+							await highlightCode(3, DelayTime);
+
+							if (array[i] > max) {
+								await highlightCode(4, DelayTime);
+								max = array[i];
+							}
+						}
+						await highlightCode(5, DelayTime);
+						await highlightCode(6, DelayTime);
 						return max;
 					}
 
-					let m = getMax();
+					await highlightCode(27, DelayTime);
+					await highlightCode(28, DelayTime);
+					await highlightCode(29, DelayTime);
+					let m = await getMax();
 
 					for (let exp = 1; Math.floor(m / exp) > 0; exp *= 10) {
+						await highlightCode(30, DelayTime);
+						await highlightCode(31, DelayTime);
+						await highlightCode(32, DelayTime);
 						await countSort(exp);
 						await Delay(DelayTime);
 					}
