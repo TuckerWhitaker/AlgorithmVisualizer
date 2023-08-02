@@ -10,19 +10,11 @@ const SelectAlgo = (Index) => {
 	selectedAlgoIndex = Index;
 };
 const CodeBlocks = [
-	` let left = 0;
- let right = array.length - 1;
- while (left <= right) {
-		const mid = Math.floor((left + right) / 2);
-		if (array[mid] === Target) {
-			return mid;
+	` for (let i = 0; i < array.length; i++) {
+		if (array[i] == Target) { 
+			return array[i];
 		}
-		if (array[mid] < Target) {
-			left = mid + 1;
-		} else {
-			right = mid - 1;
-		}
- }`,
+	}`,
 	` let left = 0;
  let right = array.length - 1;
  while (left <= right) {
@@ -43,8 +35,7 @@ const CodeBlocks = [
 			if (arr[start] === key) return start;
 			return -1;
 		}
-		let pos =
-			start + ((end - start) * (key - arr[start])) / (arr[end] - arr[start]);
+		let pos = start + ((end - start) * (key - arr[start])) / (arr[end] - arr[start]);
 		pos = Math.floor(pos);
 		if (arr[pos] === key) return pos;
 		if (arr[pos] < key) {
@@ -102,21 +93,15 @@ function SearchAlgorithms() {
 					SetBtnDis
 				) {
 					for (let i = 0; i < array.length; i++) {
-						HighLightCode(0);
+						await HighLightCode(0, DelayTime);
+						await HighLightCode(1, DelayTime);
 						if (i > 0) {
 							await GrayOutNumber(i - 1);
 						}
 						await HighLightNumber(i);
 
-						await Delay(DelayTime);
-
-						HighLightCode(1);
-
-						await Delay(DelayTime);
-
 						if (array[i] == Target) {
-							HighLightCode(2);
-
+							await HighLightCode(2, DelayTime);
 							for (let j = array.length; j > i; j--) {
 								await Delay(DelayTime / 2);
 								await GrayOutNumber(j);
@@ -125,8 +110,8 @@ function SearchAlgorithms() {
 							SetBtnDis(false);
 							return array[i];
 						}
-						HighLightCode(4);
-
+						await HighLightCode(3, DelayTime);
+						await HighLightCode(4, DelayTime);
 						await Delay(DelayTime);
 					}
 				}}
@@ -343,10 +328,6 @@ function SearchAlgorithms() {
 					{ Tab: 0, string: "}", HighLight: 0 },
 				]}
 				Description="The Binary Search operates by repetitively dividing a sorted list in half until the desired element is located or the subset is empty. It starts by comparing the middle item of the list with the search item; if they don't match, the half in which the search item cannot lie is eliminated. This process is continually iterated until a match is discovered or the list is exhausted, making the binary search a highly efficient searching technique.
-
-
-
-
 				"
 			></SearchVis>
 			<SearchVis
@@ -369,49 +350,44 @@ function SearchAlgorithms() {
 					let start = 0;
 					let end = array.length - 1;
 
-					HighLightCode(0);
-					await Delay(DelayTime / 2);
-					HighLightCode(1);
-					await Delay(DelayTime / 2);
-					HighLightCode(2);
-					await Delay(DelayTime);
+					await HighLightCode(0, DelayTime);
+					await HighLightCode(1, DelayTime);
 
 					while (
 						start <= end &&
 						Target >= array[start] &&
 						Target <= array[end]
 					) {
-						HighLightCode(3);
-						await Delay(DelayTime);
+						await HighLightCode(2, DelayTime);
+						await HighLightCode(3, DelayTime);
 
 						if (start === end) {
-							HighLightCode(4);
+							await HighLightCode(4, DelayTime);
+
 							await Delay(DelayTime);
 
 							if (array[start] === Target) {
-								HighLightCode(5);
 								await Delay(DelayTime);
 								return start;
 							}
+							await HighLightCode(5, DelayTime);
 
-							HighLightCode(6);
-							await Delay(DelayTime);
 							return -1;
 						}
+						await HighLightCode(6, DelayTime);
 
 						let pos =
 							start +
 							((end - start) * (Target - array[start])) /
 								(array[end] - array[start]);
 						pos = Math.floor(pos);
-						HighLightCode(7);
-						await Delay(DelayTime);
+						await HighLightCode(7, DelayTime);
+						await HighLightCode(8, DelayTime);
+						await HighLightCode(9, DelayTime);
+						await HighLightCode(10, DelayTime);
 						await HighLightNumber(pos);
 
 						if (array[pos] === Target) {
-							HighLightCode(8);
-							await Delay(DelayTime);
-
 							for (let i = 0; i < pos; i++) {
 								await Delay(DelayTime / 2);
 								await GrayOutNumber(i);
@@ -428,7 +404,7 @@ function SearchAlgorithms() {
 						}
 
 						if (array[pos] < Target) {
-							HighLightCode(10);
+							await HighLightCode(11, DelayTime);
 							await Delay(DelayTime);
 
 							for (let i = 0; i < pos; i++) {
@@ -437,18 +413,14 @@ function SearchAlgorithms() {
 							}
 
 							start = pos + 1;
-							HighLightCode(11);
-							await Delay(DelayTime);
 						} else {
-							HighLightCode(12);
-							await Delay(DelayTime);
+							await HighLightCode(12, DelayTime);
+							await HighLightCode(13, DelayTime);
+							await HighLightCode(14, DelayTime);
 							end = pos - 1;
 						}
-						HighLightCode(13);
-						await Delay(DelayTime);
+						await HighLightCode(15, DelayTime);
 					}
-					HighLightCode(14);
-					await Delay(DelayTime);
 				}}
 				Id={0}
 				Title="Interpolation Search"

@@ -36,7 +36,8 @@
 	border-style: none;
 	border-width: 0.1px;
 	background-color: #1f2226;
-	padding: 0.3%;
+	padding-right: 0.1%;
+	padding-left: 0.1%;
 }
 
 .SearchVisNumberOut {

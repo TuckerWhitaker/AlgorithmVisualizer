@@ -1,5 +1,8 @@
+import { Highlight, themes } from "prism-react-renderer";
 import React, { useEffect, useState } from "react";
+
 function PathFindVis(props) {
+	const [HighlightedLines, SetHighlightedLines] = useState([]);
 	const [BtnDisabled, SetBtnDisabled] = useState(0);
 	function SetBtnDis(bool) {
 		SetBtnDisabled(bool);
@@ -182,7 +185,46 @@ function PathFindVis(props) {
 					</div>
 				</div>
 				<div className="PathFindVisColumn PathFindVisColumnCode ">
-					<div className="PathFindVisCode "></div>
+					<div className="PathFindVisCode ">
+						{" "}
+						<Highlight
+							code={props.codeBlock}
+							language="jsx"
+							theme={themes.vsDark}
+						>
+							{({ className, style, tokens, getLineProps, getTokenProps }) => (
+								<pre
+									className={className}
+									style={{ ...style, padding: "20px" }}
+								>
+									{tokens.map((line, i) => {
+										let lineProps = getLineProps({ line, key: i });
+
+										if (HighlightedLines.includes(i)) {
+											lineProps.style = {
+												...lineProps.style,
+												backgroundColor: "rgba(173, 216, 230, 0.3)",
+											};
+										}
+
+										return (
+											<div key={i} {...lineProps}>
+												<span>{i + 1}</span>
+												{line.map((token, key) => {
+													let tokenProps = getTokenProps({ token });
+													tokenProps.style = {
+														...tokenProps.style,
+													};
+
+													return <span key={key} {...tokenProps} />;
+												})}
+											</div>
+										);
+									})}
+								</pre>
+							)}
+						</Highlight>
+					</div>
 				</div>
 			</div>
 			<input

@@ -53,7 +53,7 @@ function SearchVis(props) {
 	function SetBtnDis(bool) {
 		SetBtnDisabled(bool);
 	}
-	const [HighlightedLines, SetHighlightedLines] = useState([]);
+	const [HighlightedLines, SetHighlightedLines] = useState([0]);
 
 	useEffect(() => {
 		SetTarget(Array[Math.round(Math.random() * Array.length)]);
@@ -72,10 +72,10 @@ function SearchVis(props) {
 
 	let NumberHighlightIndex = 0;
 
-	function HighLightCode(newHighlight) {
-		SetHighlightedLines([newHighlight]);
+	async function HighLightCode(i, delaytime) {
+		SetHighlightedLines([i]);
+		await Delay(delaytime);
 	}
-
 	async function GrayOutNumber(number) {
 		let Number = document.getElementById(props.VisID + "SearchVisNum" + number);
 		if (Number) {

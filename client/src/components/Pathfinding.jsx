@@ -1,5 +1,99 @@
 import "./Pathfinding.css";
 import PathFindVis from "./PathFindVis";
+let CodeBlocks = [
+	` Solve = async (grid, End) => {
+	 let stack = [];
+	 let current = grid[0];
+	 stack.push(grid[0]);
+	
+	 while (current.Index != End.Index) {
+		 let currentCell = stack[stack.length - 1];
+		 current = currentCell;
+		 currentCell.hasvisited = true;
+		 let neighbors = [];
+		 let index = grid.indexOf(currentCell);
+	
+		 if (index - 30 >= 0 && !grid[index - 30].hasvisited && grid[index].walls[0] == 0){
+			 neighbors.push(grid[index - 30]);
+		 }// Top
+		 if ((index + 1) % 30 != 0 && !grid[index + 1].hasvisited && grid[index].walls[1] == 0){
+			 neighbors.push(grid[index + 1]);
+		 }// Right
+		 if (index + 30 < 900 && !grid[index + 30].hasvisited && grid[index].walls[2] == 0){
+			 neighbors.push(grid[index + 30]);
+		 }// Bottom
+		 if (index % 30 != 0 && !grid[index - 1].hasvisited && grid[index].walls[3] == 0){
+			 neighbors.push(grid[index - 1]);
+		 }// Left
+	
+		 if (neighbors.length > 0) {
+			 let neighbor = neighbors[Math.floor(Math.random() * neighbors.length)];
+			 stack.push(neighbor);
+		 } else {
+			 stack.pop();
+		 }
+	 }
+	 return stack;
+ }`,
+	` Solve = async (grid, End) => {
+	 let queue = [];
+	 let current = grid[0];
+	 queue.push(grid[0]);
+	   
+	 while (current.Index != End.Index) {
+		 let currentCell = queue.shift();
+		 current = currentCell;
+		 currentCell.hasvisited = true;
+		 let neighbors = [];
+		 let index = grid.indexOf(currentCell);
+	   
+		 if (index - 30 >= 0 && !grid[index - 30].hasvisited && grid[index].walls[0] == 0){
+			 neighbors.push(grid[index - 30]);
+		 }// Top
+		 if ((index + 1) % 30 != 0 && !grid[index + 1].hasvisited && grid[index].walls[1] == 0){
+			 neighbors.push(grid[index + 1]);
+		 }// Right
+		 if (index + 30 < 900 && !grid[index + 30].hasvisited && grid[index].walls[2] == 0){
+			 neighbors.push(grid[index + 30]);
+		 }// Bottom
+		 if (index % 30 != 0 && !grid[index - 1].hasvisited && grid[index].walls[3] == 0){
+			 neighbors.push(grid[index - 1]);
+		 }// Left
+	   
+		 for (let neighbor of neighbors) {
+		    if (!neighbor.hasvisited) {
+			    queue.push(neighbor);
+		    }
+		 }
+	 }
+	 return queue;
+ }`,
+	` Solve = async (grid, Start, End) => {
+    let openList = [Start], closedList = [], path = [];
+    while (openList.length) {
+        let node = openList.sort((a,b) => a.f - b.f).shift();
+        closedList.push(node);
+        let idx = grid.indexOf(node);
+        let neighbors = [[idx-30,0],[idx+1,1],[idx+30,2],[idx-1,3]].filter(([idx,direction]) =>
+            idx >= 0 && idx < 900 && !grid[idx].hasvisited && node.walls[direction] == 0 && !closedList.some(n => n.Index == idx)
+        ).map(idx => grid[idx]);
+        for (let n of neighbors) {
+            let g = node.g + 1, h = Math.abs(n.Index - End.Index), f = g + h;
+            if (!openList.some(el => el.Index === n.Index)) {
+                Object.assign(n, {parent: node, g, h, f});
+                openList.push(n);
+            } else if (g < n.g) {
+                Object.assign(n, {parent: node, g, h, f});
+            }
+        }
+        if (node.Index === End.Index) {
+            while (node.parent) { path.push(node); node = node.parent; }
+            return path.reverse();
+        }
+    }
+    return [];
+ }`,
+];
 
 let selectedAlgoIndex = 0;
 let DelayTime = 25;
@@ -40,6 +134,7 @@ function Pathfinding() {
 				</button>
 			</div>
 			<PathFindVis
+				codeBlock={CodeBlocks[0]}
 				SetDelay={(d) => {
 					DelayTime = d;
 					document.getElementById("DelaySliderNum").innerHTML = d;
@@ -145,6 +240,7 @@ function Pathfinding() {
 				}}
 			></PathFindVis>
 			<PathFindVis
+				codeBlock={CodeBlocks[1]}
 				SetDelay={(d) => {
 					DelayTime = d;
 					document.getElementById("DelaySliderNum").innerHTML = d;
@@ -255,6 +351,7 @@ function Pathfinding() {
 				}}
 			></PathFindVis>
 			<PathFindVis
+				codeBlock={CodeBlocks[2]}
 				SetDelay={(d) => {
 					DelayTime = d;
 					document.getElementById("DelaySliderNum").innerHTML = d;

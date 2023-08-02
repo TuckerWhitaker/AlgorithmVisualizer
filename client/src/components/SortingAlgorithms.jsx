@@ -653,6 +653,7 @@ for (let i = array.len - 1; i >= 0; i--) {
 							await highlightCode(19, DelayTime);
 							await highlightCode(20, DelayTime);
 							await highlightCode(21, DelayTime);
+
 							output[count[Math.floor(array[i] / exp) % 10] - 1] = array[i];
 							count[Math.floor(array[i] / exp) % 10]--;
 						}
