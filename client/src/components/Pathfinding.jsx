@@ -137,12 +137,11 @@ function Pathfinding() {
 				codeBlock={CodeBlocks[0]}
 				SetDelay={(d) => {
 					DelayTime = d;
-					document.getElementById("DelaySliderNum").innerHTML = d;
 				}}
 				id={"PathFindVis" + 0}
 				PathFindVisID={0}
 				Title="Depth First Search"
-				Solve={async (grid, Delay, End, SetBtnDis) => {
+				Solve={async (grid, Delay, End, SetBtnDis, highlightCode) => {
 					let ctx = document
 						.getElementById(0 + "PathFindVisCanvas")
 						.getContext("2d");
@@ -150,7 +149,25 @@ function Pathfinding() {
 					let current = grid[0];
 					stack.push(grid[0]);
 
+					await highlightCode(0, DelayTime);
+					await highlightCode(1, DelayTime);
+					await highlightCode(2, DelayTime);
+					await highlightCode(3, DelayTime);
+					await highlightCode(4, DelayTime);
+
 					while (current.Index != End.Index) {
+						if (DelayTime == 0) {
+							await Delay(25);
+						}
+
+						await highlightCode(5, DelayTime);
+						await highlightCode(6, DelayTime);
+						await highlightCode(7, DelayTime);
+						await highlightCode(8, DelayTime);
+						await highlightCode(9, DelayTime);
+						await highlightCode(10, DelayTime);
+						await highlightCode(11, DelayTime);
+
 						let currentCell = stack[stack.length - 1];
 
 						current = currentCell;
@@ -160,7 +177,6 @@ function Pathfinding() {
 						let neighbors = [];
 
 						let index = grid.indexOf(currentCell);
-						await Delay(DelayTime);
 
 						ctx.fillStyle = "#DDDDFF";
 						ctx.fillRect(
@@ -169,37 +185,61 @@ function Pathfinding() {
 							8,
 							8
 						);
+
+						await highlightCode(12, DelayTime);
+
 						if (
 							index - 30 >= 0 &&
 							!grid[index - 30].hasvisited &&
 							grid[index].walls[0] == 0
-						)
-							neighbors.push(grid[index - 30]); // Top
+						) {
+							neighbors.push(grid[index - 30]);
+							await highlightCode(13, DelayTime);
+						} // Top
+						await highlightCode(14, DelayTime);
+						await highlightCode(15, DelayTime);
 						if (
 							(index + 1) % 30 != 0 &&
 							!grid[index + 1].hasvisited &&
 							grid[index].walls[1] == 0
-						)
-							neighbors.push(grid[index + 1]); // Right
+						) {
+							neighbors.push(grid[index + 1]);
+							await highlightCode(16, DelayTime);
+						} // Right
+						await highlightCode(17, DelayTime);
+						await highlightCode(18, DelayTime);
 						if (
 							index + 30 < 900 &&
 							!grid[index + 30].hasvisited &&
 							grid[index].walls[2] == 0
-						)
-							neighbors.push(grid[index + 30]); // Bottom
+						) {
+							neighbors.push(grid[index + 30]);
+							await highlightCode(19, DelayTime);
+						} // Bottom
+						await highlightCode(20, DelayTime);
+						await highlightCode(21, DelayTime);
 						if (
 							index % 30 != 0 &&
 							!grid[index - 1].hasvisited &&
 							grid[index].walls[3] == 0
-						)
-							neighbors.push(grid[index - 1]); // Left
+						) {
+							neighbors.push(grid[index - 1]);
+							await highlightCode(22, DelayTime);
+						} // Left
+						await highlightCode(23, DelayTime);
+						await highlightCode(24, DelayTime);
+						await highlightCode(25, DelayTime);
 
 						if (neighbors.length > 0) {
+							await highlightCode(26, DelayTime);
+							await highlightCode(27, DelayTime);
 							let neighbor =
 								neighbors[Math.floor(Math.random() * neighbors.length)];
 
 							stack.push(neighbor);
 						} else {
+							await highlightCode(28, DelayTime);
+							await highlightCode(29, DelayTime);
 							ctx.fillStyle = "#FFDDDD";
 
 							ctx.fillRect(
@@ -210,9 +250,12 @@ function Pathfinding() {
 							);
 
 							stack.pop();
+							await highlightCode(30, DelayTime);
 						}
-					}
 
+						await highlightCode(31, DelayTime);
+					}
+					await highlightCode(32, DelayTime);
 					ctx.fillStyle = "#FF0000";
 					ctx.strokeStyle = "#FF0000";
 					let lastCell = [stack[0]].Index;
@@ -243,12 +286,11 @@ function Pathfinding() {
 				codeBlock={CodeBlocks[1]}
 				SetDelay={(d) => {
 					DelayTime = d;
-					document.getElementById("DelaySliderNum").innerHTML = d;
 				}}
 				id={"PathFindVis" + 1}
 				PathFindVisID={1}
 				Title="Bredth First Search"
-				Solve={async (grid, Delay, End, SetBtnDis) => {
+				Solve={async (grid, Delay, End, SetBtnDis, highlightCode) => {
 					let ctx = document
 						.getElementById(1 + "PathFindVisCanvas")
 						.getContext("2d");
@@ -256,7 +298,25 @@ function Pathfinding() {
 					let current = grid[0];
 					queue.push(grid[0]);
 
+					await highlightCode(0, DelayTime);
+					await highlightCode(1, DelayTime);
+					await highlightCode(2, DelayTime);
+					await highlightCode(3, DelayTime);
+					await highlightCode(4, DelayTime);
+
 					while (current.Index != End.Index) {
+						if (DelayTime == 0) {
+							await Delay(25);
+						}
+
+						await highlightCode(5, DelayTime);
+						await highlightCode(6, DelayTime);
+						await highlightCode(7, DelayTime);
+						await highlightCode(8, DelayTime);
+						await highlightCode(9, DelayTime);
+						await highlightCode(10, DelayTime);
+						await highlightCode(11, DelayTime);
+
 						let currentCell = queue[0];
 
 						current = currentCell;
@@ -266,7 +326,7 @@ function Pathfinding() {
 						let neighbors = [];
 
 						let index = grid.indexOf(currentCell);
-						await Delay(DelayTime);
+						//await Delay(DelayTime);
 
 						ctx.fillStyle = "#DDDDFF";
 						ctx.fillRect(
@@ -276,6 +336,8 @@ function Pathfinding() {
 							8
 						);
 
+						await highlightCode(12, DelayTime);
+
 						if (
 							index - 30 >= 0 &&
 							!grid[index - 30].hasvisited &&
@@ -283,7 +345,10 @@ function Pathfinding() {
 						) {
 							neighbors.push(grid[index - 30]); // Top
 							grid[index - 30].origin = [index];
+							await highlightCode(13, DelayTime);
 						}
+						await highlightCode(14, DelayTime);
+						await highlightCode(15, DelayTime);
 						if (
 							(index + 1) % 30 != 0 &&
 							!grid[index + 1].hasvisited &&
@@ -291,7 +356,10 @@ function Pathfinding() {
 						) {
 							neighbors.push(grid[index + 1]); // Right
 							grid[index + 1].origin = [index];
+							await highlightCode(16, DelayTime);
 						}
+						await highlightCode(17, DelayTime);
+						await highlightCode(18, DelayTime);
 						if (
 							index + 30 < 900 &&
 							!grid[index + 30].hasvisited &&
@@ -299,7 +367,10 @@ function Pathfinding() {
 						) {
 							neighbors.push(grid[index + 30]); // Bottom
 							grid[index + 30].origin = [index];
+							await highlightCode(19, DelayTime);
 						}
+						await highlightCode(20, DelayTime);
+						await highlightCode(21, DelayTime);
 						if (
 							index % 30 != 0 &&
 							!grid[index - 1].hasvisited &&
@@ -307,9 +378,21 @@ function Pathfinding() {
 						) {
 							grid[index - 1].origin = [index];
 							neighbors.push(grid[index - 1]); // Left
+							await highlightCode(22, DelayTime);
 						}
-
-						neighbors.forEach((neighbor) => queue.push(neighbor));
+						await highlightCode(23, DelayTime);
+						await highlightCode(24, DelayTime);
+						//neighbors.forEach((neighbor) => queue.push(neighbor));
+						for (let neighbor of neighbors) {
+							await highlightCode(25, DelayTime);
+							await highlightCode(26, DelayTime);
+							if (!neighbor.hasvisited) {
+								queue.push(neighbor);
+								await highlightCode(27, DelayTime);
+							}
+							await highlightCode(28, DelayTime);
+							await highlightCode(29, DelayTime);
+						}
 
 						if (queue.length > 0) {
 							ctx.fillStyle = "#FFDDDD";
@@ -323,6 +406,8 @@ function Pathfinding() {
 							queue.shift();
 						}
 					}
+					await highlightCode(30, DelayTime);
+					await highlightCode(31, DelayTime);
 
 					ctx.fillStyle = "#FF0000";
 					ctx.strokeStyle = "#FF0000";
@@ -354,12 +439,17 @@ function Pathfinding() {
 				codeBlock={CodeBlocks[2]}
 				SetDelay={(d) => {
 					DelayTime = d;
-					document.getElementById("DelaySliderNum").innerHTML = d;
 				}}
 				id={"PathFindVis" + 2}
 				PathFindVisID={2}
 				Title="A* Pathfinding"
-				Solve={async function solve(grid, Delay, End, SetBtnDis) {
+				Solve={async function solve(
+					grid,
+					Delay,
+					End,
+					SetBtnDis,
+					highlightCode
+				) {
 					function getNeighbors(grid, node) {
 						let neighbors = [];
 						let index = grid.indexOf(node);
@@ -430,13 +520,76 @@ function Pathfinding() {
 					let open = [];
 					let closed = [];
 
+					await highlightCode(0, DelayTime);
+					await highlightCode(1, DelayTime);
 					open.push(grid[0]);
 
 					while (open.length > 0) {
+						await highlightCode(2, DelayTime);
+						await highlightCode(3, DelayTime);
+						await highlightCode(4, DelayTime);
+						await highlightCode(5, DelayTime);
+						await highlightCode(6, DelayTime);
+						await highlightCode(7, DelayTime);
+						await highlightCode(8, DelayTime);
 						open.sort((a, b) => a.f - b.f);
 						let current = open.shift();
 
+						ctx.fillStyle =
+							"rgb(" + 255 + "," + 255 + "," + current.f / 2 + ")";
+
+						ctx.fillRect(
+							(current.Index % 30) * 10 + 11,
+							Math.floor(current.Index / 30) * 10 + 11,
+							8,
+							8
+						);
+						closed.push(current);
+
+						let neighbors = getNeighbors(grid, current);
+
+						for (let i = 0; i < neighbors.length; i++) {
+							await highlightCode(9, DelayTime);
+							await highlightCode(10, DelayTime);
+							await highlightCode(11, DelayTime);
+							let neighbor = neighbors[i];
+
+							if (closed.includes(neighbor)) {
+								continue;
+							}
+
+							let tentative_gScore = current.g + 1;
+
+							if (!open.includes(neighbor)) {
+								await highlightCode(12, DelayTime);
+								await highlightCode(13, DelayTime);
+								await highlightCode(14, DelayTime);
+								open.push(neighbor);
+							} else if (tentative_gScore >= neighbor.g) {
+								await highlightCode(15, DelayTime);
+								await highlightCode(16, DelayTime);
+								continue;
+							}
+
+							neighbor.origin = current;
+							neighbor.g = tentative_gScore;
+							neighbor.h = heuristic_cost_estimate(neighbor, End);
+							neighbor.f = neighbor.g + neighbor.h;
+							ctx.fillStyle = "rgb(" + 0 + "," + neighbor.f * 8 + "," + 0 + ")";
+
+							ctx.fillRect(
+								(neighbor.Index % 30) * 10 + 11,
+								Math.floor(neighbor.Index / 30) * 10 + 11,
+								8,
+								8
+							);
+							await highlightCode(17, DelayTime);
+						}
+						await highlightCode(18, DelayTime);
 						if (current.Index === End.Index) {
+							await highlightCode(19, DelayTime);
+							await highlightCode(20, DelayTime);
+
 							console.log("Solved");
 							SetBtnDis(false);
 							let Path = reconstructPath(current);
@@ -461,49 +614,9 @@ function Pathfinding() {
 							}
 							return reconstructPath(current);
 						}
+						await highlightCode(21, DelayTime);
 						await Delay(DelayTime);
-
-						ctx.fillStyle =
-							"rgb(" + 255 + "," + 255 + "," + current.f / 2 + ")";
-
-						ctx.fillRect(
-							(current.Index % 30) * 10 + 11,
-							Math.floor(current.Index / 30) * 10 + 11,
-							8,
-							8
-						);
-						closed.push(current);
-
-						let neighbors = getNeighbors(grid, current);
-
-						for (let i = 0; i < neighbors.length; i++) {
-							let neighbor = neighbors[i];
-
-							if (closed.includes(neighbor)) {
-								continue;
-							}
-
-							let tentative_gScore = current.g + 1;
-
-							if (!open.includes(neighbor)) {
-								open.push(neighbor);
-							} else if (tentative_gScore >= neighbor.g) {
-								continue;
-							}
-
-							neighbor.origin = current;
-							neighbor.g = tentative_gScore;
-							neighbor.h = heuristic_cost_estimate(neighbor, End, SetBtnDis);
-							neighbor.f = neighbor.g + neighbor.h;
-							ctx.fillStyle = "rgb(" + 0 + "," + neighbor.f * 8 + "," + 0 + ")";
-
-							ctx.fillRect(
-								(neighbor.Index % 30) * 10 + 11,
-								Math.floor(neighbor.Index / 30) * 10 + 11,
-								8,
-								8
-							);
-						}
+						await highlightCode(22, DelayTime);
 					}
 
 					console.log("No solution found");

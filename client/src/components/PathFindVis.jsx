@@ -12,6 +12,14 @@ function PathFindVis(props) {
 		return new Promise((resolve) => setTimeout(resolve, time));
 	}
 
+	async function highlightCode(i, delaytime) {
+		if (delaytime != 0) {
+			SetHighlightedLines([i]);
+			await Delay(delaytime);
+		}
+		SetHighlightedLines([null]);
+	}
+
 	let grid = [];
 	let stack = [];
 	let End = null;
@@ -244,7 +252,7 @@ function PathFindVis(props) {
 					disabled={BtnDisabled}
 					onClick={async function () {
 						SetBtnDis(true);
-						props.Solve(grid, Delay, End, SetBtnDis);
+						props.Solve(grid, Delay, End, SetBtnDis, highlightCode);
 					}}
 				>
 					Solve

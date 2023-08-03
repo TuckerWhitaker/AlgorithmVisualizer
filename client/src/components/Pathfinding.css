@@ -61,15 +61,15 @@ span.token.operator {
 }
 
 .PathFindVisCode {
-	font-size: 75%;
+	font-size: 70%;
 	width: 99%;
 	height: 100%;
 	background-color: #18191b;
 }
 
 .PathFindVisCanvas {
-	height: 115%;
-	width: 115%;
+	height: 100%;
+	width: 100%;
 }
 
 #PathFindSlider {
