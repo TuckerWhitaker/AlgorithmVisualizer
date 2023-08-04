@@ -100,7 +100,8 @@ function SortingAlgorithms() {
 				id={"SortAlgoVis" + 0}
 				VisID={0}
 				Title="BubbleSort"
-				Description="Bubble Sort Algorithm"
+				Description={`Bubble sort is a simple sorting algorithm that works by repeatedly stepping through the list of items to be sorted, comparing each pair of adjacent items and swapping them if they are in the wrong order. This process continues until the list is sorted.`}
+				TimeComplexity={"O(n²), with worst case n^2"}
 				codeBlock={` for (let i = 0; i < array.len; i++) {
 	for (let j = 0; j < array.len - i - 1; j++) {
 		if (array[j] > array[j + 1]) {
@@ -191,7 +192,10 @@ function SortingAlgorithms() {
 				id={"SortAlgoVis" + 1}
 				VisID={1}
 				Title="SelectionSort"
-				Description="Selection Sort Algorithm"
+				Description={
+					"Selection sort is a simple sorting algorithm that works by repeatedly stepping through the list of items to be sorted, selecting the smallest (or largest, depending on the sorting order) item and swapping it with the first unsorted item. This process continues until the list is sorted."
+				}
+				TimeComplexity={"O(n²), with worst case n^2"}
 				codeBlock={` for (let i = 0; i < array.len; i++) {
  	let minIndex = i;
  	for (let j = i + 1; j < array.len; j++) {
@@ -305,7 +309,10 @@ function SortingAlgorithms() {
 				id={"SortAlgoVis" + 2}
 				VisID={2}
 				Title="HeapSort"
-				Description="Heap Sort Algorithm"
+				Description={
+					"Heap sort is a comparison-based sorting algorithm that utilizes a binary heap data structure. It works by transforming the list into a max heap, where the greatest element is the root of the heap. After that, the root is swapped with the last item of the heap, effectively placing it in its correct sorted position. The heap is then reduced by one element, and the max heap property is restored. This process is repeated until the heap is reduced to a single element, at which point all elements have been sorted."
+				}
+				TimeComplexity={"O(n log n), with worst case n*log(n)"}
 				codeBlock={`function heapify(array, heapSize, i) {
 	let max = i;
 	let left = 2 * i + 1;
@@ -433,7 +440,10 @@ for (let i = array.len - 1; i >= 0; i--) {
 				id={"SortAlgoVis" + 3}
 				VisID={3}
 				Title="QuickSort"
-				Description="Quick Sort Algorithm"
+				Description={
+					"Quick sort is a highly efficient sorting algorithm and is based on the partitioning of an array of data into smaller arrays. A large array is partitioned into two arrays, one of which holds values smaller than the specified value, say pivot, based on which the partition is made, and another array holds values greater than the pivot value. This process is repeated for each sub-array until the array is sorted."
+				}
+				TimeComplexity={"O(n log n), with worst case O(n²)"}
 				codeBlock={` function quickSort(array, start, end) {
  	if (start < end) {
  		let pivotIndex = partition(array, start, end);
@@ -563,17 +573,10 @@ for (let i = array.len - 1; i >= 0; i--) {
 				id={"SortAlgoVis" + 4}
 				VisID={4}
 				Title="RadixSort"
-				Description={`The Radix Sort algorithm sorts integers by processing individual digits. It exploits the fact that information about the size of a number is encoded in the number of digits. More efficient than comparison sorts, it operates on a per-digit basis, usually from least significant digit (LSD) to most significant digit (MSD).
-
-				In our visualization, the algorithm moves through each digit place, grouping numbers by the value of their digits at that position.
-				
-				Starting from the least significant digit, all the bars are 'binned' according to that digit's value. A bar's color changes to red when it's about to be moved to a new position based on its current digit's value. The bar's color then changes back to its original color once it has been placed at its correct position in that pass.
-				
-				The process repeats, moving to the next more significant digit, until the most significant digit is reached and all bars have been sorted.
-				
-				This means that numbers with the same value for the current digit being looked at will be grouped together. As the algorithm progresses to the next more significant digit, these groups are further divided based on that digit's value.
-				
-				By the end of the sorting process, the bars are fully sorted according to their value. Since each digit is handled separately, the final sorted sequence can be achieved more efficiently than comparison-based algorithms.`}
+				Description={
+					"Radix sort is a non-comparative sorting algorithm that sorts data with integer keys by grouping keys by the individual digits which share the same significant position and value. It starts with the least significant digit and moves towards the most significant one. This process is repeated until all digits have been considered, resulting in a sorted list."
+				}
+				TimeComplexity={"O(nk), with worst case n*k/d"}
 				codeBlock={`	function getMax(array, n) {
         let max = array[0];
         for (let i = 1; i < n; i++)

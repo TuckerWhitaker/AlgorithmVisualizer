@@ -98,7 +98,11 @@ function SortAlgoVis(props) {
 				</button>
 			</div>
 			<div className="SortAlgoVisBottomHalf">
-				<div className="SortAlgoVisDesc">{props.Description}</div>
+				<div className="SortAlgoVisDesc">
+					{props.Description}
+					<br /> <br /> Average Time Complexity: {props.TimeComplexity}
+				</div>
+
 				<div className="SortAlgoVisCode">
 					<Highlight
 						code={props.codeBlock}

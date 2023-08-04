@@ -31,7 +31,6 @@ function Main() {
 				Title="Pathfinding Algorithms"
 				Description="Pathfinding algorithms are used to find the shortest route or path between two points in a graph or network, often used in routing and navigation problems. Examples include Dijkstra's algorithm, A* (A-star) algorithm, and Bellman-Ford algorithm. The choice of pathfinding algorithm can greatly affect the efficiency and accuracy of the solution."
 			></VisualizerTile>
-			<VisualizerTile Title="Other Algorithms"></VisualizerTile>
 		</div>
 	);
 }
