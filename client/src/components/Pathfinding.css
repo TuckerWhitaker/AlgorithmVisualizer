@@ -115,6 +115,10 @@ span.token.operator {
 	transform: none;
 }
 
+.PathFindVisDesc {
+	margin: 1%;
+}
+
 @media (max-width: 500px) {
 	.PathFindVisTitle {
 		font-size: 150%;

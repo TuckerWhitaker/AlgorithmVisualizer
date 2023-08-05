@@ -141,6 +141,7 @@ function Pathfinding() {
 				id={"PathFindVis" + 0}
 				PathFindVisID={0}
 				Title="Depth First Search"
+				Description="Depth First Search (DFS) is a sophisticated algorithm that provides a solution for navigating complex mazes. Utilizing a stack data structure, which adheres to a 'Last In, First Out' (LIFO) principle, DFS delves deeply into one direction of the maze, exploring as far as possible along each branch before backtracking. When a dead-end is encountered, it retraces its steps, popping from the stack, and then continues down a new unexplored path. This intuitive approach makes DFS a powerful tool for solving intricate mazes."
 				Solve={async (grid, Delay, End, SetBtnDis, highlightCode) => {
 					let ctx = document
 						.getElementById(0 + "PathFindVisCanvas")
@@ -290,6 +291,7 @@ function Pathfinding() {
 				id={"PathFindVis" + 1}
 				PathFindVisID={1}
 				Title="Bredth First Search"
+				Description="Breadth First Search (BFS) is an algorithm that provides a solution for traversing intricate mazes. Utilizing a queue data structure, which adheres to a 'First In, First Out' (FIFO) principle, BFS explores the maze layer by layer, probing into all possible directions at the current depth before moving on to the next one. When a branching point is encountered, it continues exploring all neighboring nodes at the present depth, enqueuing them for further exploration, and then proceeds to the next level. "
 				Solve={async (grid, Delay, End, SetBtnDis, highlightCode) => {
 					let ctx = document
 						.getElementById(1 + "PathFindVisCanvas")
@@ -443,6 +445,7 @@ function Pathfinding() {
 				id={"PathFindVis" + 2}
 				PathFindVisID={2}
 				Title="A* Pathfinding"
+				Description="A* (A-Star) pathfinding is an algorithm used for finding the most efficient path through complex maps or mazes. Leveraging both a heuristic and an actual cost to navigate, it prioritizes paths that seem more promising. A* combines the features of uniform-cost search and pure heuristic search to traverse through the map. It evaluates the paths by utilizing a priority queue, taking into account the actual distance from the start to the current node (known as 'g' score) and the estimated distance from the current node to the goal (known as 'h' score). By summing these two scores ('f' score = 'g' score + 'h' score), A* selects the path that minimizes this total, assuring that the exploration is directed towards the most promising paths. This strategic approach makes A* an effective and popular method for pathfinding in various applications."
 				Solve={async function solve(
 					grid,
 					Delay,

@@ -191,6 +191,7 @@ function PathFindVis(props) {
 							height={320}
 						></canvas>
 					</div>
+					<div className="PathFindVisDesc">{props.Description}</div>
 				</div>
 				<div className="PathFindVisColumn PathFindVisColumnCode ">
 					<div className="PathFindVisCode ">
