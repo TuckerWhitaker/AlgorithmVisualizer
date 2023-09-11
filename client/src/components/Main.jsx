@@ -9,7 +9,8 @@ function Main() {
 		<div className="Main">
 			<VisualizerTile
 				customClickEvent={() => {
-					window.location.href = "http://localhost:3000/sortingalgorithms";
+					window.location.href =
+						"https://algorithmvisualizer.whitakert.com/sortingalgorithms";
 				}}
 				GIF={SortingAlgoGif}
 				Title="Sorting Algorithms"
@@ -17,7 +18,8 @@ function Main() {
 			></VisualizerTile>
 			<VisualizerTile
 				customClickEvent={() => {
-					window.location.href = "http://localhost:3000/searchalgorithms";
+					window.location.href =
+						"https://algorithmvisualizer.whitakert.com/searchalgorithms";
 				}}
 				GIF={SortedSquares}
 				Title="Search Algorithms"
@@ -25,7 +27,8 @@ function Main() {
 			></VisualizerTile>
 			<VisualizerTile
 				customClickEvent={() => {
-					window.location.href = "http://localhost:3000/pathfinding";
+					window.location.href =
+						"https://algorithmvisualizer.whitakert.com/pathfinding";
 				}}
 				GIF={GridAnimation}
 				Title="Pathfinding Algorithms"

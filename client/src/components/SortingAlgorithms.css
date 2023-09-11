@@ -62,14 +62,14 @@
 	justify-content: center;
 }
 .SortingAlgorithmNavBarButton {
-	word-break: break-all;
+	word-break: normal;
 	margin-right: 0.5%;
 	margin-left: 0.5%;
 	background-color: #282c34;
 	border: none;
 	color: #fff;
 	padding: 10px 20px;
-	width: 12vw;
+	width: fit-content;
 	font-size: 1vw;
 	cursor: pointer;
 	border-radius: 4px;
@@ -248,7 +248,7 @@
 		width: 90%;
 		height: fit-content;
 		background-color: #33373f;
-		display: flex;
+		display: none;
 		justify-content: space-between;
 		align-items: center;
 		text-align: left;
